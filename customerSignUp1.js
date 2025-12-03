@@ -58,7 +58,7 @@ const CustomerSignUp = ({navigation}) => {
                     <View style={styles.progressLabelsRow}>
                         <Text style={styles.progressLabelActive}>Info</Text>
                         <Text style={styles.progressLabel}>A/C Info</Text>
-                        <Text style={styles.progressLabel}>Done</Text>
+                        <Text style={styles.progressLabel}>Address</Text>
                     </View>
                 </View>
 
