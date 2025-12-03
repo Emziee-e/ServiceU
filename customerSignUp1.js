@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image} from 'react-native';
 
-const CustomerSignUp = () => {
+const CustomerSignUp = ({navigation}) => {
     const [fullName, setFullName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [gender, setGender] = useState('');
@@ -114,7 +114,9 @@ const CustomerSignUp = () => {
 
                 {/* Buttons */}
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.nextButton}>
+                    <TouchableOpacity style={styles.nextButton}
+                        onPress={() => navigation.navigate('CustomerSignUp2')}
+                    >
                         <Text style={styles.nextButtonText}>Next</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.cancelButton}>
@@ -156,7 +158,7 @@ const styles = StyleSheet.create({
     },
     logoText: {
         fontSize: 50,
-        fontWeight: 'extra-bold',
+        fontWeight: 'bold',
         fontFamily: 'Inter-ExtraBold',
     },
     logoYellow: {
