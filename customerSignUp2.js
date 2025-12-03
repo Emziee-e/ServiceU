@@ -2,17 +2,9 @@ import React, { useState } from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image} from 'react-native';
 
 const CustomerSignUp2 = ({navigation}) => {
-    const [fullName, setFullName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [gender, setGender] = useState('');
-    const [showGenderPicker, setShowGenderPicker] = useState(false);
-
-    const genderOptions = ['Male', 'Female', 'Other'];
-
-    const handleGenderSelect = (selectedGender) => {
-        setGender(selectedGender);
-        setShowGenderPicker(false);
-    };
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     return (
         <View style={styles.container}>
@@ -31,106 +23,91 @@ const CustomerSignUp2 = ({navigation}) => {
 
                 {/* Progress Indicator */}
                 <View style={styles.progressContainer}>
-                    <View style={styles.progressStep}>
-                        <View style={[styles.progressCircle, styles.progressActive]}>
-                            <Text style={styles.progressNumberActive}>1</Text>
+                    <View style={styles.progressTopRow}>
+
+                        <View style={styles.circleWrapper}>
+                            <View style={[styles.progressCircle, styles.progressActive1]}>
+                                <Text style={styles.checkmark}>✓</Text>
+                            </View>
                         </View>
+                
+                        <View style={styles.progressLine} />
+                
+                        <View style={styles.circleWrapper}>
+                            <View style={[styles.progressCircle, styles.progressActive]}>
+                                <Text style={styles.progressNumberActive}>2</Text>
+                            </View>
+                        </View>
+                
+                        <View style={styles.progressLine} />
+                
+                        <View style={styles.circleWrapper}>
+                            <View style={styles.progressCircle}>
+                                <Text style={styles.progressNumber}>3</Text>
+                            </View>
+                        </View>
+                    </View>
+                
+                    <View style={styles.progressLabelsRow}>
                         <Text style={styles.progressLabelActive}>Info</Text>
-                    </View>
-                    <View style={styles.progressLine} />
-                    <View style={styles.progressStep}>
-                        <View style={styles.progressCircle}>
-                            <Text style={styles.progressNumber}>2</Text>
-                        </View>
-                        <Text style={styles.progressLabel}>A/C Intro</Text>
-                    </View>
-                    <View style={styles.progressLine} />
-                    <View style={styles.progressStep}>
-                        <View style={styles.progressCircle}>
-                            <Text style={styles.progressNumber}>3</Text>
-                        </View>
+                        <Text style={styles.progressLabelActive}>A/C Info</Text>
                         <Text style={styles.progressLabel}>Done</Text>
-                    </View>
+                        </View>
                 </View>
 
                 {/* Form Header */}
-                <Text style={styles.formHeader}>Let's get to know you!</Text>
+                <Text style={styles.formHeader}>Account Information</Text>
 
                 {/* Form Fields */}
                 <View style={styles.formContainer}>
-                    {/* Full Name */}
+                    {/* Email Address */}
                     <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Full Name</Text>
+                        <Text style={styles.label}>Email Address</Text>
                         <TextInput
                             style={styles.input}
-                            placeholder="Enter your full name"
-                            value={fullName}
-                            onChangeText={setFullName}
+                            placeholder="Enter your email address"
+                            value={email}
+                            onChangeText={setEmail}
                             placeholderTextColor="#999"
+                            keyboardType="email-address"
+                            autoCapitalize="none"
                         />
                     </View>
 
-                    {/* Phone Number */}
+                    {/* Password */}
                     <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Phone Number</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Enter your phone number"
-                            value={phoneNumber}
-                            onChangeText={setPhoneNumber}
-                            keyboardType="phone-pad"
+                        <Text style={styles.label}>Password</Text>
+                        <TextInput style={styles.input}
+                            placeholder="Enter your password"
+                            value={password}
+                            onChangeText={setPassword}
                             placeholderTextColor="#999"
+                            secureTextEntry={true}
                         />
                     </View>
 
-                    {/* Gender */}
+                    {/* Confirm Password */}
                     <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Gender</Text>
-                        <TouchableOpacity 
-                            style={styles.pickerButton}
-                            onPress={() => setShowGenderPicker(!showGenderPicker)}
-                        >
-                            <Text style={[styles.pickerButtonText, !gender && styles.placeholderText]}>
-                                {gender || 'Select your gender'}
-                            </Text>
-                            <Text style={styles.dropdownIcon}>▼</Text>
-                        </TouchableOpacity>
-                        
-                        {showGenderPicker && (
-                            <View style={styles.pickerDropdown}>
-                                {genderOptions.map((option, index) => (
-                                    <TouchableOpacity
-                                        key={index}
-                                        style={styles.pickerOption}
-                                        onPress={() => handleGenderSelect(option)}
-                                    >
-                                        <Text style={styles.pickerOptionText}>{option}</Text>
-                                    </TouchableOpacity>
-                                ))}
-                            </View>
-                        )}
+                        <Text style={styles.label}>Confirm Password</Text>
+                        <TextInput
+                            placeholder="Enter your password"
+                            value={confirmPassword}
+                            onChangeText={setConfirmPassword}
+                            placeholderTextColor="#999"
+                            secureTextEntry={true}
+                        />
                     </View>
                 </View>
 
                 {/* Buttons */}
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.nextButton}
-                        onPress={() => navigation.navigate('CustomerSignUp2')}
-                    >
+                    <TouchableOpacity style={styles.nextButton}>
                         <Text style={styles.nextButtonText}>Next</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.cancelButton}>
-                        <Text style={styles.cancelButtonText}>Cancel</Text>
+                        <Text style={styles.cancelButtonText}>Previous</Text>
                     </TouchableOpacity>
                 </View>
-
-                {/* Terms and Privacy */}
-                <Text style={styles.termsText}>
-                    By continuing, you agree to our{' '}
-                    <Text style={styles.termsLink}>Terms of Service</Text>
-                    {' '}and{' '}
-                    <Text style={styles.termsLink}>Privacy Policy</Text>
-                </Text>
             </ScrollView>
         </View>
     );
@@ -167,26 +144,40 @@ const styles = StyleSheet.create({
         color: '#000',
     },
     progressContainer: {
+        marginBottom: 30,
+        alignItems: 'center',
+    },
+    progressTopRow: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 30,
     },
-    progressStep: {
+    circleWrapper: {
         alignItems: 'center',
     },
     progressCircle: {
         width: 32,
         height: 32,
         borderRadius: 16,
-        backgroundColor: '#D1D5DB',
+        borderWidth: 3,
+        borderColor: '#D1D5DB',
+        backgroundColor: '#ffffffff',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 5,
     },
-    progressActive: {
+    progressActive1: {
+        borderColor: '#137594',
         backgroundColor: '#137594',
     },
+    progressActive: {
+        borderColor: '#137594',
+        backgroundColor: '#FFFFFF',
+    },
+    checkmark: {
+        color: '#FFFFFF',
+        fontSize: 16,  
+        fontWeight: 'bold',
+        },
     progressNumber: {
         color: '#6B7280',
         fontSize: 14,
@@ -194,29 +185,40 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter',
     },
     progressNumberActive: {
-        color: '#fff',
+        color: '#137594',
         fontSize: 14,
         fontWeight: '600',
         fontFamily: 'Inter',
     },
-    progressLabel: {
-        fontSize: 18,
-        color: '#9CA3AF',
-        fontFamily: 'Inter',
-    },
-    progressLabelActive: {
-        fontSize: 18,
-        color: '#137594',
-        fontFamily: 'Inter',
-    },
     progressLine: {
-        width: 50,
+        width: 60,
         height: 2,
         backgroundColor: '#D1D5DB',
-        marginHorizontal: 5,
+        marginHorizontal: 8,
+    },
+    progressLabelsRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: 277,
+        marginTop: 8,
+    },
+    progressLabel: {
+        fontSize: 14,
+        color: '#9CA3AF',
+        fontFamily: 'Inter',
+        textAlign: 'center',
+        width: 60,
+    },
+    progressLabelActive: {
+        fontSize: 14,
+        color: '#137594',
+        fontWeight: '600',
+        fontFamily: 'Inter',
+        textAlign: 'center',
+        width: 60,
     },
     formHeader: {
-        fontSize: 30,
+        fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 25,
@@ -231,7 +233,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 18,
-        fontWeight: '600',
+        fontWeight: 'bold',
         color: '#374151',
         marginBottom: 8,
         fontFamily: 'Inter',
@@ -320,16 +322,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '600',
         fontFamily: 'Inter',
-    },
-    termsText: {
-        fontSize: 13,
-        color: '#6B7280',
-        textAlign: 'center',
-        marginBottom: 20,
-        fontFamily: 'Inter',
-    },
-    termsLink: {
-        color: '#137594',
     },
 });
 

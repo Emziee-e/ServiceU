@@ -31,24 +31,33 @@ const CustomerSignUp = ({navigation}) => {
 
                 {/* Progress Indicator */}
                 <View style={styles.progressContainer}>
-                    <View style={styles.progressStep}>
-                        <View style={[styles.progressCircle, styles.progressActive]}>
-                            <Text style={styles.progressNumberActive}>1</Text>
+                    <View style={styles.progressTopRow}>
+                        <View style={styles.circleWrapper}>
+                            <View style={[styles.progressCircle, styles.progressActive]}>
+                                <Text style={styles.progressNumberActive}>1</Text>
+                            </View>
                         </View>
+
+                        <View style={styles.progressLine} />
+
+                        <View style={styles.circleWrapper}>
+                            <View style={styles.progressCircle}>
+                                <Text style={styles.progressNumber}>2</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.progressLine} />
+
+                        <View style={styles.circleWrapper}>
+                            <View style={styles.progressCircle}>
+                                <Text style={styles.progressNumber}>3</Text>
+                            </View>
+                        </View>
+                    </View>
+
+                    <View style={styles.progressLabelsRow}>
                         <Text style={styles.progressLabelActive}>Info</Text>
-                    </View>
-                    <View style={styles.progressLine} />
-                    <View style={styles.progressStep}>
-                        <View style={styles.progressCircle}>
-                            <Text style={styles.progressNumber}>2</Text>
-                        </View>
-                        <Text style={styles.progressLabel}>A/C Intro</Text>
-                    </View>
-                    <View style={styles.progressLine} />
-                    <View style={styles.progressStep}>
-                        <View style={styles.progressCircle}>
-                            <Text style={styles.progressNumber}>3</Text>
-                        </View>
+                        <Text style={styles.progressLabel}>A/C Info</Text>
                         <Text style={styles.progressLabel}>Done</Text>
                     </View>
                 </View>
@@ -115,7 +124,7 @@ const CustomerSignUp = ({navigation}) => {
                 {/* Buttons */}
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.nextButton}
-                        onPress={() => navigation.navigate('CustomerSignUp2')}
+                        onPress={() => navigation.navigate('customerSignUp2')}
                     >
                         <Text style={styles.nextButtonText}>Next</Text>
                     </TouchableOpacity>
@@ -158,7 +167,6 @@ const styles = StyleSheet.create({
     },
     logoText: {
         fontSize: 50,
-        fontWeight: 'bold',
         fontFamily: 'Inter-ExtraBold',
     },
     logoYellow: {
@@ -168,25 +176,30 @@ const styles = StyleSheet.create({
         color: '#000',
     },
     progressContainer: {
+        marginBottom: 30,
+        alignItems: 'center',
+    },
+    progressTopRow: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 30,
     },
-    progressStep: {
+    circleWrapper: {
         alignItems: 'center',
     },
     progressCircle: {
         width: 32,
         height: 32,
         borderRadius: 16,
-        backgroundColor: '#D1D5DB',
+        borderWidth: 3,
+        borderColor: '#D1D5DB',
+        backgroundColor: '#ffffffff',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 5,
     },
     progressActive: {
-        backgroundColor: '#137594',
+        borderColor: '#137594',
+        backgroundColor: '#FFFFFF',
     },
     progressNumber: {
         color: '#6B7280',
@@ -195,29 +208,39 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter',
     },
     progressNumberActive: {
-        color: '#fff',
+        color: '#137594',
         fontSize: 14,
         fontWeight: '600',
         fontFamily: 'Inter',
     },
-    progressLabel: {
-        fontSize: 18,
-        color: '#9CA3AF',
-        fontFamily: 'Inter',
-    },
-    progressLabelActive: {
-        fontSize: 18,
-        color: '#137594',
-        fontFamily: 'Inter',
-    },
     progressLine: {
-        width: 50,
+        width: 60,
         height: 2,
         backgroundColor: '#D1D5DB',
-        marginHorizontal: 5,
+        marginHorizontal: 8,
+    },
+    progressLabelsRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: 277,
+        marginTop: 8,
+    },
+    progressLabel: {
+        fontSize: 14,
+        color: '#9CA3AF',
+        fontFamily: 'Inter',
+        textAlign: 'center',
+        width: 60,
+    },
+    progressLabelActive: {
+        fontSize: 14,
+        color: '#137594',
+        fontFamily: 'Inter',
+        textAlign: 'center',
+        width: 60,
     },
     formHeader: {
-        fontSize: 30,
+        fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 25,
@@ -232,7 +255,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 18,
-        fontWeight: '600',
+        fontWeight: 'bold',
         color: '#374151',
         marginBottom: 8,
         fontFamily: 'Inter',
