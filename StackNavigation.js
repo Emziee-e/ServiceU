@@ -13,14 +13,14 @@ const Stack = createNativeStackNavigator();
 const StackNavigation = () => {
   return (
     <Stack.Navigator
-        initialRouteName='RatingReview'
+        initialRouteName='ChooseProfile'
         screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="RatingReview" component={RatingReview} />  
+      <Stack.Screen name="ChooseProfile" component={ChooseProfile} />  
       <Stack.Screen name="customerSignUp" component={customerSignUp1} />
       <Stack.Screen name="customerSignUp2" component={customerSignUp2} />
       <Stack.Screen name="customerSignUp3" component={CustomerSignUp3} />
-      <Stack.Screen name="ChooseProfile" component={ChooseProfile} />
+      <Stack.Screen name="RatingReview" component={RatingReview} />
     </Stack.Navigator>
   );
 };
