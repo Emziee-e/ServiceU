@@ -16,12 +16,13 @@ const ChooseProfile = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
+            {/* Back Button */}
+            <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+                <Text style={styles.backButtonText}>←</Text>
+            </TouchableOpacity>
 
             {/* Logo */}
             <View style={styles.logoContainer}>
-                <TouchableOpacity style={styles.backButton} onPress={handleBack}>
-                <Text style={styles.backButtonText}>←</Text>
-            </TouchableOpacity>
                 <Image 
                     source={require('./assets/ServiceU Logo.png')}
                     style={styles.logo}
@@ -51,11 +52,11 @@ const ChooseProfile = ({ navigation }) => {
                     </View>
                     <View style={styles.cardTextContainer}>
                         <Text style={styles.profileTitle}>Customer</Text>
-                    </View>
-                </View>
-                <Text style={styles.profileDescription}>
+                        <Text style={styles.profileDescription}>
                             Hire services and find technicians in your area.
                         </Text>
+                    </View>
+                </View>
                 <TouchableOpacity 
                     style={styles.signUpButton}
                     onPress={handleCustomerSignUp}
@@ -75,11 +76,11 @@ const ChooseProfile = ({ navigation }) => {
                     </View>
                     <View style={styles.cardTextContainer}>
                         <Text style={styles.profileTitle}>Repairer</Text>
+                        <Text style={styles.profileDescription}>
+                            Offer your services and find bookings locally.
+                        </Text>
                     </View>
                 </View>
-                <Text style={styles.profileDescription}>
-                            Offer your services and find bookings
-                        </Text>
                 <TouchableOpacity 
                     style={styles.signUpButton}
                     onPress={handleRepairerSignUp}
@@ -96,11 +97,11 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         paddingHorizontal: 20,
-        paddingTop: 80,
+        paddingTop: 50,
     },
     backButton: {
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         borderRadius: 20,
         backgroundColor: '#E0F2FE',
         alignItems: 'center',
@@ -109,24 +110,21 @@ const styles = StyleSheet.create({
     },
     backButtonText: {
         fontSize: 24,
-        color: '#173d49ff',
+        color: '#137594',
         fontFamily: 'Inter',
     },
     logoContainer: {
-        flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 25,
-        paddingTop: 25,
+        marginBottom: 30,
     },
     logo: {
-        width: 100,
-        height: 100,
+        width: 80,
+        height: 80,
         resizeMode: 'contain',
-        marginBottom: 20,
+        marginBottom: 10,
     },
     logoText: {
-        fontSize: 40,
+        fontSize: 24,
         fontWeight: 'bold',
         fontFamily: 'Inter-ExtraBold',
     },
@@ -158,39 +156,32 @@ const styles = StyleSheet.create({
     profileCard: {
         borderWidth: 2,
         borderColor: '#E5E7EB',
-        borderRadius: 30,
+        borderRadius: 12,
         padding: 20,
         marginBottom: 16,
         backgroundColor: '#fff',
     },
     cardHeader: {
         flexDirection: 'row',
-        marginBottom: 5,
+        marginBottom: 16,
     },
     iconContainer: {
-        width: 100,
-        height: 50,
+        width: 48,
+        height: 48,
         borderRadius: 8,
-        backgroundColor: 'transparent', 
+        backgroundColor: '#1F2937',
         alignItems: 'center',
         justifyContent: 'center',
+        marginRight: 12,
     },
     iconImage: {
-        width: 50,
-        height: 50,
+        width: 28,
+        height: 28,
         resizeMode: 'contain',
-        tintColor: '#1F2937',
+        tintColor: '#fff',
     },
     cardTextContainer: {
         flex: 1,
-    },
-    profileTitle: {
-        fontSize: 30,
-        fontWeight: 'bold',
-        color: '#137594',
-        marginBottom: 4,
-        fontFamily: 'Inter-Bold',
-        marginTop: 28,
     },
     titleImage: {
         width: 120,
@@ -199,11 +190,9 @@ const styles = StyleSheet.create({
         marginBottom: 6,
     },
     profileDescription: {
-        fontSize: 15,
+        fontSize: 14,
         color: '#6B7280',
         fontFamily: 'Inter',
-        paddingLeft: 20,
-        paddingRight: 20,
     },
     signUpButton: {
         backgroundColor: '#FDB913',
@@ -211,7 +200,6 @@ const styles = StyleSheet.create({
         paddingVertical: 14,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 25,
     },
     signUpButtonText: {
         color: '#1F2937',
@@ -220,4 +208,9 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter-SemiBold',
     },
 });
+
 export default ChooseProfile;
+
+
+
+
