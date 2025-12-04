@@ -9,7 +9,7 @@ export default function InitialLogin({navigation}) {
     <View style={styles.container}>
 
       {/* Logo */}
-      <Image source={require('./assets/logo.png')} style={styles.logo} />
+      <Image source={require('./assets/Logo.png')} style={styles.logo} />
 
       <View style={styles.titleContainer}>
         <Text style={styles.title}>SERVICE-<Text style={{color: 'black'}}>U</Text></Text>
@@ -44,7 +44,7 @@ export default function InitialLogin({navigation}) {
       <View style={{alignSelf: 'center', marginTop: 50}}>
         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center'  }}>
           <Text style={styles.New}>New to Service-U?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("customerSignUp")}>
+          <TouchableOpacity onPress={() => navigation.navigate("chooseProfile")}>
             <Text style={styles.Signup}> Sign-Up</Text>
           </TouchableOpacity>
         </View>

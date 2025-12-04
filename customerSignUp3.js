@@ -106,8 +106,7 @@ const CustomerSignUp3 = ({navigation}) => {
 
                         <TouchableOpacity 
                             style={styles.modalButton}
-                            onPress={() => navigation.navigate('customerSignUp')}
-                            
+                            onPress={() => navigation.navigate('customerLogin')}
                         >
                             <Text style={styles.modalButtonText}>Got it</Text>
                         </TouchableOpacity>

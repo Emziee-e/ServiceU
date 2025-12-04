@@ -3,11 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 const ChooseProfile = ({ navigation }) => {
     const handleCustomerSignUp = () => {
-        navigation.navigate('CustomerSignUp');
+        navigation.navigate('customerSignUp1');
     };
 
     const handleRepairerSignUp = () => {
-        navigation.navigate('RepairerSignUp');
+        navigation.navigate('customerSignUp2');
     };
 
     const handleBack = () => {
