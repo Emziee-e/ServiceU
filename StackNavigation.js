@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator();
 const StackNavigation = () => {
   return (
     <Stack.Navigator 
-        initialRouteName='frontpage'
+        initialRouteName='frontPage'
         screenOptions={{ headerShown: false }}
       >
       <Stack.Screen name="customerSignUp" component={customerSignUp1} />
