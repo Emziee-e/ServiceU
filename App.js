@@ -1,26 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import RepairerSignUp2 from './repairerSignUp2';
-
-
+import { NavigationContainer } from '@react-navigation/native';
+import StackNavigation from './StackNavigation';
 
 export default function App() {
   return (
-    
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <RepairerSignUp2 />
-
-        <StatusBar style='auto' />
-    </ScrollView>
+    <NavigationContainer>
+      <StackNavigation />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-  },
-  scrollContainer: {
-    paddingVertical: 20,
-    paddingHorizontal: 16,
-  },
-});
