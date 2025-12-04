@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Modal} from 'react-native';
 
-const CustomerSignUp2 = ({navigation}) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+const CustomerSignUp3 = ({navigation}) => {
+    const [address, setAddress] = useState('');
+    const [completeModal, setCompleteModal] = useState(false);
+
 
     return (
         <View style={styles.container}>
@@ -34,12 +34,12 @@ const CustomerSignUp2 = ({navigation}) => {
                         <View style={styles.progressLineFinish} />
                 
                         <View style={styles.circleWrapper}>
-                            <View style={[styles.progressCircle, styles.progressActive]}>
-                                <Text style={styles.progressNumberActive}>2</Text>
+                            <View style={[styles.progressCircle, styles.progressActive1]}>
+                                <Text style={styles.checkmark}>✓</Text>
                             </View>
                         </View>
                 
-                        <View style={styles.progressLine} />
+                        <View style={styles.progressLineFinish} />
                 
                         <View style={styles.circleWrapper}>
                             <View style={styles.progressCircle}>
@@ -56,45 +56,20 @@ const CustomerSignUp2 = ({navigation}) => {
                 </View>
 
                 {/* Form Header */}
-                <Text style={styles.formHeader}>Account Information</Text>
+                <Text style={styles.formHeader}>Finally, Where can we find you?</Text>
 
                 {/* Form Fields */}
                 <View style={styles.formContainer}>
-                    {/* Email Address */}
+                    {/* Address */}
                     <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Email Address</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Enter your email address"
-                            value={email}
-                            onChangeText={setEmail}
-                            placeholderTextColor="#999"
-                            keyboardType="email-address"
-                            autoCapitalize="none"
-                        />
-                    </View>
-
-                    {/* Password */}
-                    <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Password</Text>
+                        <Text style={styles.label}>Address</Text>
                         <TextInput style={styles.input}
-                            placeholder="Enter your password"
-                            value={password}
-                            onChangeText={setPassword}
+                            placeholder="Enter your address"
+                            value={address}
+                            onChangeText={setAddress}
                             placeholderTextColor="#999"
-                            secureTextEntry={true}
-                        />
-                    </View>
-
-                    {/* Confirm Password */}
-                    <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Confirm Password</Text>
-                        <TextInput style={styles.input}
-                            placeholder="Confirm your password"
-                            value={confirmPassword}
-                            onChangeText={setConfirmPassword}
-                            placeholderTextColor="#999"
-                            secureTextEntry={true}
+                            multiline={true}
+                            numberOfLines={3}
                         />
                     </View>
                 </View>
@@ -102,17 +77,43 @@ const CustomerSignUp2 = ({navigation}) => {
                 {/* Buttons */}
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.previousButton}
-                        onPress={() => navigation.navigate('customerSignUp')}
+                        onPress={() => navigation.navigate('customerSignUp3')}
                     >
                         <Text style={styles.previousButtonText}>Previous</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.nextButton}
-                        onPress={() => navigation.navigate('customerSignUp3')}
+                        onPress={() => setCompleteModal(true)}
                     >
-                        <Text style={styles.nextButtonText}>Next</Text>
+                        <Text style={styles.nextButtonText}>Complete</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
+
+            <Modal
+                visible={completeModal}
+                transparent
+                animationType="fade"
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContainer}>
+
+                        <Image 
+                        source={require('./assets/check.png')}
+                        style={styles.imageModal}
+                    />
+
+                        <Text style={styles.modalTitle}>Thank you for Signing up!</Text>
+
+                        <TouchableOpacity 
+                            style={styles.modalButton}
+                            onPress={() => navigation.navigate('customerSignUp')}
+                            
+                        >
+                            <Text style={styles.modalButtonText}>Got it</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 };
@@ -259,7 +260,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter',
     },
     buttonContainer: {
-        marginTop: 20,
+        marginTop: 220,
         marginBottom: 20,
         flexDirection: 'row',
         justifyContent: 'space-evenly'
@@ -296,6 +297,41 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontFamily: 'Inter',
     },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContainer: {
+        width: '80%',
+        backgroundColor: '#FFFFFF',
+        padding: 25,
+        borderRadius: 15,
+        alignItems: 'center',
+    },
+    imageModal: {
+        marginTop: 10,
+        marginBottom: 20,
+    },
+    modalTitle: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginBottom: 20,
+        color: '#000000ff',
+        fontFamily: 'Inter',
+    },
+    modalButton: {
+        backgroundColor: '#137594',
+        paddingVertical: 10,
+        paddingHorizontal: 90,
+        borderRadius: 15,
+    },
+    modalButtonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
 });
 
-export default CustomerSignUp2;
+export default CustomerSignUp3;

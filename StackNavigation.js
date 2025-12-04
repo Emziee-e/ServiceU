@@ -1,15 +1,21 @@
-import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import ChooseProfile from "./ChooseProfile";
+import customerSignUp1 from './customerSignUp1';
+import customerSignUp2 from './customerSignUp2';
+import CustomerSignUp3 from './customerSignUp3';
 
-const stack = createNativeStackNavigator();
 
-const stackNavigator = () => {
-    return(
-        <stack.Navigator screenOptions={{ headerShown: false }}>
-            <stack.Screen name="ChooseProfile" component={ChooseProfile}/>
-        </stack.Navigator>
-    );
+const Stack = createNativeStackNavigator();
+
+const StackNavigation = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="customerSignUp" component={customerSignUp1} />
+      <Stack.Screen name="customerSignUp2" component={customerSignUp2} />
+      <Stack.Screen name="customerSignUp3" component={CustomerSignUp3} />
+    </Stack.Navigator>
+  );
 };
-export default stackNavigator;
+
+export default StackNavigation;
