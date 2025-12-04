@@ -1,17 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import CustomerSignUp from './customerSignUp1';
-
-
+import { StyleSheet } from 'react-native';
+import StackNavigation from './StackNavigation';
 
 export default function App() {
   return (
-    
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <CustomerSignUp />
-
-        <StatusBar style='auto' />
-    </ScrollView>
+    <>
+      <StackNavigation />
+      <StatusBar style="auto" />
+    </>
   );
 }
 
