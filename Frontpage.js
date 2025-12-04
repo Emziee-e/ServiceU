@@ -24,7 +24,7 @@ const Frontpage = ({navigation}) => {
 
             <View style={styles.bottomButton}>
                 <TouchableOpacity style={styles.startButton}
-                    onPress={() => navigation.navigate('customerSignUp')}
+                    onPress={() => navigation.navigate('initialDashboard')}
                 >
                     <Text style={styles.startButtonText}>Get Started</Text>
                 </TouchableOpacity>
