@@ -4,25 +4,29 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 const Frontpage = () => {
     return (
         <View style={styles.container}>
-            <View style={styles.logoContainer}>
-                <Image
-                    source={require('./assets/ServiceU Logo.png')}
-                    style={styles.logo}
-                />
+            <View style={styles.centerContent}>
+                <View style={styles.logoContainer}>
+                    <Image
+                        source={require('./assets/ServiceU Logo.png')}
+                        style={styles.logo}
+                    />
 
-                <Text style={styles.logoText}>
-                    <Text style={styles.logoYellow}>SERVICE - </Text>
-                    <Text style={styles.logoBlack}>U</Text>
-                </Text>
+                    <Text style={styles.logoText}>
+                        <Text style={styles.logoYellow}>SERVICE - </Text>
+                        <Text style={styles.logoBlack}>U</Text>
+                    </Text>
 
-                <Text style={styles.subtitle}>
-                    Book Trusted Repairers anywhere effortlessly
-                </Text>
+                    <Text style={styles.subtitle}>
+                        Book Trusted Repairers anywhere effortlessly
+                    </Text>
+                </View>
             </View>
 
-            <TouchableOpacity style={styles.startButton}>
-                <Text style={styles.startButtonText}>Get Started</Text>
-            </TouchableOpacity>
+            <View style={styles.bottomButton}>
+                <TouchableOpacity style={styles.startButton}>
+                    <Text style={styles.startButtonText}>Get Started</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
@@ -31,14 +35,22 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+        paddingHorizontal: 20,
+    },
+
+    centerContent: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 20,
     },
 
     logoContainer: {
         alignItems: 'center',
-        marginBottom: 70,
+    },
+
+    bottomButton: {
+        alignItems: 'center',
+        paddingBottom: 40,
     },
 
     logo: {
@@ -62,18 +74,19 @@ const styles = StyleSheet.create({
     },
 
     subtitle: {
-        fontSize: 20,
+        fontSize: 14,
         color: '#000',
         marginTop: 5,
         textAlign: 'center',
-        fontWeight: '400',
+        fontWeight: '700',
     },
+
 
     startButton: {
         backgroundColor: '#fff',
         borderWidth: 2,
         borderColor: '#137594',
-        borderRadius: 15,
+        borderRadius: 25,
         width: 250,
         height: 55,
         alignItems: 'center',
@@ -82,7 +95,7 @@ const styles = StyleSheet.create({
 
     startButtonText: {
         color: '#137594',
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: '600',
     },
 });
