@@ -6,6 +6,7 @@ import customerSignUp2 from './customerSignUp2';
 import customerSignUp3 from './customerSignUp3';
 import initialDashboard from './initialDashboard';
 import Frontpage from './Frontpage';
+import InitialLogin from './initialLogin';
 
 
 const Stack = createNativeStackNavigator();
@@ -21,6 +22,7 @@ const StackNavigation = () => {
       <Stack.Screen name="customerSignUp3" component={customerSignUp3} />
       <Stack.Screen name="initialDashboard" component={initialDashboard} />
       <Stack.Screen name="frontPage" component={Frontpage} />
+      <Stack.Screen name="initialLogin" component={InitialLogin} />
     </Stack.Navigator>
   );
 };

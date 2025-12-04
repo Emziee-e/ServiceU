@@ -43,7 +43,7 @@ const NavButton = ({ imageSource, label, active, onPress }) => (
   </TouchableOpacity>
 );
 
-export default function App() {
+export default function InitialDashboard({navigation}) {
   const [searchQuery, setSearchQuery] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -57,6 +57,7 @@ export default function App() {
 
   const handleLogin = () => {
     // Handle login logic here
+    navigation.navigate('initialLogin')
     setModalVisible(false);
     // Navigate to main app or perform authentication
   };

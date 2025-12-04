@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
 
-export default function DefaultLogin() {
+export default function CustomerLogin({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -11,9 +11,10 @@ export default function DefaultLogin() {
       {/* Logo */}
       <Image source={require('./assets/logo.png')} style={styles.logo} />
 
-      <Text style={styles.title}>SERVICE-<Text style={{color: 'black',}}>U</Text></Text>
-
-      <Text style={styles.label}>Login</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>SERVICE-<Text style={{color: 'black'}}>U</Text></Text>
+        <Text style={styles.label}>Login</Text>
+      </View>
 
 
       <TextInput
@@ -41,8 +42,16 @@ export default function DefaultLogin() {
 
       <Text style={styles.forgotPassword}>Forgot Password</Text>
       <View style={{alignSelf: 'center', marginTop: 50}}>
-      <Text style={styles.New}>New to Service-U? <Text style={styles.Signup}> Sign-Up</Text></Text>
-      <Text style={styles.admin}>Login as Administrator</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center'  }}>
+          <Text style={styles.New}>New to Service-U?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("customerSignUp")}>
+            <Text style={styles.Signup}> Sign-Up</Text>
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity onPress={() => navigation.navigate("AdminLogin")}>
+          <Text style={styles.admin}>Login as Administrator</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -54,7 +63,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     paddingHorizontal: 30,
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   logo: {
     marginTop: -115,
@@ -78,7 +87,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 30,
     fontFamily: 'Inter-Bold',
-
+  },
+  titleContainer: {
+    width: 300,       
+    alignItems: 'flex-start',
   },
 
   input: {
@@ -118,6 +130,8 @@ const styles = StyleSheet.create({
   Signup:{
     color: '#137594',
     fontWeight: 'bold',
+    fontSize: 17,
+    marginTop: 9,
   }, 
   admin:{
     alignSelf: 'center',
