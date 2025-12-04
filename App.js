@@ -1,20 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import RepairerSignUp2 from './repairerSignUp2';
+
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <RepairerSignUp2 />
+
+        <StatusBar style='auto' />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  scrollContainer: {
+    paddingVertical: 20,
+    paddingHorizontal: 16,
   },
 });
