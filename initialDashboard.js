@@ -9,18 +9,19 @@ import {
   SafeAreaView,
   StatusBar,
   Image,
+  Modal,
 } from 'react-native';
 
-const ServiceCard = ({ imageSource, title, description }) => (
-  <TouchableOpacity style={styles.serviceCard}>
+const ServiceCard = ({ imageSource, title, description, onPress }) => (
+  <TouchableOpacity style={styles.serviceCard} onPress={onPress}>
     <Image source={imageSource} style={styles.serviceIcon} />
     <Text style={styles.serviceTitle}>{title}</Text>
     <Text style={styles.serviceDescription}>{description}</Text>
   </TouchableOpacity>
 );
 
-const RepairerCard = ({ imageSource, name, service, rating }) => (
-  <TouchableOpacity style={styles.repairerCard}>
+const RepairerCard = ({ name, service, rating, imageSource, onPress }) => (
+  <TouchableOpacity style={styles.repairerCard} onPress={onPress}>
     <Image source={imageSource} style={styles.repairerImage}/>
     <Text style={styles.repairerName}>{name}</Text>
     <Text style={styles.repairerService}>{service}</Text>
@@ -30,8 +31,8 @@ const RepairerCard = ({ imageSource, name, service, rating }) => (
   </TouchableOpacity>
 );
 
-const NavButton = ({ imageSource, label, active }) => (
-  <TouchableOpacity style={styles.navButton}>
+const NavButton = ({ imageSource, label, active, onPress }) => (
+  <TouchableOpacity style={styles.navButton} onPress={onPress}>
     <Image 
       source={imageSource} 
       style={[styles.navIcon, active && styles.navIconActive]} 
@@ -42,8 +43,23 @@ const NavButton = ({ imageSource, label, active }) => (
   </TouchableOpacity>
 );
 
-export default function initialDashboard() {
+export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
+  const handleLogin = () => {
+    // Handle login logic here
+    setModalVisible(false);
+    // Navigate to main app or perform authentication
+  };
 
   const services = [
     {
@@ -65,16 +81,17 @@ export default function initialDashboard() {
 
   const repairers = [
     { 
-      imageSource: require('./assets/repairer1.png'),
       name: 'Juan Dela Cruz', 
       service: 'Electrical', 
-      rating: '4.5' },
-      
+      rating: '4.5',
+      imageSource: require('./assets/repairer1.png')
+    },
     { 
-      imageSource: require('./assets/repairer2.png'),
       name: 'Jose Mari', 
       service: 'Plumbing', 
-      rating: '4.8' },
+      rating: '4.8',
+      imageSource: require('./assets/repairer2.png')
+    },
   ];
 
   return (
@@ -83,11 +100,11 @@ export default function initialDashboard() {
       
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.profileButton}>
+        <TouchableOpacity style={styles.profileButton} onPress={handleOpenModal}>
           <Image source={require('./assets/user.png')} style={styles.profileImage}/>
         </TouchableOpacity>
 
-        <View style={styles.searchContainer}>
+        <View style={styles.searchContainer} onPress={handleOpenModal}>
           <Image source={require('./assets/search.png')} style={styles.profileImage}/>
           <TextInput
             style={styles.searchInput}
@@ -113,6 +130,7 @@ export default function initialDashboard() {
               imageSource={service.imageSource}
               title={service.title}
               description={service.description}
+              onPress={handleOpenModal}
             />
           ))}
         </View>
@@ -120,7 +138,7 @@ export default function initialDashboard() {
         {/* Top Rated Section */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Top Rated Repairers</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleOpenModal}>
             <Text style={styles.viewAllText}>View All</Text>
           </TouchableOpacity>
         </View>
@@ -134,10 +152,11 @@ export default function initialDashboard() {
           {repairers.map((repairer, index) => (
             <RepairerCard
               key={index}
-              imageSource={repairer.imageSource}
               name={repairer.name}
               service={repairer.service}
               rating={repairer.rating}
+              imageSource={repairer.imageSource}
+              onPress={handleOpenModal}
             />
           ))}
         </ScrollView>
@@ -146,16 +165,49 @@ export default function initialDashboard() {
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <NavButton imageSource={require('./assets/home.png')} label="Home" active={true} />
-        <NavButton imageSource={require('./assets/activity.png')} label="Activity" active={false} />
-        <NavButton imageSource={require('./assets/book.png')} label="Book" active={false} />
-        <NavButton imageSource={require('./assets/settings.png')} label="Settings" active={false} />
+        <NavButton imageSource={require('./assets/activity.png')} label="Activity" active={false} onPress={handleOpenModal} />
+        <NavButton imageSource={require('./assets/book.png')} label="Book" active={false} onPress={handleOpenModal} />
+        <NavButton imageSource={require('./assets/settings.png')} label="Settings" active={false} onPress={handleOpenModal} />
       </View>
+
+      {/* Login Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={handleCloseModal}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Let's get you in!</Text>
+            <Text style={styles.modalDescription}>
+              In just a minute, you can access all our offers, services and more
+            </Text>
+            
+            <View style={styles.modalButtons}>
+              <TouchableOpacity 
+                style={styles.cancelButton} 
+                onPress={handleCloseModal}
+              >
+                <Text style={styles.cancelButtonText}>Cancel</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity 
+                style={styles.loginButton} 
+                onPress={handleLogin}
+              >
+                <Text style={styles.loginButtonText}>Log In</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+ container: {
     flex: 1,
     backgroundColor: '#fff',
   },
@@ -346,4 +398,58 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     resizeMode: "stretch",
   },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-end',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    padding: 24,
+    paddingBottom: 40,
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000',
+    marginBottom: 8,
+  },
+  modalDescription: {
+    fontSize: 20,
+    color: '#64748b',
+    lineHeight: 20,
+    marginBottom: 24,
+    padding: 8,
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  cancelButton: {
+    flex: 1,
+    backgroundColor: '#f1f5f9',
+    paddingVertical: 14,
+    borderRadius: 20,
+    alignItems: 'center',
+  },
+  cancelButtonText: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#1E1E1E',
+  },
+  loginButton: {
+    flex: 1,
+    backgroundColor: '#137594',
+    paddingVertical: 14,
+    borderRadius: 20,
+    alignItems: 'center',
+  },
+  loginButtonText: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#fff',
+  },
+
 });
