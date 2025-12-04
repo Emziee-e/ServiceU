@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import RepairerSignUp2 from './repairerSignUp2';
+import RepairerSignUp from './repairerSignUp1';
 
 
 
@@ -8,7 +8,7 @@ export default function App() {
   return (
     
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <RepairerSignUp2 />
+        <RepairerSignUp />
 
         <StatusBar style='auto' />
     </ScrollView>
