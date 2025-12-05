@@ -7,7 +7,7 @@ const ChooseProfile = ({ navigation }) => {
     };
 
     const handleRepairerSignUp = () => {
-        navigation.navigate('customerSignUp2');
+        navigation.navigate('RepairerSignUp');
     };
 
     const handleBack = () => {
@@ -16,13 +16,12 @@ const ChooseProfile = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            {/* Back Button */}
-            <TouchableOpacity style={styles.backButton} onPress={handleBack}>
-                <Text style={styles.backButtonText}>←</Text>
-            </TouchableOpacity>
 
             {/* Logo */}
             <View style={styles.logoContainer}>
+                <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+                <Text style={styles.backButtonText}>←</Text>
+            </TouchableOpacity>
                 <Image 
                     source={require('./assets/ServiceU Logo.png')}
                     style={styles.logo}
@@ -45,15 +44,18 @@ const ChooseProfile = ({ navigation }) => {
             <View style={styles.profileCard}>
                 <View style={styles.cardHeader}>
                     <View style={styles.iconContainer}>
-                        <Text style={styles.icon}>👥</Text>
+                        <Image 
+                            source={require('./assets/Customer.png')}
+                            style={styles.iconImage}
+                        />
                     </View>
                     <View style={styles.cardTextContainer}>
                         <Text style={styles.profileTitle}>Customer</Text>
-                        <Text style={styles.profileDescription}>
-                            Hire services and find technicians in your area.
-                        </Text>
                     </View>
                 </View>
+                <Text style={styles.profileDescription}>
+                            Hire services and find technicians in your area.
+                        </Text>
                 <TouchableOpacity 
                     style={styles.signUpButton}
                     onPress={handleCustomerSignUp}
@@ -66,15 +68,18 @@ const ChooseProfile = ({ navigation }) => {
             <View style={styles.profileCard}>
                 <View style={styles.cardHeader}>
                     <View style={styles.iconContainer}>
-                        <Text style={styles.icon}>🔧</Text>
+                        <Image 
+                            source={require('./assets/Repairer.png')}
+                            style={styles.iconImage}
+                        />
                     </View>
                     <View style={styles.cardTextContainer}>
                         <Text style={styles.profileTitle}>Repairer</Text>
-                        <Text style={styles.profileDescription}>
-                            Offer your services and find bookings locally.
-                        </Text>
                     </View>
                 </View>
+                <Text style={styles.profileDescription}>
+                            Offer your services and find bookings
+                        </Text>
                 <TouchableOpacity 
                     style={styles.signUpButton}
                     onPress={handleRepairerSignUp}
@@ -91,11 +96,11 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         paddingHorizontal: 20,
-        paddingTop: 50,
+        paddingTop: 80,
     },
     backButton: {
-        width: 40,
-        height: 40,
+        width: 50,
+        height: 50,
         borderRadius: 20,
         backgroundColor: '#E0F2FE',
         alignItems: 'center',
@@ -104,21 +109,24 @@ const styles = StyleSheet.create({
     },
     backButtonText: {
         fontSize: 24,
-        color: '#137594',
+        color: '#173d49ff',
         fontFamily: 'Inter',
     },
     logoContainer: {
+        flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 30,
+        justifyContent: 'center',
+        marginBottom: 25,
+        paddingTop: 25,
     },
     logo: {
-        width: 80,
-        height: 80,
+        width: 100,
+        height: 100,
         resizeMode: 'contain',
-        marginBottom: 10,
+        marginBottom: 20,
     },
     logoText: {
-        fontSize: 24,
+        fontSize: 40,
         fontWeight: 'bold',
         fontFamily: 'Inter-ExtraBold',
     },
@@ -130,6 +138,8 @@ const styles = StyleSheet.create({
     },
     headerContainer: {
         marginBottom: 30,
+        alignItems: 'center',
+        paddingHorizontal: 20,
     },
     headerTitle: {
         fontSize: 28,
@@ -137,50 +147,63 @@ const styles = StyleSheet.create({
         color: '#000',
         marginBottom: 8,
         fontFamily: 'Inter-Bold',
+        textAlign: 'center',
     },
     headerSubtitle: {
         fontSize: 14,
         color: '#6B7280',
         fontFamily: 'Inter',
+        textAlign: 'center',
     },
     profileCard: {
         borderWidth: 2,
         borderColor: '#E5E7EB',
-        borderRadius: 12,
+        borderRadius: 30,
         padding: 20,
         marginBottom: 16,
         backgroundColor: '#fff',
     },
     cardHeader: {
         flexDirection: 'row',
-        marginBottom: 16,
+        marginBottom: 5,
     },
     iconContainer: {
-        width: 48,
-        height: 48,
+        width: 100,
+        height: 50,
         borderRadius: 8,
-        backgroundColor: '#1F2937',
+        backgroundColor: 'transparent', 
         alignItems: 'center',
         justifyContent: 'center',
-        marginRight: 12,
     },
-    icon: {
-        fontSize: 24,
+    iconImage: {
+        width: 50,
+        height: 50,
+        resizeMode: 'contain',
+        tintColor: '#1F2937',
     },
     cardTextContainer: {
         flex: 1,
     },
     profileTitle: {
-        fontSize: 20,
+        fontSize: 30,
         fontWeight: 'bold',
         color: '#137594',
-        marginBottom: 6,
+        marginBottom: 4,
         fontFamily: 'Inter-Bold',
+        marginTop: 28,
+    },
+    titleImage: {
+        width: 120,
+        height: 30,
+        resizeMode: 'contain',
+        marginBottom: 6,
     },
     profileDescription: {
-        fontSize: 14,
+        fontSize: 15,
         color: '#6B7280',
         fontFamily: 'Inter',
+        paddingLeft: 20,
+        paddingRight: 20,
     },
     signUpButton: {
         backgroundColor: '#FDB913',
@@ -188,6 +211,7 @@ const styles = StyleSheet.create({
         paddingVertical: 14,
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop: 25,
     },
     signUpButtonText: {
         color: '#1F2937',
@@ -196,5 +220,4 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter-SemiBold',
     },
 });
-
 export default ChooseProfile;
