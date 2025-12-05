@@ -102,7 +102,7 @@ const CustomerSignUp2 = ({navigation}) => {
                 {/* Buttons */}
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.previousButton}
-                        onPress={() => navigation.navigate('customerSignUp')}
+                        onPress={() => navigation.goBack()}
                     >
                         <Text style={styles.previousButtonText}>Previous</Text>
                     </TouchableOpacity>

@@ -128,7 +128,9 @@ const CustomerSignUp = ({navigation}) => {
                     >
                         <Text style={styles.nextButtonText}>Next</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.cancelButton}>
+                    <TouchableOpacity style={styles.cancelButton}
+                        onPress={() => navigation.goBack()}
+                    >
                         <Text style={styles.cancelButtonText}>Cancel</Text>
                     </TouchableOpacity>
                 </View>
@@ -251,13 +253,14 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     inputGroup: {
-        marginBottom: 20,
+        marginBottom: 10,
     },
     label: {
         fontSize: 18,
         fontWeight: 'bold',
         color: '#374151',
         marginBottom: 8,
+        marginLeft: 5,
         fontFamily: 'Inter',
     },
     input: {
@@ -312,7 +315,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter',
     },
     buttonContainer: {
-        marginBottom: 20,
+        marginBottom: 5,
         alignItems: 'center',
     },
     nextButton: {
@@ -323,7 +326,7 @@ const styles = StyleSheet.create({
         marginTop: 3,
         width: 300,
         height: 50,
-        marginBottom: 12,
+        marginBottom: 5,
     },
     nextButtonText: {
         color: '#fff',

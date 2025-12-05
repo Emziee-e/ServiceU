@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const ChooseProfile = ({ navigation }) => {
     const handleCustomerSignUp = () => {
@@ -20,8 +21,8 @@ const ChooseProfile = ({ navigation }) => {
             {/* Logo */}
             <View style={styles.logoContainer}>
                 <TouchableOpacity style={styles.backButton} onPress={handleBack}>
-                <Text style={styles.backButtonText}>←</Text>
-            </TouchableOpacity>
+                    <Ionicons name="chevron-back" size={28} color="#173d49ff" />
+                </TouchableOpacity>
                 <Image 
                     source={require('./assets/ServiceU Logo.png')}
                     style={styles.logo}
@@ -101,16 +102,11 @@ const styles = StyleSheet.create({
     backButton: {
         width: 50,
         height: 50,
-        borderRadius: 20,
+        borderRadius: 25,
         backgroundColor: '#E0F2FE',
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 20,
-    },
-    backButtonText: {
-        fontSize: 24,
-        color: '#173d49ff',
-        fontFamily: 'Inter',
     },
     logoContainer: {
         flexDirection: 'row',
@@ -127,7 +123,6 @@ const styles = StyleSheet.create({
     },
     logoText: {
         fontSize: 40,
-        fontWeight: 'bold',
         fontFamily: 'Inter-ExtraBold',
     },
     logoYellow: {
@@ -190,7 +185,7 @@ const styles = StyleSheet.create({
         color: '#137594',
         marginBottom: 4,
         fontFamily: 'Inter-Bold',
-        marginTop: 28,
+        marginTop: 1,
     },
     titleImage: {
         width: 120,
@@ -204,6 +199,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter',
         paddingLeft: 20,
         paddingRight: 20,
+        marginTop: 8,
     },
     signUpButton: {
         backgroundColor: '#FDB913',
@@ -215,7 +211,7 @@ const styles = StyleSheet.create({
     },
     signUpButtonText: {
         color: '#1F2937',
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: '600',
         fontFamily: 'Inter-SemiBold',
     },

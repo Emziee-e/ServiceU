@@ -9,7 +9,7 @@ export default function CustomerLogin({navigation}) {
     <View style={styles.container}>
 
       {/* Logo */}
-      <Image source={require('./assets/Logo.png')} style={styles.logo} />
+      <Image source={require('./assets/logo.png')} style={styles.logo} />
 
       <View style={styles.titleContainer}>
         <Text style={styles.title}>SERVICE-<Text style={{color: 'black'}}>U</Text></Text>
