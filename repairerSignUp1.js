@@ -147,7 +147,9 @@ const RepairerSignUp = ({navigation}) => {
                         onPress={() => navigation.navigate('repairerSignUp2')}>
                         <Text style={styles.nextButtonText}>Next</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.cancelButton}>
+                    <TouchableOpacity style={styles.cancelButton}
+                        onPress={() => navigation.goBack()}
+                    >
                         <Text style={styles.cancelButtonText}>Cancel</Text>
                     </TouchableOpacity>
                 </View>

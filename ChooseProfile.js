@@ -8,7 +8,7 @@ const ChooseProfile = ({ navigation }) => {
     };
 
     const handleRepairerSignUp = () => {
-        navigation.navigate('RepairerSignUp');
+        navigation.navigate('repairerSignUp1');
     };
 
     const handleBack = () => {

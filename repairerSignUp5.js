@@ -249,8 +249,7 @@ const RepairerSignUp5 = ({navigation}) => {
                             style={styles.gotItButton}
                             onPress={() => {
                                 setShowThankYouModal(false);
-                                // Navigate to home or login screen
-                                // navigation.navigate('Home');
+                                navigation.navigate('repairerLogin')
                             }}
                         >
                             <Text style={styles.gotItButtonText}>Got It</Text>

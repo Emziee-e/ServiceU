@@ -93,7 +93,9 @@ const RepairerSignUp3 = ({navigation}) => {
 
                 {/* Buttons */}
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.previousButton}>
+                    <TouchableOpacity style={styles.previousButton}
+                        onPress={() => navigation.goBack()}
+                    >
                         <Text style={styles.previousButtonText}>Previous</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.nextButton}
@@ -170,6 +172,11 @@ const styles = StyleSheet.create({
     progressActive: {
         borderColor: '#137594',
         backgroundColor: '#FFFFFF',
+    },
+    checkmark: {
+        color: '#FFFFFF',
+        fontSize: 16,  
+        fontWeight: 'bold',
     },
     progressNumber: {
         color: '#6B7280',

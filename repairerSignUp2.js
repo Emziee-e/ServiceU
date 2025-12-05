@@ -118,7 +118,9 @@ const RepairerSignUp2 = ({navigation}) => {
 
                 {/* Buttons */}
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.previousButton}>
+                    <TouchableOpacity style={styles.previousButton}
+                        onPress={() => navigation.goBack()}
+                    >
                         <Text style={styles.previousButtonText}>Previous</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.nextButton}
