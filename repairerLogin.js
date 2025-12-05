@@ -121,6 +121,8 @@ const styles = StyleSheet.create({
     color: 'black',
     marginTop: 10,
     fontSize: 16,
+    alignSelf: 'flex-start',
+    marginLeft: 32,
   },
   New:{
     color: '#A9A9A9',
