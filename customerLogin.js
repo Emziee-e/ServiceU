@@ -36,7 +36,9 @@ export default function CustomerLogin({navigation}) {
       />
 
       
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button}
+        onPress={() => navigation.navigate("loggedinUser")}
+      >
         <Text style={styles.buttonText}>Log in</Text>
       </TouchableOpacity>
 

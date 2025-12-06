@@ -85,7 +85,7 @@ export default function LoggedinUser() {
         <View style={styles.profileSection}>
           <View style={styles.profileImageContainer}>
             <Image 
-              source={require('./assets/tristan.jpg')} 
+              source={require('./assets/repairer1.png')} 
               style={styles.profileImage}
             />
           </View>
