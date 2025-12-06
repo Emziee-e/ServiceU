@@ -36,7 +36,9 @@ export default function RepairerLogin({navigation}) {
       />
 
       
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button}
+        onPress={() => navigation.navigate("repairerDashboard")}
+      >
         <Text style={styles.buttonText}>Log in</Text>
       </TouchableOpacity>
 
