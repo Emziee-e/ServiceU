@@ -77,7 +77,7 @@ const CustomerSignUp3 = ({navigation}) => {
                 {/* Buttons */}
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.previousButton}
-                        onPress={() => navigation.navigate('customerSignUp3')}
+                        onPress={() => navigation.goBack()}
                     >
                         <Text style={styles.previousButtonText}>Previous</Text>
                     </TouchableOpacity>
@@ -106,8 +106,9 @@ const CustomerSignUp3 = ({navigation}) => {
 
                         <TouchableOpacity 
                             style={styles.modalButton}
-                            onPress={() => navigation.navigate('customerSignUp')}
-                            
+                            onPress={() => {
+                                setCompleteModal(false);
+                                navigation.navigate('customerLogin')}}
                         >
                             <Text style={styles.modalButtonText}>Got it</Text>
                         </TouchableOpacity>
