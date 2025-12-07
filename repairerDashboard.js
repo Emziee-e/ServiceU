@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
-const RepairerDashboard = () => {
+const RepairerDashboard = ({navigation}) => {
   const [isPriceModalVisible, setIsPriceModalVisible] = useState(false);
   const [isFeedbackVisible, setIsFeedbackVisible] = useState(false);
   const [basePrice, setBasePrice] = useState('500.00');
@@ -112,7 +112,9 @@ const RepairerDashboard = () => {
           <Image source={require('./assets/home.png')} style={styles.navIcon} />
           <Text style={styles.navTextActive}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}
+          onPress={() => navigation.navigate("manageBookings")}
+        >
           <Image source={require('./assets/jobs.png')} style={styles.navIcon} />
           <Text style={styles.navText}>Jobs</Text>
         </TouchableOpacity>
@@ -371,7 +373,7 @@ const styles = StyleSheet.create({
   ratingCard: {
     backgroundColor: '#eaf3f5',
     borderRadius: 12,
-    padding: 20,
+    padding: 15,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -379,12 +381,12 @@ const styles = StyleSheet.create({
   ratingLabel: {
     fontSize: 13,
     color: '#50595b',
-    marginBottom: 5,
   },
   ratingValue: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
+    marginBottom: 7,
   },
   ratingNumber: {
     fontSize: 24,
@@ -442,11 +444,13 @@ const styles = StyleSheet.create({
   },
   bottomNav: {
     flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     backgroundColor: '#fff',
-    paddingTop: 10,
-    paddingBottom: 20, 
-    borderTopWidth: 1, 
-    borderTopColor: '#e0e0e0',
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#e5e7eb',
+    paddingBottom: 35,
   },
   navItem: {
     flex: 1,

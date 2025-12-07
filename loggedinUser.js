@@ -6,7 +6,6 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
   Image,
 } from 'react-native';
@@ -78,7 +77,7 @@ export default function LoggedinUser() {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
        <View style={styles.header}>
@@ -154,7 +153,7 @@ export default function LoggedinUser() {
         <NavButton imageSource={require('./assets/book.png')} label="Book" active={false} />
         <NavButton imageSource={require('./assets/settings.png')} label="Settings" active={false} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

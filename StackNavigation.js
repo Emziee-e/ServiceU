@@ -17,6 +17,7 @@ import RepairerSignUp5 from './repairerSignUp5';
 import RepairerLogin from './repairerLogin';
 import LoggedinUser from './loggedinUser';
 import RepairerDashboard from './repairerDashboard';
+import ManageBookings from './manageBookings';
 
 
 const Stack = createNativeStackNavigator();
@@ -43,6 +44,7 @@ const StackNavigation = () => {
       <Stack.Screen name="repairerLogin" component={RepairerLogin} />
       <Stack.Screen name="loggedinUser" component={LoggedinUser} />
       <Stack.Screen name="repairerDashboard" component={RepairerDashboard} />
+      <Stack.Screen name="manageBookings" component={ManageBookings} />
     </Stack.Navigator>
   );
 };
