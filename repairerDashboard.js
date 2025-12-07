@@ -313,6 +313,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 28,
     fontWeight: 'bold',
+    fontFamily: 'Inter',
   },
   content: {
     padding: 20,
@@ -322,6 +323,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000000',
     marginBottom: 15,
+    fontFamily: 'Inter',
   },
   jobsRow: {
     flexDirection: 'row',
@@ -340,10 +342,12 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     marginBottom: 5,
+    fontFamily: 'Inter',
   },
   jobLabel: {
     fontSize: 14,
     color: '#50595b',
+    fontFamily: 'Inter',
   },
   priceRatingRow: {
     flexDirection: 'row',
@@ -367,6 +371,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     color: '#50595b',
+    fontFamily: 'Inter',
   },
   ratingCard: {
     backgroundColor: '#eaf3f5',
@@ -380,6 +385,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#50595b',
     marginBottom: 5,
+    textAlign: 'center',
+    fontFamily: 'Inter',
   },
   ratingValue: {
     flexDirection: 'row',
@@ -390,6 +397,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#FFA500',
+    fontFamily: 'Inter',
   },
   starIcon: {
     width: 24,
@@ -407,6 +415,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     marginBottom: 15,
+    fontFamily: 'Inter',
   },
   bookingCard: {
     backgroundColor: '#eaf3f5',
@@ -430,15 +439,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
     marginTop: 1,
+    fontFamily: 'Inter',
   },
   bookingName: {
     fontSize: 15,
     color: '#50595b',
+    fontFamily: 'Inter',
   },
   chevron: {
     fontSize: 50,
     color: '#137594',
     fontWeight: 'bold',
+    fontFamily: 'Inter',
   },
   bottomNav: {
     flexDirection: 'row',
@@ -460,11 +472,13 @@ const styles = StyleSheet.create({
   navText: {
     fontSize: 12,
     color: '#999',
+    fontFamily: 'Inter',
   },
   navTextActive: {
     fontSize: 12,
     color: '#137594',
     fontWeight: '600',
+    fontFamily: 'Inter',
   },
   modalOverlay: {
     position: 'absolute',
@@ -498,12 +512,14 @@ const styles = StyleSheet.create({
     fontSize: 23,
     color: '#000000',
     fontWeight: 'bold',
+    fontFamily: 'Inter',
   },
   modalLabel: {
     fontSize: 14,
     color: '#50595b',
     marginBottom: 8,
     fontWeight: '500',
+    fontFamily: 'Inter',
   },
   inputContainer: {
     borderWidth: 1,
@@ -517,17 +533,20 @@ const styles = StyleSheet.create({
   inputBaseFee: {
     fontWeight: '600',
     fontSize: 18,
+    fontFamily: 'Inter',
   },
   inputText: {
     fontSize: 18,
     color: '#000',
     fontWeight: '500',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'Inter',
   },
   helperText: {
     fontSize: 13,
     color: '#50595b',
     marginBottom: 20,
+    fontFamily: 'Inter',
   },
   rangeContainer: {
     flexDirection: 'row',
@@ -549,6 +568,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#000000ff',
     marginHorizontal: 15,
+    fontFamily: 'Inter',
   },
   setButton: {
     backgroundColor: '#137594',
@@ -564,6 +584,7 @@ const styles = StyleSheet.create({
     color: '#ffffffff',
     fontSize: 18,
     fontWeight: '600',
+    fontFamily: 'Inter',
   },
   feedbackModalOverlay: {
     position: 'absolute',
@@ -586,11 +607,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   backButton: {
-    marginRight: 15,
+    marginLeft: 20,
     width: 40,
     height: 40,
     borderRadius: 20,
     backgroundColor: '#fff',
+  
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -599,11 +621,18 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: 'bold',
     marginTop: -14,
+    fontFamily: 'Inter',
+  },
+  feedbackTitleContainer: {
+    flex: 1,
+    alignItems: 'center',
+    marginRight: 45,
   },
   feedbackTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#ffffff',
+    fontSize: 25,
+    fontWeight: '800',
+    color: '#ffffffff',
+    fontFamily: 'Inter',
   },
   feedbackScroll: {
     flex: 1,
@@ -620,6 +649,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
     marginBottom: 10,
+    fontFamily: 'Inter',
   },
   overallRatingRow: {
     flexDirection: 'row',
@@ -631,6 +661,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000000ff',
     marginRight: 8,
+    fontFamily: 'Inter',
   },
   overallRatingStar: {
     fontSize: 28,
@@ -639,6 +670,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#50595b',
     marginBottom: 20,
+    fontFamily: 'Inter',
   },
   ratingBreakdown: {
     marginTop: 10,
@@ -652,6 +684,7 @@ const styles = StyleSheet.create({
     width: 50,
     fontSize: 12,
     color: '#50595b',
+    fontFamily: 'Inter',
   },
   ratingBarContainer: {
     flex: 1,
@@ -671,6 +704,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#50595b',
     textAlign: 'right',
+    fontFamily: 'Inter',
   },
   filterContainer: {
     paddingHorizontal: 20,
@@ -688,6 +722,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#50595b',
     fontWeight: '500',
+    fontFamily: 'Inter',
   },
   filterButton: {
     paddingVertical: 8,
@@ -704,6 +739,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#ffffffff',
     fontWeight: '500',
+    fontFamily: 'Inter',
   },
   reviewCard: {
     backgroundColor: '#eaf3f5',
@@ -723,23 +759,27 @@ const styles = StyleSheet.create({
 
   fiveRating: {
     color: '#50595b',
+    fontFamily: 'Inter',
   },
   reviewText: {
     fontSize: 14,
     color: '#50595b',
     marginBottom: 12,
     lineHeight: 20,
+    fontFamily: 'Inter',
   },
   reviewService: {
     fontSize: 12,
     color: '#50595b',
     fontStyle: 'italic',
     marginBottom: 4,
+    fontFamily: 'Inter',
   },
   reviewDate: {
     fontSize: 12,
     color: '#50595b',
     fontStyle: 'italic',
+    fontFamily: 'Inter',
   },
   whiteLine: {
     height: 1,
