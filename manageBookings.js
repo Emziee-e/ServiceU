@@ -68,7 +68,6 @@ const ManageBookings = ({navigation}) => {
     
     setModalVisible(false);
     setSelectedJob(null);
-    // Switch to Completed tab
     setActiveTab('Completed');
     console.log('Job completed and moved to Completed tab!');
   };
@@ -134,7 +133,7 @@ const ManageBookings = ({navigation}) => {
               </TouchableOpacity>
             ))
           ) : (
-            // Ongoing, Cancelled, and Completed tabs with category dropdown
+            // Ongoing, Cancelled, and Completed
             <View>
               {/* Category Header */}
               <TouchableOpacity 
