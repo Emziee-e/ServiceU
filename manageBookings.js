@@ -1,19 +1,30 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, StatusBar, Image } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, StatusBar, Image, Modal } from 'react-native';
 
 const ManageBookings = ({navigation}) => {
   const [activeTab, setActiveTab] = useState('Ongoing');
   const [activeNav, setActiveNav] = useState('Jobs');
   const [expandedCategory, setExpandedCategory] = useState('Hardware');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null);
 
-  const jobs = {
+  const [jobs, setJobs] = useState({
     Incoming: [
       { id: 1, title: 'Replace Component', client: 'Tristan Mirano' },
       { id: 2, title: 'Device Repair', client: 'Brent Pagcaliwagan' },
       { id: 3, title: 'Hardware Restoration', client: 'Kenn Philip Silang' }
     ],
     Ongoing: [
-      { id: 4, category: 'Hardware', client: 'Vin Perez', date: '10 Dec 2025, 09:00 AM', amount: 320.00 },
+      { 
+        id: 4, 
+        category: 'Hardware', 
+        client: 'Vin Perez', 
+        date: '10 Dec 2025, 09:00 AM', 
+        amount: 320.00,
+        problem: 'Replace Component',
+        address: 'Gulod Labac, Batangas City',
+        payment: 'Cash'
+      },
     ],
     Cancelled: [
       { id: 6, category: 'Plumbing', client: 'Ashley Alday', date: '08 Dec 2025, 07:20 AM', amount: 220.00 }
@@ -21,7 +32,7 @@ const ManageBookings = ({navigation}) => {
     Completed: [
       { id: 7, category: 'Hardware', client: 'Vin Perez', date: '10 Dec 2025, 09:00 AM', amount: 320.00 },
     ]
-  };
+  });
 
   const tabs = ['Incoming', 'Ongoing', 'Cancelled', 'Completed'];
 
@@ -32,6 +43,39 @@ const ManageBookings = ({navigation}) => {
   const getCategoryName = () => {
     if (activeTab === 'Cancelled') return 'Plumbing';
     return 'Hardware';
+  };
+
+  const handleCompleteClick = (job) => {
+    setSelectedJob(job);
+    setModalVisible(true);
+  };
+
+  const handleConfirmBooking = () => {
+    if (selectedJob) {
+      // Remove job from Ongoing
+      const updatedOngoing = jobs.Ongoing.filter(job => job.id !== selectedJob.id);
+      
+      // Add job to Completed
+      const updatedCompleted = [...jobs.Completed, selectedJob];
+      
+      // Update jobs state
+      setJobs({
+        ...jobs,
+        Ongoing: updatedOngoing,
+        Completed: updatedCompleted
+      });
+    }
+    
+    setModalVisible(false);
+    setSelectedJob(null);
+    // Switch to Completed tab
+    setActiveTab('Completed');
+    console.log('Job completed and moved to Completed tab!');
+  };
+
+  const handleCancelBooking = () => {
+    setModalVisible(false);
+    setSelectedJob(null);
   };
 
   return (
@@ -74,7 +118,9 @@ const ManageBookings = ({navigation}) => {
           activeTab === 'Incoming' ? (
             // Incoming tab with original format
             jobs[activeTab].map(job => (
-              <TouchableOpacity key={job.id} style={styles.jobCardOriginal}>
+              <TouchableOpacity key={job.id} style={styles.jobCardOriginal}
+                onPress={() => navigation.navigate("manageBookings1")}
+              >
                 <View style={styles.jobCardContent}>
                   <View style={styles.iconContainerOriginal}>
                     <Image source={require('./assets/chip_1.png')} />
@@ -127,7 +173,10 @@ const ManageBookings = ({navigation}) => {
                   
                   {/* Complete Button - only for Ongoing tab */}
                   {activeTab === 'Ongoing' && (
-                    <TouchableOpacity style={styles.completeButton}>
+                    <TouchableOpacity 
+                      style={styles.completeButton}
+                      onPress={() => handleCompleteClick(job)}
+                    >
                       <Text style={styles.completeButtonText}>Complete</Text>
                     </TouchableOpacity>
                   )}
@@ -140,6 +189,91 @@ const ManageBookings = ({navigation}) => {
             <Text style={styles.emptyText}>No {activeTab.toLowerCase()} jobs</Text>
           </View>
         )}
+
+        {/* Confirmation Modal */}
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={handleCancelBooking}
+        >
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Complete Service?</Text>
+
+              {selectedJob && (
+                <>
+                  <View style={styles.confirmationItem}>
+                    <View style={styles.iconContainer}>
+                      <Image source={require('./assets/problem.png')} />
+                    </View>
+                    <View style={styles.confirmationText}>
+                      <Text style={styles.confirmationLabel}>Problem</Text>
+                      <Text style={styles.confirmationValue}>{selectedJob.problem || selectedJob.category}</Text>
+                    </View>
+                  </View>
+
+                  <View style={styles.confirmationItem}>
+                    <View style={styles.iconContainer}>
+                      <Image source={require('./assets/technician.png')} />
+                    </View>
+                    <View style={styles.confirmationText}>
+                      <Text style={styles.confirmationLabel}>Technician</Text>
+                      <Text style={styles.confirmationValue}>{selectedJob.client}</Text>
+                    </View>
+                  </View>
+
+                  <View style={styles.confirmationItem}>
+                    <View style={styles.iconContainer}>
+                      <Image source={require('./assets/calendar.png')} />
+                    </View>
+                    <View style={styles.confirmationText}>
+                      <Text style={styles.confirmationLabel}>Date & Time</Text>
+                      <Text style={styles.confirmationValue}>{selectedJob.date}</Text>
+                    </View>
+                  </View>
+
+                  <View style={styles.confirmationItem}>
+                    <View style={styles.iconContainer}>
+                      <Image source={require('./assets/address.png')} />
+                    </View>
+                    <View style={styles.confirmationText}>
+                      <Text style={styles.confirmationLabel}>Address</Text>
+                      <Text style={styles.confirmationValue}>{selectedJob.address || 'Not specified'}</Text>
+                    </View>
+                  </View>
+
+                  <View style={styles.confirmationItem}>
+                    <View style={styles.iconContainer}>
+                      <Image source={require('./assets/cash.png')} />
+                    </View>
+                    <View style={styles.confirmationText}>
+                      <Text style={styles.confirmationLabel}>Payment</Text>
+                      <Text style={styles.confirmationValue}>{selectedJob.payment}</Text>
+                    </View>
+                  </View>
+                </>
+              )}
+
+              <View style={styles.modalButtons}>
+                <TouchableOpacity
+                  style={styles.cancelButton}
+                  onPress={handleCancelBooking}
+                >
+                  <Text style={styles.cancelButtonText}>Cancel</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.compButton}
+                  onPress={handleConfirmBooking}
+                >
+                  <Text style={styles.compButtonText}>Complete</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
       </ScrollView>
 
       {/* Bottom Navigation */}
@@ -363,6 +497,73 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 14,
     color: '#9ca3af',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  modalContent: {
+    backgroundColor: '#ffffff',
+    borderRadius: 35,
+    padding: 24,
+    width: '100%',
+    maxWidth: 400,
+  },
+  modalTitle: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: '#000',
+    marginBottom: 20,
+  },
+  confirmationItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  confirmationText: {
+    flex: 1,
+  },
+  confirmationLabel: {
+    fontSize: 15,
+    color: '#94a3b8',
+    marginBottom: 2,
+  },
+  confirmationValue: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#000',
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    gap: 12,
+    marginTop: 5,
+  },
+  cancelButton: {
+    flex: 1,
+    backgroundColor: '#f1f5f9',
+    paddingVertical: 3,
+    borderRadius: 30,
+    alignItems: 'center',
+  },
+  cancelButtonText: {
+    fontSize: 25,
+    fontWeight: '600',
+    color: '#64748b',
+  },
+  compButton: {
+    flex: 1,
+    backgroundColor: '#10b981',
+    paddingVertical: 3,
+    borderRadius: 30,
+    alignItems: 'center',
+  },
+  compButtonText: {
+    fontSize: 25,
+    fontWeight: '600',
+    color: '#fff',
   },
   bottomNav: {
     flexDirection: 'row',
