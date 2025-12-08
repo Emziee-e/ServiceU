@@ -1,9 +1,41 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Modal} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Modal, Alert} from 'react-native';
 
-const CustomerSignUp3 = ({navigation}) => {
+const CustomerSignUp3 = ({navigation, route}) => {
+    const { customer_fullName, customer_phoneNum, customer_gender, customer_email, customer_password } = route.params;
     const [address, setAddress] = useState('');
     const [completeModal, setCompleteModal] = useState(false);
+
+     const handleComplete = async () => {
+    if (!address) {
+        Alert.alert("Error", "Please enter your address");
+        return;
+    }
+
+    try {
+        const response = await fetch('http://192.168.1.58/ServiceU/api/customer_register.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                customer_fullName,
+                customer_phoneNum,
+                customer_gender,
+                customer_email,
+                customer_password,
+                customer_address: address
+            })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+            setCompleteModal(true);
+        } else {
+            Alert.alert("Error", data.message || "Registration failed");
+        }
+    } catch (error) {
+        Alert.alert("Error", "Cannot connect to server");
+    }
+};
 
 
     return (
@@ -60,7 +92,6 @@ const CustomerSignUp3 = ({navigation}) => {
 
                 {/* Form Fields */}
                 <View style={styles.formContainer}>
-                    {/* Address */}
                     <View style={styles.inputGroup}>
                         <Text style={styles.label}>Address</Text>
                         <TextInput style={styles.input}
@@ -68,48 +99,31 @@ const CustomerSignUp3 = ({navigation}) => {
                             value={address}
                             onChangeText={setAddress}
                             placeholderTextColor="#999"
-                            multiline={true}
+                            multiline
                             numberOfLines={3}
                         />
                     </View>
                 </View>
 
-                {/* Buttons */}
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.previousButton}
-                        onPress={() => navigation.goBack()}
-                    >
+                    <TouchableOpacity style={styles.previousButton} onPress={() => navigation.goBack()}>
                         <Text style={styles.previousButtonText}>Previous</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.nextButton}
-                        onPress={() => setCompleteModal(true)}
-                    >
+                    <TouchableOpacity style={styles.nextButton} onPress={handleComplete}>
                         <Text style={styles.nextButtonText}>Complete</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
 
-            <Modal
-                visible={completeModal}
-                transparent
-                animationType="fade"
-            >
+            <Modal visible={completeModal} transparent animationType="fade">
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContainer}>
-
-                        <Image 
-                        source={require('./assets/check.png')}
-                        style={styles.imageModal}
-                    />
-
+                        <Image source={require('./assets/check.png')} style={styles.imageModal} />
                         <Text style={styles.modalTitle}>Thank you for Signing up!</Text>
-
-                        <TouchableOpacity 
-                            style={styles.modalButton}
-                            onPress={() => {
-                                setCompleteModal(false);
-                                navigation.navigate('customerLogin')}}
-                        >
+                        <TouchableOpacity style={styles.modalButton} onPress={() => {
+                            setCompleteModal(false);
+                            navigation.navigate('customerLogin');
+                        }}>
                             <Text style={styles.modalButtonText}>Got it</Text>
                         </TouchableOpacity>
                     </View>

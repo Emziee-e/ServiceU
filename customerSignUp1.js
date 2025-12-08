@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Alert, ActivityIndicator } from 'react-native';
 
-const CustomerSignUp = ({navigation}) => {
+const CustomerSignUp = ({ navigation }) => {
     const [fullName, setFullName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [gender, setGender] = useState('');
     const [showGenderPicker, setShowGenderPicker] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const genderOptions = ['Male', 'Female', 'Other'];
 
@@ -14,52 +15,29 @@ const CustomerSignUp = ({navigation}) => {
         setShowGenderPicker(false);
     };
 
+    const handleNext = () => {
+        if (!fullName || !phoneNumber || !gender) {
+            Alert.alert("Error", "Please fill in all fields");
+            return;
+        }
+        // Pass Step 1 data to Step 2
+        navigation.navigate('customerSignUp2', {
+            customer_fullName: fullName,
+            customer_phoneNum: phoneNumber,
+            customer_gender: gender
+        });
+    };
+
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
                 {/* Logo */}
                 <View style={styles.logoContainer}>
-                    <Image 
-                        source={require('./assets/ServiceU Logo.png')}
-                        style={styles.logo}
-                    />
+                    <Image source={require('./assets/ServiceU Logo.png')} style={styles.logo} />
                     <Text style={styles.logoText}>
                         <Text style={styles.logoYellow}>SERVICE - </Text>
                         <Text style={styles.logoBlack}>U</Text>
                     </Text>
-                </View>
-
-                {/* Progress Indicator */}
-                <View style={styles.progressContainer}>
-                    <View style={styles.progressTopRow}>
-                        <View style={styles.circleWrapper}>
-                            <View style={[styles.progressCircle, styles.progressActive]}>
-                                <Text style={styles.progressNumberActive}>1</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.progressLine} />
-
-                        <View style={styles.circleWrapper}>
-                            <View style={styles.progressCircle}>
-                                <Text style={styles.progressNumber}>2</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.progressLine} />
-
-                        <View style={styles.circleWrapper}>
-                            <View style={styles.progressCircle}>
-                                <Text style={styles.progressNumber}>3</Text>
-                            </View>
-                        </View>
-                    </View>
-
-                    <View style={styles.progressLabelsRow}>
-                        <Text style={styles.progressLabelActive}>Info</Text>
-                        <Text style={styles.progressLabel}>A/C Info</Text>
-                        <Text style={styles.progressLabel}>Address</Text>
-                    </View>
                 </View>
 
                 {/* Form Header */}
@@ -67,7 +45,6 @@ const CustomerSignUp = ({navigation}) => {
 
                 {/* Form Fields */}
                 <View style={styles.formContainer}>
-                    {/* Full Name */}
                     <View style={styles.inputGroup}>
                         <Text style={styles.label}>Full Name</Text>
                         <TextInput
@@ -79,7 +56,6 @@ const CustomerSignUp = ({navigation}) => {
                         />
                     </View>
 
-                    {/* Phone Number */}
                     <View style={styles.inputGroup}>
                         <Text style={styles.label}>Phone Number</Text>
                         <TextInput
@@ -92,10 +68,9 @@ const CustomerSignUp = ({navigation}) => {
                         />
                     </View>
 
-                    {/* Gender */}
                     <View style={styles.inputGroup}>
                         <Text style={styles.label}>Gender</Text>
-                        <TouchableOpacity 
+                        <TouchableOpacity
                             style={styles.pickerButton}
                             onPress={() => setShowGenderPicker(!showGenderPicker)}
                         >
@@ -104,7 +79,7 @@ const CustomerSignUp = ({navigation}) => {
                             </Text>
                             <Text style={styles.dropdownIcon}>▼</Text>
                         </TouchableOpacity>
-                        
+
                         {showGenderPicker && (
                             <View style={styles.pickerDropdown}>
                                 {genderOptions.map((option, index) => (
@@ -123,25 +98,14 @@ const CustomerSignUp = ({navigation}) => {
 
                 {/* Buttons */}
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.nextButton}
-                        onPress={() => navigation.navigate('customerSignUp2')}
+                    <TouchableOpacity
+                        style={[styles.nextButton, loading && { opacity: 0.7 }]}
+                        onPress={handleNext}
+                        disabled={loading}
                     >
-                        <Text style={styles.nextButtonText}>Next</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.cancelButton}
-                        onPress={() => navigation.goBack()}
-                    >
-                        <Text style={styles.cancelButtonText}>Cancel</Text>
+                        {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.nextButtonText}>Next</Text>}
                     </TouchableOpacity>
                 </View>
-
-                {/* Terms and Privacy */}
-                <Text style={styles.termsText}>
-                    By continuing, you agree to our{' '}
-                    <Text style={styles.termsLink}>Terms of Service</Text>
-                    {' '}and{' '}
-                    <Text style={styles.termsLink}>Privacy Policy</Text>
-                </Text>
             </ScrollView>
         </View>
     );

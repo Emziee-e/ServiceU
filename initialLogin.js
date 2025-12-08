@@ -1,9 +1,43 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Alert,
+  ActivityIndicator
+} from 'react-native';
+import { login } from './authentication';
 
-export default function InitialLogin({navigation}) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function InitialLogin({ navigation }) {
+  const [customer_email, setEmail] = useState('');
+  const [customer_password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async () => {
+
+    if (!customer_email || !customer_password) {
+      Alert.alert("Error", "Please fill in all fields");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await login(customer_email, customer_password);
+
+      if (response.success) {
+        navigation.navigate("loggedinUser", { user: response.user });
+      } else {
+        Alert.alert("Error", response.message || "Login failed");
+      }
+    } catch (error) {
+      Alert.alert("Error", error.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -12,10 +46,9 @@ export default function InitialLogin({navigation}) {
       <Image source={require('./assets/logo.png')} style={styles.logo} />
 
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>SERVICE-<Text style={{color: 'black'}}>U</Text></Text>
+        <Text style={styles.title}>SERVICE-<Text style={{ color: 'black' }}>U</Text></Text>
         <Text style={styles.label}>Login</Text>
       </View>
-
 
       <TextInput
         style={styles.input}
@@ -23,28 +56,39 @@ export default function InitialLogin({navigation}) {
         placeholderTextColor="#888"
         keyboardType="email-address"
         autoCapitalize="none"
-        value={email}
+        value={customer_email}
         onChangeText={setEmail}
+        editable={!loading}
       />
 
       <TextInput
         style={styles.input}
         placeholder="Password"
         placeholderTextColor="#888"
-        value={password}
+        value={customer_password}
         onChangeText={setPassword}
+        secureTextEntry
+        editable={!loading}
       />
 
-      
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Log in</Text>
+      <TouchableOpacity
+        style={[styles.button, loading && { opacity: 0.7 }]}
+        onPress={handleLogin}
+        disabled={loading}
+      >
+        {loading ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <Text style={styles.buttonText}>Log in</Text>
+        )}
       </TouchableOpacity>
 
       <Text style={styles.forgotPassword}>Forgot Password</Text>
-      <View style={{alignSelf: 'center', marginTop: 50}}>
-        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center'  }}>
+
+      <View style={{ alignSelf: 'center', marginTop: 50 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
           <Text style={styles.New}>New to Service-U?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("chooseProfile")}>
+          <TouchableOpacity onPress={() => navigation.navigate("customerSignUp")}>
             <Text style={styles.Signup}> Sign-Up</Text>
           </TouchableOpacity>
         </View>
@@ -80,7 +124,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-ExtraBold',
     color: '#FFB808',
   },
-
   label: {
     textAlign: 'left',
     fontSize: 30,
@@ -89,10 +132,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Bold',
   },
   titleContainer: {
-    width: 300,       
+    width: 300,
     alignItems: 'flex-start',
   },
-
   input: {
     width: 300,
     height: 50,
@@ -116,7 +158,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     fontWeight: '600',
-  }, 
+  },
   forgotPassword: {
     color: 'black',
     marginTop: 10,
@@ -124,22 +166,22 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginLeft: 32,
   },
-  New:{
+  New: {
     color: '#A9A9A9',
     marginTop: 10,
     fontSize: 17,
   },
-  Signup:{
+  Signup: {
     color: '#137594',
     fontWeight: 'bold',
     fontSize: 17,
     marginTop: 9,
-  }, 
-  admin:{
+  },
+  admin: {
     alignSelf: 'center',
     color: '#A9A9A9',
     marginTop: 10,
     fontSize: 16,
     textDecorationLine: 'underline',
-  }, 
+  },
 });
