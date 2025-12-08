@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image} from 'react-native';
 
-const CustomerSignUp = ({navigation}) => {
+const RepairerSignUp = ({navigation}) => {
     const [fullName, setFullName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [gender, setGender] = useState('');
@@ -17,10 +17,11 @@ const CustomerSignUp = ({navigation}) => {
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
+
                 {/* Logo */}
                 <View style={styles.logoContainer}>
                     <Image 
-                        source={require('./assets/ServiceU Logo.png')}
+                        source={require('./assets/ServiceU_Logo.png')}
                         style={styles.logo}
                     />
                     <Text style={styles.logoText}>
@@ -53,12 +54,30 @@ const CustomerSignUp = ({navigation}) => {
                                 <Text style={styles.progressNumber}>3</Text>
                             </View>
                         </View>
+
+                        <View style={styles.progressLine} />
+
+                        <View style={styles.circleWrapper}>
+                            <View style={styles.progressCircle}>
+                                <Text style={styles.progressNumber}>4</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.progressLine} />
+
+                        <View style={styles.circleWrapper}>
+                            <View style={styles.progressCircle}>
+                                <Text style={styles.progressNumber}>5</Text>
+                            </View>
+                        </View>
                     </View>
 
                     <View style={styles.progressLabelsRow}>
                         <Text style={styles.progressLabelActive}>Info</Text>
                         <Text style={styles.progressLabel}>A/C Info</Text>
                         <Text style={styles.progressLabel}>Address</Text>
+                        <Text style={styles.progressLabel}>Expertise</Text>
+                        <Text style={styles.progressLabel}>Verify</Text>
                     </View>
                 </View>
 
@@ -67,6 +86,7 @@ const CustomerSignUp = ({navigation}) => {
 
                 {/* Form Fields */}
                 <View style={styles.formContainer}>
+
                     {/* Full Name */}
                     <View style={styles.inputGroup}>
                         <Text style={styles.label}>Full Name</Text>
@@ -124,8 +144,7 @@ const CustomerSignUp = ({navigation}) => {
                 {/* Buttons */}
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.nextButton}
-                        onPress={() => navigation.navigate('customerSignUp2')}
-                    >
+                        onPress={() => navigation.navigate('repairerSignUp2')}>
                         <Text style={styles.nextButtonText}>Next</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.cancelButton}
@@ -142,6 +161,7 @@ const CustomerSignUp = ({navigation}) => {
                     {' '}and{' '}
                     <Text style={styles.termsLink}>Privacy Policy</Text>
                 </Text>
+
             </ScrollView>
         </View>
     );
@@ -169,6 +189,7 @@ const styles = StyleSheet.create({
     },
     logoText: {
         fontSize: 50,
+        fontWeight: 'extra-bold',
         fontFamily: 'Inter-ExtraBold',
     },
     logoYellow: {
@@ -215,8 +236,9 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontFamily: 'Inter',
     },
+    
     progressLine: {
-        width: 60,
+        width: 30,
         height: 2,
         backgroundColor: '#D1D5DB',
         marginHorizontal: 8,
@@ -224,7 +246,7 @@ const styles = StyleSheet.create({
     progressLabelsRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: 277,
+        width: 370,
         marginTop: 8,
     },
     progressLabel: {
@@ -242,7 +264,7 @@ const styles = StyleSheet.create({
         width: 60,
     },
     formHeader: {
-        fontSize: 24,
+        fontSize: 30,
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 25,
@@ -253,14 +275,13 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     inputGroup: {
-        marginBottom: 10,
+        marginBottom: 20,
     },
     label: {
         fontSize: 18,
         fontWeight: 'bold',
         color: '#374151',
         marginBottom: 8,
-        marginLeft: 5,
         fontFamily: 'Inter',
     },
     input: {
@@ -315,7 +336,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter',
     },
     buttonContainer: {
-        marginBottom: 5,
+        marginBottom: 20,
         alignItems: 'center',
     },
     nextButton: {
@@ -326,7 +347,7 @@ const styles = StyleSheet.create({
         marginTop: 3,
         width: 300,
         height: 50,
-        marginBottom: 5,
+        marginBottom: 12,
     },
     nextButtonText: {
         color: '#fff',
@@ -359,5 +380,4 @@ const styles = StyleSheet.create({
         color: '#137594',
     },
 });
-
-export default CustomerSignUp;
+export default RepairerSignUp;

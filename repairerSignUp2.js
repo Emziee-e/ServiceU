@@ -1,26 +1,19 @@
 import React, { useState } from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image} from 'react-native';
 
-const CustomerSignUp = ({navigation}) => {
-    const [fullName, setFullName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [gender, setGender] = useState('');
-    const [showGenderPicker, setShowGenderPicker] = useState(false);
-
-    const genderOptions = ['Male', 'Female', 'Other'];
-
-    const handleGenderSelect = (selectedGender) => {
-        setGender(selectedGender);
-        setShowGenderPicker(false);
-    };
-
+const RepairerSignUp2 = ({navigation}) => {
+    const [emailAddress, setEmailAddress] = useState('');
+    const [passWord, setPassWord] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+   
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
+
                 {/* Logo */}
                 <View style={styles.logoContainer}>
                     <Image 
-                        source={require('./assets/ServiceU Logo.png')}
+                        source={require('./assets/ServiceU_Logo.png')}
                         style={styles.logo}
                     />
                     <Text style={styles.logoText}>
@@ -33,16 +26,16 @@ const CustomerSignUp = ({navigation}) => {
                 <View style={styles.progressContainer}>
                     <View style={styles.progressTopRow}>
                         <View style={styles.circleWrapper}>
-                            <View style={[styles.progressCircle, styles.progressActive]}>
-                                <Text style={styles.progressNumberActive}>1</Text>
+                            <View style={[styles.progressCircle, styles.progressActive1]}>
+                                <Text style={styles.checkmark}>✓</Text>
                             </View>
                         </View>
 
-                        <View style={styles.progressLine} />
+                        <View style={styles.progressLineFinish} />
 
                         <View style={styles.circleWrapper}>
-                            <View style={styles.progressCircle}>
-                                <Text style={styles.progressNumber}>2</Text>
+                            <View style={[styles.progressCircle, styles.progressActive]}>
+                                <Text style={styles.progressNumberActive}>2</Text>
                             </View>
                         </View>
 
@@ -53,95 +46,92 @@ const CustomerSignUp = ({navigation}) => {
                                 <Text style={styles.progressNumber}>3</Text>
                             </View>
                         </View>
+
+                        <View style={styles.progressLine} />
+
+                        <View style={styles.circleWrapper}>
+                            <View style={styles.progressCircle}>
+                                <Text style={styles.progressNumber}>4</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.progressLine} />
+
+                        <View style={styles.circleWrapper}>
+                            <View style={styles.progressCircle}>
+                                <Text style={styles.progressNumber}>5</Text>
+                            </View>
+                        </View>
                     </View>
 
                     <View style={styles.progressLabelsRow}>
                         <Text style={styles.progressLabelActive}>Info</Text>
-                        <Text style={styles.progressLabel}>A/C Info</Text>
+                        <Text style={styles.progressLabelActive}>A/C Info</Text>
                         <Text style={styles.progressLabel}>Address</Text>
+                        <Text style={styles.progressLabel}>Expertise</Text>
+                        <Text style={styles.progressLabel}>Verify</Text>
                     </View>
                 </View>
 
                 {/* Form Header */}
-                <Text style={styles.formHeader}>Let's get to know you!</Text>
+                <Text style={styles.formHeader}>Account Information</Text>
 
                 {/* Form Fields */}
                 <View style={styles.formContainer}>
-                    {/* Full Name */}
+
+                    {/* Email Address */}
                     <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Full Name</Text>
+                        <Text style={styles.label}>Email</Text>
                         <TextInput
                             style={styles.input}
-                            placeholder="Enter your full name"
-                            value={fullName}
-                            onChangeText={setFullName}
+                            placeholder="Enter your email address"
+                            value={emailAddress}
+                            onChangeText={setEmailAddress}
                             placeholderTextColor="#999"
                         />
                     </View>
 
-                    {/* Phone Number */}
-                    <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Phone Number</Text>
+                    {/* Password */}
+                     <View style={styles.inputGroup}>
+                        <Text style={styles.label}>Password</Text>
                         <TextInput
                             style={styles.input}
-                            placeholder="Enter your phone number"
-                            value={phoneNumber}
-                            onChangeText={setPhoneNumber}
-                            keyboardType="phone-pad"
+                            placeholder="Enter your Password"
+                            value={passWord}
+                            onChangeText={setPassWord}
                             placeholderTextColor="#999"
                         />
                     </View>
 
-                    {/* Gender */}
-                    <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Gender</Text>
-                        <TouchableOpacity 
-                            style={styles.pickerButton}
-                            onPress={() => setShowGenderPicker(!showGenderPicker)}
-                        >
-                            <Text style={[styles.pickerButtonText, !gender && styles.placeholderText]}>
-                                {gender || 'Select your gender'}
-                            </Text>
-                            <Text style={styles.dropdownIcon}>▼</Text>
-                        </TouchableOpacity>
-                        
-                        {showGenderPicker && (
-                            <View style={styles.pickerDropdown}>
-                                {genderOptions.map((option, index) => (
-                                    <TouchableOpacity
-                                        key={index}
-                                        style={styles.pickerOption}
-                                        onPress={() => handleGenderSelect(option)}
-                                    >
-                                        <Text style={styles.pickerOptionText}>{option}</Text>
-                                    </TouchableOpacity>
-                                ))}
-                            </View>
-                        )}
+                    {/* Confirm Password */}
+                     <View style={styles.inputGroup}>
+                        <Text style={styles.label}>Confirm Password</Text>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Confirm your password"
+                            value={confirmPassword}
+                            onChangeText={setConfirmPassword}
+                            placeholderTextColor="#999"
+                        />
                     </View>
                 </View>
 
                 {/* Buttons */}
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.nextButton}
-                        onPress={() => navigation.navigate('customerSignUp2')}
-                    >
-                        <Text style={styles.nextButtonText}>Next</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.cancelButton}
+                    <TouchableOpacity style={styles.previousButton}
                         onPress={() => navigation.goBack()}
                     >
-                        <Text style={styles.cancelButtonText}>Cancel</Text>
+                        <Text style={styles.previousButtonText}>Previous</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.nextButton}
+                         onPress={() => navigation.navigate('repairerSignUp3')}
+                     >
+                        <Text style={styles.nextButtonText}>Next</Text>
                     </TouchableOpacity>
                 </View>
 
-                {/* Terms and Privacy */}
-                <Text style={styles.termsText}>
-                    By continuing, you agree to our{' '}
-                    <Text style={styles.termsLink}>Terms of Service</Text>
-                    {' '}and{' '}
-                    <Text style={styles.termsLink}>Privacy Policy</Text>
-                </Text>
+                
+
             </ScrollView>
         </View>
     );
@@ -169,6 +159,7 @@ const styles = StyleSheet.create({
     },
     logoText: {
         fontSize: 50,
+        fontWeight: 'extra-bold',
         fontFamily: 'Inter-ExtraBold',
     },
     logoYellow: {
@@ -199,9 +190,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    progressActive1: {
+        borderColor: '#137594',
+        backgroundColor: '#137594',
+    },
     progressActive: {
         borderColor: '#137594',
         backgroundColor: '#FFFFFF',
+    },
+    checkmark: {
+        color: '#FFFFFF',
+        fontSize: 16,  
+        fontWeight: 'bold',
     },
     progressNumber: {
         color: '#6B7280',
@@ -216,15 +216,21 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter',
     },
     progressLine: {
-        width: 60,
+        width: 30,
         height: 2,
         backgroundColor: '#D1D5DB',
+        marginHorizontal: 8,
+    },
+    progressLineFinish: {
+        width: 30,
+        height: 2,
+        backgroundColor: '#137594',
         marginHorizontal: 8,
     },
     progressLabelsRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: 277,
+        width: 370,
         marginTop: 8,
     },
     progressLabel: {
@@ -242,7 +248,7 @@ const styles = StyleSheet.create({
         width: 60,
     },
     formHeader: {
-        fontSize: 24,
+        fontSize: 30,
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 25,
@@ -253,14 +259,13 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     inputGroup: {
-        marginBottom: 10,
+        marginBottom: 20,
     },
     label: {
         fontSize: 18,
         fontWeight: 'bold',
         color: '#374151',
         marginBottom: 8,
-        marginLeft: 5,
         fontFamily: 'Inter',
     },
     input: {
@@ -273,50 +278,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         fontFamily: 'Inter',
     },
-    pickerButton: {
-        borderWidth: 1,
-        borderColor: '#D1D5DB',
-        borderRadius: 8,
-        paddingHorizontal: 15,
-        paddingVertical: 12,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-    },
-    pickerButtonText: {
-        fontSize: 16,
-        color: '#000',
-        fontFamily: 'Inter',
-    },
-    placeholderText: {
-        color: '#999',
-    },
-    dropdownIcon: {
-        fontSize: 10,
-        color: '#6B7280',
-    },
-    pickerDropdown: {
-        borderWidth: 1,
-        borderColor: '#D1D5DB',
-        borderRadius: 8,
-        marginTop: 5,
-        backgroundColor: '#fff',
-    },
-    pickerOption: {
-        paddingHorizontal: 15,
-        paddingVertical: 12,
-        borderBottomWidth: 1,
-        borderBottomColor: '#F3F4F6',
-    },
-    pickerOptionText: {
-        fontSize: 14,
-        color: '#000',
-        fontFamily: 'Inter',
-    },
     buttonContainer: {
-        marginBottom: 5,
-        alignItems: 'center',
+        marginTop: 20,
+        marginBottom: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly'
     },
     nextButton: {
         backgroundColor: '#137594',
@@ -324,9 +290,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 3,
-        width: 300,
+        width: 140,
         height: 50,
-        marginBottom: 5,
+        marginBottom: 12,
     },
     nextButtonText: {
         color: '#fff',
@@ -334,30 +300,23 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         fontFamily: 'Inter',
     },
-    cancelButton: {
-        backgroundColor: '#fff',
-        paddingVertical: 15,
+    previousButton: {
+        backgroundColor: '#A9A9A9',
         borderRadius: 15,
         alignItems: 'center',
-        borderWidth: 2,
-        borderColor: 'transparent',
+        justifyContent: 'center',
+        marginTop: 3,
+        width: 140,
+        height: 50,
+        marginBottom: 12,
     },
-    cancelButtonText: {
-        color: '#137594',
+    previousButtonText: {
+        color: '#ffffffff',
         fontSize: 20,
         fontWeight: '600',
         fontFamily: 'Inter',
     },
-    termsText: {
-        fontSize: 13,
-        color: '#6B7280',
-        textAlign: 'center',
-        marginBottom: 20,
-        fontFamily: 'Inter',
-    },
-    termsLink: {
-        color: '#137594',
-    },
 });
+    
 
-export default CustomerSignUp;
+export default RepairerSignUp2;

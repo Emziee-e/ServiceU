@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 
-const Frontpage = () => {
+const Frontpage = ({navigation}) => {
     return (
         <View style={styles.container}>
             <View style={styles.centerContent}>
@@ -23,7 +23,9 @@ const Frontpage = () => {
             </View>
 
             <View style={styles.bottomButton}>
-                <TouchableOpacity style={styles.startButton}>
+                <TouchableOpacity style={styles.startButton}
+                    onPress={() => navigation.navigate('initialDashboard')}
+                >
                     <Text style={styles.startButtonText}>Get Started</Text>
                 </TouchableOpacity>
             </View>

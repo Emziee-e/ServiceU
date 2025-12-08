@@ -1,22 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import StackNavigation from './StackNavigation';
 
 export default function App() {
   return (
-    <>
+    <NavigationContainer>
       <StackNavigation />
-      <StatusBar style="auto" />
-    </>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-  },
-  scrollContainer: {
-    paddingVertical: 20,
-    paddingHorizontal: 16,
-  },
-});
