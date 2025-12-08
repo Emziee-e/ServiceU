@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Activity } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import customerSignUp1 from './customerSignUp1';
