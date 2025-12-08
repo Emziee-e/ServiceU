@@ -3,7 +3,6 @@ import { View, Text, ScrollView, TouchableOpacity, StyleSheet, StatusBar, Image,
 
 const ManageBookings = ({navigation}) => {
   const [activeTab, setActiveTab] = useState('Ongoing');
-  const [activeNav, setActiveNav] = useState('Jobs');
   const [expandedCategory, setExpandedCategory] = useState('Hardware');
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
@@ -30,7 +29,7 @@ const ManageBookings = ({navigation}) => {
       { id: 6, category: 'Plumbing', client: 'Ashley Alday', date: '08 Dec 2025, 07:20 AM', amount: 220.00 }
     ],
     Completed: [
-      { id: 7, category: 'Hardware', client: 'Vin Perez', date: '10 Dec 2025, 09:00 AM', amount: 320.00 },
+      
     ]
   });
 
@@ -115,7 +114,7 @@ const ManageBookings = ({navigation}) => {
       <ScrollView style={styles.jobList}>
         {jobs[activeTab].length > 0 ? (
           activeTab === 'Incoming' ? (
-            // Incoming tab with original format
+            // Incoming tab
             jobs[activeTab].map(job => (
               <TouchableOpacity key={job.id} style={styles.jobCardOriginal}
                 onPress={() => navigation.navigate("manageBookings1")}
