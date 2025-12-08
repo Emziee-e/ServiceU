@@ -84,7 +84,7 @@ export default function LoggedinUser() {
         <View style={styles.profileSection}>
           <View style={styles.profileImageContainer}>
             <Image 
-              source={require('./assets/repairer1.png')} 
+              source={require('./assets/tristan.png')} 
               style={styles.profileImage}
             />
           </View>
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#0891b2',
-    paddingTop: 55,
+    paddingTop: 65,
     paddingBottom: 20,
     paddingHorizontal: 16,
   },
