@@ -36,6 +36,16 @@ export default function EditCustomerScreen() {
     gender: 'Male',
   });
 
+   const getGenderIcon = () => {
+    if (repairerData.gender === 'Male') {
+      return require('./assets/male.png');
+    } else if (repairerData.gender === 'Female') {
+      return require('./assets/male.png');
+    } else {
+      return require('./assets/male.png');
+    }
+  };
+
   const handleBack = () => {
     console.log('Go back');
     // Navigate back to previous screen
@@ -123,7 +133,7 @@ export default function EditCustomerScreen() {
             </TouchableOpacity>
           </View>
           <Text style={styles.customerName}>
-            {customerData.name} <Image source={require('./assets/male.png')} />
+            {customerData.name} <Image source={getGenderIcon()} style={styles.genderIcon} />
           </Text>
         </View>
 
