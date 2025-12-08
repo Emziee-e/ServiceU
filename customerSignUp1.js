@@ -40,6 +40,39 @@ const CustomerSignUp = ({ navigation }) => {
                     </Text>
                 </View>
 
+                {/* Progress Indicator */}
+                <View style={styles.progressContainer}>
+                    <View style={styles.progressTopRow}>
+                        <View style={styles.circleWrapper}>
+                            <View style={[styles.progressCircle, styles.progressActive]}>
+                                <Text style={styles.progressNumberActive}>1</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.progressLine} />
+
+                        <View style={styles.circleWrapper}>
+                            <View style={styles.progressCircle}>
+                                <Text style={styles.progressNumber}>2</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.progressLine} />
+
+                        <View style={styles.circleWrapper}>
+                            <View style={styles.progressCircle}>
+                                <Text style={styles.progressNumber}>3</Text>
+                            </View>
+                        </View>
+                    </View>
+
+                    <View style={styles.progressLabelsRow}>
+                        <Text style={styles.progressLabelActive}>Info</Text>
+                        <Text style={styles.progressLabel}>A/C Info</Text>
+                        <Text style={styles.progressLabel}>Address</Text>
+                    </View>
+                </View>
+
                 {/* Form Header */}
                 <Text style={styles.formHeader}>Let's get to know you!</Text>
 

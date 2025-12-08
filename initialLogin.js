@@ -88,7 +88,7 @@ export default function InitialLogin({ navigation }) {
       <View style={{ alignSelf: 'center', marginTop: 50 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
           <Text style={styles.New}>New to Service-U?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("customerSignUp")}>
+          <TouchableOpacity onPress={() => navigation.navigate("chooseProfile")}>
             <Text style={styles.Signup}> Sign-Up</Text>
           </TouchableOpacity>
         </View>
