@@ -25,14 +25,15 @@ import BookingPricing from './bookingPricing';
 import BookingForms from './bookingForms';
 import BookingConfirm from './bookingConfirm';
 import BookingDetails from './bookingDetails';
+import AdminDashboard from './AdminDashboard';
 
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
   return (
-    <Stack.Navigator 
-        initialRouteName='frontPage'
+    <Stack.Navigator
+        initialRouteName='AdminDashboard'
         screenOptions={{ headerShown: false }}
       >
       <Stack.Screen name="customerSignUp1" component={customerSignUp1} />
@@ -59,6 +60,7 @@ const StackNavigation = () => {
       <Stack.Screen name="bookingForms" component={BookingForms} />
       <Stack.Screen name="bookingConfirm" component={BookingConfirm} />
       <Stack.Screen name="bookingDetails" component={BookingDetails} />
+      <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
     </Stack.Navigator>
   );
 };
