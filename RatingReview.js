@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
-  SafeAreaView,
   ScrollView,
   Image
 } from 'react-native';
@@ -46,7 +45,7 @@ const RatingReview = ({ navigation, route }) => {
   // Thank You Screen
   if (submitted) {
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.topColorSection} />
         <View style={styles.content}>
           <View style={styles.card}>
@@ -67,13 +66,13 @@ const RatingReview = ({ navigation, route }) => {
             </TouchableOpacity>
           </View>
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 
   // Rating Screen
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.topColorSection} />
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.content}>
@@ -154,7 +153,7 @@ const RatingReview = ({ navigation, route }) => {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

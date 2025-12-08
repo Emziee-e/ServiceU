@@ -19,6 +19,12 @@ import LoggedinUser from './loggedinUser';
 import RepairerDashboard from './repairerDashboard';
 import ManageBookings from './manageBookings';
 import ManageBookings1 from './manageBookings1';
+import BookingStep1 from './bookingStep1';
+import BookingRepairer from './bookingRepairer';
+import BookingPricing from './bookingPricing';
+import BookingForms from './bookingForms';
+import BookingConfirm from './bookingConfirm';
+import BookingDetails from './bookingDetails';
 
 
 const Stack = createNativeStackNavigator();
@@ -47,6 +53,12 @@ const StackNavigation = () => {
       <Stack.Screen name="repairerDashboard" component={RepairerDashboard} />
       <Stack.Screen name="manageBookings" component={ManageBookings} />
       <Stack.Screen name="manageBookings1" component={ManageBookings1} />
+      <Stack.Screen name="bookingStep1" component={BookingStep1} />
+      <Stack.Screen name="bookingRepairer" component={BookingRepairer} />
+      <Stack.Screen name="bookingPricing" component={BookingPricing} />
+      <Stack.Screen name="bookingForms" component={BookingForms} />
+      <Stack.Screen name="bookingConfirm" component={BookingConfirm} />
+      <Stack.Screen name="bookingDetails" component={BookingDetails} />
     </Stack.Navigator>
   );
 };

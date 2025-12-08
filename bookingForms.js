@@ -5,15 +5,15 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
   Image,
   ScrollView,
   Modal,
   Alert,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function BookingFormScreen() {
+export default function BookingForms({navigation}) {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [problem, setProblem] = useState('');
@@ -28,13 +28,11 @@ export default function BookingFormScreen() {
   };
 
   const selectedService = 'Component Replacement';
-  
-  // User's address from profile/signup (would come from context or props in real app)
   const userAddress = 'Kumintang Ibaba, Batangas City';
 
   const handleBack = () => {
     console.log('Go back');
-    // Navigate back to previous screen
+    navigation.goBack();
   };
 
   const validateInputs = () => {
@@ -62,7 +60,7 @@ export default function BookingFormScreen() {
   const handleConfirmBooking = () => {
     setModalVisible(false);
     console.log('Booking confirmed!');
-    // Navigate to success screen or perform booking API call
+    navigation.navigate('bookingConfirm');
   };
 
   const handleCancelBooking = () => {
@@ -70,13 +68,13 @@ export default function BookingFormScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
-          <Image source={require('./assets/back.png')} />
+          <Ionicons name="chevron-back" size={28} color="#173d49ff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Book</Text>
       </View>
@@ -197,7 +195,7 @@ export default function BookingFormScreen() {
                 <Image source={require('./assets/technician.png')} />
               </View>
               <View style={styles.confirmationText}>
-                <Text style={styles.confirmationLabel}>Technician</Text>
+                <Text style={styles.confirmationLabel}>Repairer</Text>
                 <Text style={styles.confirmationValue}>{technician.name}</Text>
               </View>
             </View>
@@ -250,7 +248,7 @@ export default function BookingFormScreen() {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -282,7 +280,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   headerTitle: {
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#fff',
     marginLeft: 100,
@@ -441,6 +439,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
+    marginTop: 10,
   },
   icon: {
     fontSize: 20,

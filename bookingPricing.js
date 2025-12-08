@@ -4,11 +4,11 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
   Image,
   ScrollView,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const ServiceCard = ({ title, baseFee, estimationFee, note, selected, onPress }) => (
   <TouchableOpacity 
@@ -26,7 +26,7 @@ const ServiceCard = ({ title, baseFee, estimationFee, note, selected, onPress })
   </TouchableOpacity>
 );
 
-export default function bookingPricing() {
+export default function BookingPricing({navigation}) {
   const [selectedService, setSelectedService] = useState(null);
 
   const technician = {
@@ -62,26 +62,26 @@ export default function bookingPricing() {
 
   const handleBack = () => {
     console.log('Go back');
-    // Navigate back to previous screen
+    navigation.goBack();
   };
 
   const handleBook = () => {
     if (selectedService) {
       console.log('Booking service:', selectedService);
-      // Navigate to next step (date/time selection, payment, etc.)
+      navigation.navigate('bookingForms');
     } else {
       alert('Please select a service');
     }
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
-          <Image source={require('./assets/back.png')} />
+          <Ionicons name="chevron-back" size={28} color="#173d49ff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Book</Text>
       </View>
@@ -126,7 +126,7 @@ export default function bookingPricing() {
           />
         ))}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   headerTitle: {
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#fff',
     marginLeft: 100,
