@@ -4,12 +4,12 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
   Image,
   ScrollView,
   FlatList,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const FilterButton = ({ label, active, onPress }) => (
   <TouchableOpacity 
@@ -48,7 +48,7 @@ const NavButton = ({ icon, label, active, onPress }) => (
   </TouchableOpacity>
 );
 
-export default function bookingTechnicians() {
+export default function BookingRepairer({navigation}) {
   const [selectedFilter, setSelectedFilter] = useState('Most Relevant');
 
   const technicians = [
@@ -77,22 +77,22 @@ export default function bookingTechnicians() {
 
   const handleBook = (technicianName) => {
     console.log('Booking:', technicianName);
-    // Navigate to booking confirmation or next step
+    navigation.navigate('bookingPricing');
   };
 
   const handleBack = () => {
     console.log('Go back');
-    // Navigate back to previous screen
+    navigation.goBack();
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
-          <Image source={require('./assets/back.png')} />
+          <Ionicons name="chevron-back" size={28} color="#173d49ff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Booking</Text>
       </View>
@@ -162,7 +162,7 @@ export default function bookingTechnicians() {
           active={false} 
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -194,9 +194,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   headerTitle: {
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#fff',
+    marginLeft: 10
   },
   filtersContainer: {
     backgroundColor: '#fff',

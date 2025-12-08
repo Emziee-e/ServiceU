@@ -6,7 +6,6 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
   Image,
 } from 'react-native';
@@ -30,8 +29,8 @@ const RepairerCard = ({ imageSource, name, service, rating }) => (
   </TouchableOpacity>
 );
 
-const NavButton = ({ imageSource, label, active }) => (
-  <TouchableOpacity style={styles.navButton}>
+const NavButton = ({ imageSource, label, active, onPress }) => (
+  <TouchableOpacity style={styles.navButton} onPress={onPress}>
     <Image 
       source={imageSource} 
       style={[styles.navIcon, active && styles.navIconActive]} 
@@ -42,7 +41,7 @@ const NavButton = ({ imageSource, label, active }) => (
   </TouchableOpacity>
 );
 
-export default function LoggedinUser() {
+export default function LoggedinUser({navigation}) {
   const [searchQuery, setSearchQuery] = useState('');
 
   const services = [
@@ -78,14 +77,14 @@ export default function LoggedinUser() {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
        <View style={styles.header}>
         <View style={styles.profileSection}>
           <View style={styles.profileImageContainer}>
             <Image 
-              source={require('./assets/tristan.jpg')} 
+              source={require('./assets/tristan.png')} 
               style={styles.profileImage}
             />
           </View>
@@ -150,11 +149,11 @@ export default function LoggedinUser() {
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <NavButton imageSource={require('./assets/home.png')} label="Home" active={true} />
-        <NavButton imageSource={require('./assets/activity.png')} label="Activity" active={false} />
-        <NavButton imageSource={require('./assets/book.png')} label="Book" active={false} />
+        <NavButton imageSource={require('./assets/activity.png')} label="Activity" active={false} onPress={() => navigation.navigate("activityScreen1")} />
+        <NavButton imageSource={require('./assets/book.png')} label="Book" active={false} onPress={() => navigation.navigate("bookingStep1")} />
         <NavButton imageSource={require('./assets/settings.png')} label="Settings" active={false} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -165,7 +164,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#0891b2',
-    paddingTop: 55,
+    paddingTop: 65,
     paddingBottom: 20,
     paddingHorizontal: 16,
   },

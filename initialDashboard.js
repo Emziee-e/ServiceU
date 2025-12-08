@@ -6,7 +6,6 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
   Image,
   Modal,
@@ -43,7 +42,7 @@ const NavButton = ({ imageSource, label, active, onPress }) => (
   </TouchableOpacity>
 );
 
-export default function App() {
+export default function InitialDashboard({navigation}) {
   const [searchQuery, setSearchQuery] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -57,6 +56,7 @@ export default function App() {
 
   const handleLogin = () => {
     // Handle login logic here
+    navigation.navigate('initialLogin')
     setModalVisible(false);
     // Navigate to main app or perform authentication
   };
@@ -95,7 +95,7 @@ export default function App() {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
       {/* Header */}
@@ -202,7 +202,7 @@ export default function App() {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+    </View>
   );
 }
 

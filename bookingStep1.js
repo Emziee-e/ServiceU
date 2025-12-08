@@ -4,7 +4,6 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
   Image,
   ScrollView,
@@ -40,7 +39,7 @@ const NavButton = ({ icon, label, active, onPress }) => (
   </TouchableOpacity>
 );
 
-export default function bookingStep1() {
+export default function BookingStep1({navigation}) {
   const [selectedCategory, setSelectedCategory] = useState('Hardware');
 
   const categories = [
@@ -66,11 +65,11 @@ export default function bookingStep1() {
 
   const handleContinue = () => {
     console.log('Selected category:', selectedCategory);
-    // Navigate to next screen or perform action
+    navigation.navigate('bookingRepairer');
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
       {/* Header */}
@@ -111,11 +110,13 @@ export default function bookingStep1() {
           icon={require('./assets/home1.png')} 
           label="Home" 
           active={false} 
+          onPress={() => navigation.navigate('loggedinUser')}
         />
         <NavButton 
           icon={require('./assets/activity.png')} 
           label="Activity" 
-          active={false} 
+          active={false}
+          onPress={() => navigation.navigate("activityScreen1")}
         />
         <NavButton 
           icon={require('./assets/book1.png')} 
@@ -128,7 +129,7 @@ export default function bookingStep1() {
           active={false} 
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   headerTitle: {
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#fff',
   },
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   sectionTitle: {
-    fontSize: 30,
+    fontSize: 27,
     fontWeight: '600',
     color: '#000',
     marginTop: 24,
@@ -193,13 +194,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   categoryTitle: {
-    fontSize: 27,
+    fontSize: 22,
     fontWeight: '600',
     color: '#000',
     marginBottom: 4,
   },
   categoryDescription: {
-    fontSize: 12,
+    fontSize: 14,
     color: '#64748b',
     lineHeight: 16,
   },

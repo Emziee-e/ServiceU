@@ -1,39 +1,18 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Alert} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image} from 'react-native';
 
-const CustomerSignUp2 = ({navigation, route}) => {
-    const { customer_fullName, customer_phoneNum, customer_gender } = route.params;
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-
-    const handleNext = () => {
-        if (!email || !password || !confirmPassword) {
-            Alert.alert("Error", "Please fill in all fields");
-            return;
-        }
-
-        if (password !== confirmPassword) {
-            Alert.alert("Error", "Passwords do not match");
-            return;
-        }
-
-        navigation.navigate('customerSignUp3', {
-            customer_fullName,
-            customer_phoneNum,
-            customer_gender,
-            customer_email: email,
-            customer_password: password
-        });
-    };
-
+const RepairerSignUp3 = ({navigation}) => {
+    const [address, setAddress] = useState('');
+    
+   
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
+
                 {/* Logo */}
                 <View style={styles.logoContainer}>
                     <Image 
-                        source={require('./assets/ServiceU Logo.png')}
+                        source={require('./assets/ServiceU_Logo.png')}
                         style={styles.logo}
                     />
                     <Text style={styles.logoText}>
@@ -45,77 +24,69 @@ const CustomerSignUp2 = ({navigation, route}) => {
                 {/* Progress Indicator */}
                 <View style={styles.progressContainer}>
                     <View style={styles.progressTopRow}>
-
                         <View style={styles.circleWrapper}>
                             <View style={[styles.progressCircle, styles.progressActive1]}>
                                 <Text style={styles.checkmark}>✓</Text>
                             </View>
                         </View>
-                
+
                         <View style={styles.progressLineFinish} />
-                
+
                         <View style={styles.circleWrapper}>
-                            <View style={[styles.progressCircle, styles.progressActive]}>
-                                <Text style={styles.progressNumberActive}>2</Text>
+                            <View style={[styles.progressCircle, styles.progressActive1]}>
+                                 <Text style={styles.checkmark}>✓</Text>
                             </View>
                         </View>
-                
+
+                        <View style={styles.progressLineFinish} />
+
+                        <View style={styles.circleWrapper}>
+                                <View style={[styles.progressCircle, styles.progressActive]}>
+                                <Text style={styles.progressNumberActive}>3</Text>
+                            </View>
+                        </View>
+
                         <View style={styles.progressLine} />
-                
+
                         <View style={styles.circleWrapper}>
                             <View style={styles.progressCircle}>
-                                <Text style={styles.progressNumber}>3</Text>
+                                <Text style={styles.progressNumber}>4</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.progressLine} />
+
+                        <View style={styles.circleWrapper}>
+                            <View style={styles.progressCircle}>
+                                <Text style={styles.progressNumber}>5</Text>
                             </View>
                         </View>
                     </View>
-                
+
                     <View style={styles.progressLabelsRow}>
                         <Text style={styles.progressLabelActive}>Info</Text>
                         <Text style={styles.progressLabelActive}>A/C Info</Text>
-                        <Text style={styles.progressLabel}>Address</Text>
-                        </View>
+                        <Text style={styles.progressLabelActive}>Address</Text>
+                        <Text style={styles.progressLabel}>Expertise</Text>
+                        <Text style={styles.progressLabel}>Verify</Text>
+                    </View>
                 </View>
 
                 {/* Form Header */}
-                <Text style={styles.formHeader}>Account Information</Text>
+                <Text style={styles.formHeader}>Where can we find you?</Text>
 
                 {/* Form Fields */}
                 <View style={styles.formContainer}>
-                    {/* Email Address */}
+
+                    {/* Address */}
                     <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Email Address</Text>
+                        <Text style={styles.label}>Address</Text>
                         <TextInput
                             style={styles.input}
-                            placeholder="Enter your email address"
-                            value={email}
-                            onChangeText={setEmail}
+                            placeholder="Enter your address"
+                            value={address}
+                            onChangeText={setAddress}
                             placeholderTextColor="#999"
-                            keyboardType="email-address"
-                            autoCapitalize="none"
-                        />
-                    </View>
-
-                    {/* Password */}
-                    <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Password</Text>
-                        <TextInput style={styles.input}
-                            placeholder="Enter your password"
-                            value={password}
-                            onChangeText={setPassword}
-                            placeholderTextColor="#999"
-                            secureTextEntry={true}
-                        />
-                    </View>
-
-                    {/* Confirm Password */}
-                    <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Confirm Password</Text>
-                        <TextInput style={styles.input}
-                            placeholder="Confirm your password"
-                            value={confirmPassword}
-                            onChangeText={setConfirmPassword}
-                            placeholderTextColor="#999"
-                            secureTextEntry={true}
                         />
                     </View>
                 </View>
@@ -128,11 +99,14 @@ const CustomerSignUp2 = ({navigation, route}) => {
                         <Text style={styles.previousButtonText}>Previous</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.nextButton}
-                        onPress={handleNext}
-                    >
+                         onPress={() => navigation.navigate('repairerSignUp4')}
+                     >
                         <Text style={styles.nextButtonText}>Next</Text>
                     </TouchableOpacity>
                 </View>
+
+                
+
             </ScrollView>
         </View>
     );
@@ -160,6 +134,7 @@ const styles = StyleSheet.create({
     },
     logoText: {
         fontSize: 50,
+        fontWeight: 'extra-bold',
         fontFamily: 'Inter-ExtraBold',
     },
     logoYellow: {
@@ -202,7 +177,7 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 16,  
         fontWeight: 'bold',
-        },
+    },
     progressNumber: {
         color: '#6B7280',
         fontSize: 14,
@@ -216,13 +191,13 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter',
     },
     progressLine: {
-        width: 60,
+        width: 30,
         height: 2,
         backgroundColor: '#D1D5DB',
         marginHorizontal: 8,
     },
     progressLineFinish: {
-        width: 60,
+        width: 30,
         height: 2,
         backgroundColor: '#137594',
         marginHorizontal: 8,
@@ -230,7 +205,7 @@ const styles = StyleSheet.create({
     progressLabelsRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: 277,
+        width: 370,
         marginTop: 8,
     },
     progressLabel: {
@@ -243,13 +218,12 @@ const styles = StyleSheet.create({
     progressLabelActive: {
         fontSize: 14,
         color: '#137594',
-        fontWeight: '600',
         fontFamily: 'Inter',
         textAlign: 'center',
         width: 60,
     },
     formHeader: {
-        fontSize: 24,
+        fontSize: 30,
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 25,
@@ -294,6 +268,7 @@ const styles = StyleSheet.create({
         width: 140,
         height: 50,
         marginBottom: 12,
+         marginTop: 210,
     },
     nextButtonText: {
         color: '#fff',
@@ -310,6 +285,7 @@ const styles = StyleSheet.create({
         width: 140,
         height: 50,
         marginBottom: 12,
+        marginTop: 210,
     },
     previousButtonText: {
         color: '#ffffffff',
@@ -318,5 +294,6 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter',
     },
 });
+    
 
-export default CustomerSignUp2;
+export default RepairerSignUp3;

@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image} from 'react-native';
 
-const RepairerSignUp2 = ({navigation}) => {
-    const [emailAddress, setEmailAddress] = useState('');
-    const [passWord, setPassWord] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+const RepairerSignUp4 = ({navigation}) => {
+    const [selectedExpertise, setSelectedExpertise] = useState([]);
+    
+    const toggleExpertise = (expertise) => {
+        if (selectedExpertise.includes(expertise)) {
+            setSelectedExpertise(selectedExpertise.filter(item => item !== expertise));
+        } else {
+            setSelectedExpertise([...selectedExpertise, expertise]);
+        }
+    };
    
     return (
         <View style={styles.container}>
@@ -34,24 +40,24 @@ const RepairerSignUp2 = ({navigation}) => {
                         <View style={styles.progressLineFinish} />
 
                         <View style={styles.circleWrapper}>
+                            <View style={[styles.progressCircle, styles.progressActive1]}>
+                                 <Text style={styles.checkmark}>✓</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.progressLineFinish} />
+
+                        <View style={styles.circleWrapper}>
+                                <View style={[styles.progressCircle, styles.progressActive1]}>
+                                <Text style={styles.checkmark}>✓</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.progressLineFinish} />
+
+                        <View style={styles.circleWrapper}>
                             <View style={[styles.progressCircle, styles.progressActive]}>
-                                <Text style={styles.progressNumberActive}>2</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.progressLine} />
-
-                        <View style={styles.circleWrapper}>
-                            <View style={styles.progressCircle}>
-                                <Text style={styles.progressNumber}>3</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.progressLine} />
-
-                        <View style={styles.circleWrapper}>
-                            <View style={styles.progressCircle}>
-                                <Text style={styles.progressNumber}>4</Text>
+                                <Text style={styles.progressNumberActive}>4</Text>
                             </View>
                         </View>
 
@@ -67,52 +73,91 @@ const RepairerSignUp2 = ({navigation}) => {
                     <View style={styles.progressLabelsRow}>
                         <Text style={styles.progressLabelActive}>Info</Text>
                         <Text style={styles.progressLabelActive}>A/C Info</Text>
-                        <Text style={styles.progressLabel}>Address</Text>
-                        <Text style={styles.progressLabel}>Expertise</Text>
+                        <Text style={styles.progressLabelActive}>Address</Text>
+                        <Text style={styles.progressLabelActive}>Expertise</Text>
                         <Text style={styles.progressLabel}>Verify</Text>
                     </View>
                 </View>
 
                 {/* Form Header */}
-                <Text style={styles.formHeader}>Account Information</Text>
+                <Text style={styles.formHeader}>Almost there! Select your expertise</Text>
 
                 {/* Form Fields */}
                 <View style={styles.formContainer}>
 
-                    {/* Email Address */}
-                    <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Email</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Enter your email address"
-                            value={emailAddress}
-                            onChangeText={setEmailAddress}
-                            placeholderTextColor="#999"
-                        />
-                    </View>
+                    {/* Expertise Options */}
+                    <View style={styles.expertiseContainer}>
+                        {/* Hardware */}
+                        <TouchableOpacity 
+                            style={styles.expertiseOption}
+                            onPress={() => toggleExpertise('Hardware')}
+                        >
+                            <View style={styles.expertiseLeft}>
+                                <View style={styles.iconContainer}>
+                                    <Image 
+                                        source={require('./assets/hardware.png')}
+                                        style={styles.iconImage}
+                                    />
+                                </View>
+                                <Text style={styles.expertiseText}>Hardware</Text>
+                            </View>
+                            <View style={[
+                                styles.checkbox,
+                                selectedExpertise.includes('Hardware') && styles.checkboxSelected
+                            ]}>
+                                {selectedExpertise.includes('Hardware') && (
+                                    <Text style={styles.checkboxCheck}>✓</Text>
+                                )}
+                            </View>
+                        </TouchableOpacity>
 
-                    {/* Password */}
-                     <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Password</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Enter your Password"
-                            value={passWord}
-                            onChangeText={setPassWord}
-                            placeholderTextColor="#999"
-                        />
-                    </View>
+                        {/* Plumbing */}
+                        <TouchableOpacity 
+                            style={styles.expertiseOption}
+                            onPress={() => toggleExpertise('Plumbing')}
+                        >
+                            <View style={styles.expertiseLeft}>
+                                <View style={styles.iconContainer}>
+                                    <Image 
+                                        source={require('./assets/plumbing.png')}
+                                        style={styles.iconImage}
+                                    />
+                                </View>
+                                <Text style={styles.expertiseText}>Plumbing</Text>
+                            </View>
+                            <View style={[
+                                styles.checkbox,
+                                selectedExpertise.includes('Plumbing') && styles.checkboxSelected
+                            ]}>
+                                {selectedExpertise.includes('Plumbing') && (
+                                    <Text style={styles.checkboxCheck}>✓</Text>
+                                )}
+                            </View>
+                        </TouchableOpacity>
 
-                    {/* Confirm Password */}
-                     <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Confirm Password</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Confirm your password"
-                            value={confirmPassword}
-                            onChangeText={setConfirmPassword}
-                            placeholderTextColor="#999"
-                        />
+                        {/* Electrical */}
+                        <TouchableOpacity 
+                            style={styles.expertiseOption}
+                            onPress={() => toggleExpertise('Electrical')}
+                        >
+                            <View style={styles.expertiseLeft}>
+                                <View style={styles.iconContainer}>
+                                    <Image 
+                                        source={require('./assets/electrical.png')}
+                                        style={styles.iconImage}
+                                    />
+                                </View>
+                                <Text style={styles.expertiseText}>Electrical</Text>
+                            </View>
+                            <View style={[
+                                styles.checkbox,
+                                selectedExpertise.includes('Electrical') && styles.checkboxSelected
+                            ]}>
+                                {selectedExpertise.includes('Electrical') && (
+                                    <Text style={styles.checkboxCheck}>✓</Text>
+                                )}
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
 
@@ -124,13 +169,11 @@ const RepairerSignUp2 = ({navigation}) => {
                         <Text style={styles.previousButtonText}>Previous</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.nextButton}
-                         onPress={() => navigation.navigate('repairerSignUp3')}
+                         onPress={() => navigation.navigate('repairerSignUp5')}
                      >
                         <Text style={styles.nextButtonText}>Next</Text>
                     </TouchableOpacity>
                 </View>
-
-                
 
             </ScrollView>
         </View>
@@ -258,25 +301,62 @@ const styles = StyleSheet.create({
     formContainer: {
         marginBottom: 20,
     },
-    inputGroup: {
+    expertiseContainer: {
         marginBottom: 20,
     },
-    label: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#374151',
-        marginBottom: 8,
-        fontFamily: 'Inter',
-    },
-    input: {
+    expertiseOption: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingVertical: 15,
+        paddingHorizontal: 15,
         borderWidth: 1,
         borderColor: '#D1D5DB',
         borderRadius: 8,
-        paddingHorizontal: 15,
-        paddingVertical: 12,
-        fontSize: 16,
+        marginBottom: 12,
         backgroundColor: '#fff',
+    },
+    expertiseLeft: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    iconContainer: {
+        width: 40,
+        height: 40,
+        borderRadius: 8,
+        backgroundColor: '#E5F3F7',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 12,
+    },
+    iconImage: {
+        width: 30,
+        height: 30,
+        resizeMode: 'contain',
+    },
+    expertiseText: {
+        fontSize: 16,
+        color: '#374151',
         fontFamily: 'Inter',
+        fontWeight: '500',
+    },
+    checkbox: {
+        width: 24,
+        height: 24,
+        borderWidth: 2,
+        borderColor: '#D1D5DB',
+        borderRadius: 4,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    checkboxSelected: {
+        backgroundColor: '#137594',
+        borderColor: '#137594',
+    },
+    checkboxCheck: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
     buttonContainer: {
         marginTop: 20,
@@ -293,6 +373,7 @@ const styles = StyleSheet.create({
         width: 140,
         height: 50,
         marginBottom: 12,
+        marginTop: -20,
     },
     nextButtonText: {
         color: '#fff',
@@ -309,6 +390,7 @@ const styles = StyleSheet.create({
         width: 140,
         height: 50,
         marginBottom: 12,
+        marginTop: -20,
     },
     previousButtonText: {
         color: '#ffffffff',
@@ -319,4 +401,4 @@ const styles = StyleSheet.create({
 });
     
 
-export default RepairerSignUp2;
+export default RepairerSignUp4;
