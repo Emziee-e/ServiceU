@@ -149,7 +149,7 @@ export default function LoggedinUser({navigation}) {
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <NavButton imageSource={require('./assets/home.png')} label="Home" active={true} />
-        <NavButton imageSource={require('./assets/activity.png')} label="Activity" active={false} />
+        <NavButton imageSource={require('./assets/activity.png')} label="Activity" active={false} onPress={() => navigation.navigate("activityScreen1")} />
         <NavButton imageSource={require('./assets/book.png')} label="Book" active={false} onPress={() => navigation.navigate("bookingStep1")} />
         <NavButton imageSource={require('./assets/settings.png')} label="Settings" active={false} />
       </View>

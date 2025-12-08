@@ -25,6 +25,8 @@ import BookingPricing from './bookingPricing';
 import BookingForms from './bookingForms';
 import BookingConfirm from './bookingConfirm';
 import BookingDetails from './bookingDetails';
+import ActivityScreen1 from './ActivityScreen1';
+import RatingReview from './RatingReview';
 
 
 const Stack = createNativeStackNavigator();
@@ -59,6 +61,8 @@ const StackNavigation = () => {
       <Stack.Screen name="bookingForms" component={BookingForms} />
       <Stack.Screen name="bookingConfirm" component={BookingConfirm} />
       <Stack.Screen name="bookingDetails" component={BookingDetails} />
+      <Stack.Screen name="activityScreen1" component={ActivityScreen1} />
+      <Stack.Screen name="ratingReview" component={RatingReview} />
     </Stack.Navigator>
   );
 };

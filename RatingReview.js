@@ -14,7 +14,6 @@ const RatingReview = ({ navigation, route }) => {
   const [review, setReview] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  // Get repairer info from route params if available
   const repairerName = route?.params?.repairerName || 'repairer';
   const serviceType = route?.params?.serviceType || '';
 
@@ -33,13 +32,11 @@ const RatingReview = ({ navigation, route }) => {
   };
 
   const handleSkip = () => {
-    // Navigate back to home or activity screen
-    navigation.navigate('Home');
+    navigation.navigate("loggedinUser")
   };
 
   const handleBackToHome = () => {
-    // Navigate to home screen
-    navigation.navigate('Home');
+    navigation.navigate("loggedinUser")
   };
 
   // Thank You Screen

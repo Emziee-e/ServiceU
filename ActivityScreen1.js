@@ -4,7 +4,6 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   FlatList,
   Image,
   Platform,
@@ -97,6 +96,7 @@ const ActivityScreen1 = ({ navigation }) => {
   const handleStatusButton = (activity, buttonText) => {
     if (buttonText === 'Rate') {
       console.log('Navigate to RatingReview for:', activity.repairerName);
+      navigation.navigate("ratingReview")
     } else if (buttonText === 'Rebook') {
       console.log('Rebook:', activity.repairerName);
     } else if (buttonText === 'Cancel') {
@@ -189,7 +189,7 @@ const ActivityScreen1 = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
 
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton}>
@@ -228,7 +228,7 @@ const ActivityScreen1 = ({ navigation }) => {
       />
 
       <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate("loggedinUser")}>
           <Image
             source={navIcons.home}
             style={styles.navIcon}
@@ -244,7 +244,7 @@ const ActivityScreen1 = ({ navigation }) => {
           />
           <Text style={styles.navTextActive}>Activity</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate("bookingStep1")}>
           <Image
             source={navIcons.book}
             style={styles.navIcon}
@@ -261,7 +261,7 @@ const ActivityScreen1 = ({ navigation }) => {
           <Text style={styles.navText}>Settings</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

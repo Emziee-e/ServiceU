@@ -115,7 +115,8 @@ export default function BookingStep1({navigation}) {
         <NavButton 
           icon={require('./assets/activity.png')} 
           label="Activity" 
-          active={false} 
+          active={false}
+          onPress={() => navigation.navigate("activityScreen1")}
         />
         <NavButton 
           icon={require('./assets/book1.png')} 
