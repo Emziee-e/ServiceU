@@ -11,6 +11,7 @@ import {
   Image,
   Modal,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const RepairerCard = ({ repairer, onExpand, expanded, onApprove, onReject }) => (
   <View style={styles.repairerCard}>
@@ -139,7 +140,7 @@ export default function verifyRepairer() {
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <TouchableOpacity style={styles.backButton} onPress={handleBack}>
-            <Image source={require('./assets/back.png')} />
+            <Ionicons name="chevron-back" size={28} color="#173d49ff" />
           </TouchableOpacity>
           <View>
             <Text style={styles.headerTitle}>Pending</Text>

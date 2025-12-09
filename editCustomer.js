@@ -11,6 +11,7 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const InfoField = ({ label, value, editable = false, onPress }) => (
   <View style={styles.infoField}>
@@ -26,7 +27,7 @@ const InfoField = ({ label, value, editable = false, onPress }) => (
   </View>
 );
 
-export default function EditCustomerScreen() {
+export default function EditCustomerScreen({navigation}) {
   const [customerData, setCustomerData] = useState({
     name: 'Tristan Jay Mirano',
     emoji: require('./assets/male.png'),
@@ -109,7 +110,7 @@ export default function EditCustomerScreen() {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
-          <Image source={require('./assets/back.png')} />
+          <Ionicons name="chevron-back" size={28} color="#173d49ff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Edit Customer</Text>
       </View>
@@ -122,7 +123,7 @@ export default function EditCustomerScreen() {
         <View style={styles.profileSection}>
           <View style={styles.profileImageContainer}>
             <Image 
-              source={require('./assets/tristan.jpg')} 
+              source={require('./assets/tristan.png')} 
               style={styles.profileImage}
             />
             <TouchableOpacity 

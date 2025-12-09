@@ -11,6 +11,7 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const InfoField = ({ label, value, editable = false, onPress }) => (
   <View style={styles.infoField}>
@@ -26,7 +27,7 @@ const InfoField = ({ label, value, editable = false, onPress }) => (
   </View>
 );
 
-export default function editRepairer() {
+export default function editRepairer({navigation}) {
   const [repairerData, setRepairerData] = useState({
     name: 'Luis Fernando',
     email: 'luis.fernando@gmail.com',
@@ -114,7 +115,7 @@ export default function editRepairer() {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
-          <Image source={require('./assets/back.png')} />
+          <Ionicons name="chevron-back" size={28} color="#173d49ff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Edit Repairer</Text>
       </View>

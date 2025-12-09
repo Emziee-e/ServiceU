@@ -10,6 +10,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const FilterButton = ({ label, active, onPress }) => (
   <TouchableOpacity 
@@ -133,7 +134,7 @@ export default function manageCustomers() {
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <TouchableOpacity style={styles.backButton} onPress={handleBack}>
-            <Image source={require('./assets/back.png')} />
+            <Ionicons name="chevron-back" size={28} color="#173d49ff" />
           </TouchableOpacity>
           <View>
             <Text style={styles.headerTitle}>Customer</Text>
