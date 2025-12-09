@@ -8,13 +8,11 @@ import initialDashboard from './initialDashboard';
 import Frontpage from './Frontpage';
 import InitialLogin from './initialLogin';
 import ChooseProfile from './ChooseProfile';
-import CustomerLogin from './customerLogin';
 import RepairerSignUp from './repairerSignUp1';
 import RepairerSignUp2 from './repairerSignUp2';
 import RepairerSignUp3 from './repairerSignUp3';
 import RepairerSignUp4 from './repairerSignUp4';
 import RepairerSignUp5 from './repairerSignUp5';
-import RepairerLogin from './repairerLogin';
 import LoggedinUser from './loggedinUser';
 import RepairerDashboard from './repairerDashboard';
 import ManageBookings from './manageBookings';
@@ -44,13 +42,11 @@ const StackNavigation = () => {
       <Stack.Screen name="frontPage" component={Frontpage} />
       <Stack.Screen name="initialLogin" component={InitialLogin} />
       <Stack.Screen name="chooseProfile" component={ChooseProfile} />
-      <Stack.Screen name="customerLogin" component={CustomerLogin} />
       <Stack.Screen name="repairerSignUp1" component={RepairerSignUp} />
       <Stack.Screen name="repairerSignUp2" component={RepairerSignUp2} />
       <Stack.Screen name="repairerSignUp3" component={RepairerSignUp3} />
       <Stack.Screen name="repairerSignUp4" component={RepairerSignUp4} />
       <Stack.Screen name="repairerSignUp5" component={RepairerSignUp5} />
-      <Stack.Screen name="repairerLogin" component={RepairerLogin} />
       <Stack.Screen name="loggedinUser" component={LoggedinUser} />
       <Stack.Screen name="repairerDashboard" component={RepairerDashboard} />
       <Stack.Screen name="manageBookings" component={ManageBookings} />
