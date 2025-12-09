@@ -61,8 +61,15 @@ const ActivityItem = ({ activity }) => {
 
       <View style={styles.activityRight}>
         {activity.price && (
-          <Text style={styles.activityPrice}>₱{activity.price}</Text>
-        )}
+  <Text
+    style={[
+      styles.activityPrice,
+      activity.filterStatus === 'Cancelled' && styles.cancelledPrice,
+    ]}
+  >
+    ₱{activity.price}
+  </Text>
+)}
         {statusStyle && (
           <TouchableOpacity 
             style={[styles.statusButton, { backgroundColor: statusStyle.backgroundColor }]}
@@ -464,4 +471,9 @@ const styles = StyleSheet.create({
     color: '#0891b2',
     fontWeight: '500',
   },
+  cancelledPrice: {
+  textDecorationLine: 'line-through',
+  color: '#f59e0b',
+},
+
 });
