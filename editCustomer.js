@@ -1,0 +1,335 @@
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  StatusBar,
+  Image,
+  ScrollView,
+  Alert,
+} from 'react-native';
+
+const InfoField = ({ label, value, editable = false, onPress }) => (
+  <View style={styles.infoField}>
+    <Text style={styles.fieldLabel}>{label}</Text>
+    <View style={styles.fieldValueContainer}>
+      <Text style={styles.fieldValue}>{value}</Text>
+      {editable && (
+        <TouchableOpacity onPress={onPress} style={styles.editIcon}>
+          <Image source={require('./assets/pencil.png')} />
+        </TouchableOpacity>
+      )}
+    </View>
+  </View>
+);
+
+export default function EditCustomerScreen() {
+  const [customerData, setCustomerData] = useState({
+    name: 'Tristan Jay Mirano',
+    emoji: require('./assets/male.png'),
+    email: 'tristan.mirano@gmail.com',
+    phone: '09653216532',
+    address: 'Kumintang Ibaba, Batangas City',
+    gender: 'Male',
+  });
+
+   const getGenderIcon = () => {
+    if (repairerData.gender === 'Male') {
+      return require('./assets/male.png');
+    } else if (repairerData.gender === 'Female') {
+      return require('./assets/male.png');
+    } else {
+      return require('./assets/male.png');
+    }
+  };
+
+  const handleBack = () => {
+    console.log('Go back');
+    // Navigate back to previous screen
+  };
+
+  const handleEditPhoto = () => {
+    console.log('Edit profile photo');
+    // Open image picker
+  };
+
+  const handleEditAddress = () => {
+    console.log('Edit address');
+    // Open address edit modal or screen
+  };
+
+  const handleEditGender = () => {
+    console.log('Edit gender');
+    // Open gender selection modal
+  };
+
+  const handleSaveChanges = () => {
+    Alert.alert(
+      'Save Changes',
+      'Are you sure you want to save these changes?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { 
+          text: 'Save', 
+          onPress: () => {
+            console.log('Saving changes:', customerData);
+            // Save to database/API
+            Alert.alert('Success', 'Changes saved successfully!');
+          }
+        },
+      ]
+    );
+  };
+
+  const handleDeleteAccount = () => {
+    Alert.alert(
+      'Delete Account',
+      'Are you sure you want to delete this account? This action cannot be undone.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { 
+          text: 'Delete', 
+          style: 'destructive',
+          onPress: () => {
+            console.log('Deleting account');
+            // Delete account logic
+          }
+        },
+      ]
+    );
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
+      
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+          <Image source={require('./assets/back.png')} />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Edit Customer</Text>
+      </View>
+
+      {/* Header Extension (for overlap effect) */}
+      <View style={styles.headerExtension} />
+
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        {/* Profile Photo - Overlapping */}
+        <View style={styles.profileSection}>
+          <View style={styles.profileImageContainer}>
+            <Image 
+              source={require('./assets/tristan.jpg')} 
+              style={styles.profileImage}
+            />
+            <TouchableOpacity 
+              style={styles.editPhotoButton} 
+              onPress={handleEditPhoto}
+            >
+              <Image source={require('./assets/pencil1.png')} style={styles.pencil}/>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.customerName}>
+            {customerData.name} <Image source={getGenderIcon()} style={styles.genderIcon} />
+          </Text>
+        </View>
+
+        {/* Contact Information Section */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Contact Information</Text>
+          <InfoField label="Email" value={customerData.email} />
+          <InfoField label="Phone Number" value={customerData.phone} />
+        </View>
+
+        {/* Personal Details Section */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Personal Details</Text>
+          <InfoField 
+            label="Address" 
+            value={customerData.address} 
+            editable 
+            onPress={handleEditAddress}
+          />
+          <InfoField 
+            label="Gender" 
+            value={customerData.gender} 
+            editable 
+            onPress={handleEditGender}
+          />
+        </View>
+
+        {/* Action Buttons */}
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity 
+            style={styles.saveButton} 
+            onPress={handleSaveChanges}
+          >
+            <Text style={styles.saveButtonText}>Save Changes</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={styles.deleteButton} 
+            onPress={handleDeleteAccount}
+          >
+            <Text style={styles.deleteButtonText}>Delete Account</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f8fafc',
+  },
+  header: {
+    backgroundColor: '#0891b2',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 50,
+  },
+  backButton: {
+    width: 40,
+    height: 40,
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 16,
+  },
+  backArrow: {
+    fontSize: 20,
+    color: '#0891b2',
+    fontWeight: 'bold',
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    paddingLeft: 72,
+  },
+  headerExtension: {
+    backgroundColor: '#0891b2',
+    height: 65,
+  },
+  content: {
+    flex: 1,
+    marginTop: -80,
+  },
+  profileSection: {
+    alignItems: 'center',
+    paddingTop: 20,
+    paddingBottom: 24,
+    backgroundColor: 'transparent',
+  },
+  profileImageContainer: {
+    position: 'relative',
+    marginBottom: 12,
+  },
+  profileImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: '#fff',
+  },
+  editPhotoButton: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#0891b2',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  editPhotoIcon: {
+    fontSize: 16,
+  },
+  customerName: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#000',
+  },
+  section: {
+    backgroundColor: '#fff',
+    marginTop: 16,
+    marginHorizontal: 16,
+    borderRadius: 35,
+    padding: 15,
+    borderWidth: 0.25,
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#000',
+    marginBottom: 16,
+  },
+  infoField: {
+    marginBottom: 16,
+  },
+  fieldLabel: {
+    fontSize: 12,
+    color: '#64748b',
+    marginBottom: 4,
+  },
+  fieldValueContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingBottom: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e5e7ebff',
+  },
+  fieldValue: {
+    fontSize: 14,
+    color: '#000',
+    flex: 1,
+  },
+  editIcon: {
+    padding: 4,
+  },
+  editIconText: {
+    fontSize: 16,
+    color: '#64748b',
+  },
+  buttonsContainer: {
+    marginTop: 24,
+    marginBottom: 32,
+    paddingHorizontal: 100,
+    gap: 12,
+  },
+  saveButton: {
+    backgroundColor: '#0891b2',
+    paddingVertical: 14,
+    borderRadius: 25,
+    alignItems: 'center',
+  },
+  saveButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#fff',
+  },
+  deleteButton: {
+    backgroundColor: '#ef4444',
+    paddingVertical: 14,
+    borderRadius: 25,
+    alignItems: 'center',
+  },
+  deleteButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#fff',
+  },
+  pencil: {
+    width: 19,
+    height: 19,
+  }
+});
