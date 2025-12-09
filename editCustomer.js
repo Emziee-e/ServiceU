@@ -123,7 +123,7 @@ export default function EditCustomerScreen({navigation}) {
         <View style={styles.profileSection}>
           <View style={styles.profileImageContainer}>
             <Image 
-              source={require('./assets/tristan.png')} 
+              source={require('./assets/tristan.jpg')} 
               style={styles.profileImage}
             />
             <TouchableOpacity 

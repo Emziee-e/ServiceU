@@ -30,6 +30,7 @@ import editRepairer from './editRepairer';
 import manageCustomers from './manageCustomers';
 import RepairerManagementScreen from './manageRepairers';
 import verifyRepairer from './verifyRepairers';
+import adminLogin from './adminLogin';
 
 
 const Stack = createNativeStackNavigator();
@@ -69,6 +70,7 @@ const StackNavigation = () => {
       <Stack.Screen name="manageCustomers" component={manageCustomers} />
       <Stack.Screen name="manageRepairers" component={RepairerManagementScreen} />
       <Stack.Screen name="verifyRepairer" component={verifyRepairer} />
+      <Stack.Screen name="adminLogin" component={adminLogin} />
     </Stack.Navigator>
   );
 };

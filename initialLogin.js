@@ -98,7 +98,7 @@ export default function InitialLogin({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={() => navigation.navigate("AdminLogin")}>
+        <TouchableOpacity onPress={() => navigation.navigate("adminLogin")}>
           <Text style={styles.admin}>Login as Administrator</Text>
         </TouchableOpacity>
       </View>
