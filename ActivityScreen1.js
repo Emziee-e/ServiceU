@@ -1,460 +1,439 @@
+
 import React, { useState } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
-  FlatList,
+  SafeAreaView,
+  StatusBar,
+  ScrollView,
   Image,
-  Platform,
 } from 'react-native';
 
+const FilterTab = ({ label, active, onPress }) => (
+  <TouchableOpacity 
+    style={[styles.filterTab, active && styles.filterTabActive]} 
+    onPress={onPress}
+  >
+    <Text style={[styles.filterTabText, active && styles.filterTabTextActive]}>
+      {label}
+    </Text>
+  </TouchableOpacity>
+);
 
-const categoryIcons = {
-  Hardware: require('./assets/icon/Hardware.png'),
-  Plumbing: require('./assets/icon/Plumbing.png'),
-  Electrical: require('./assets/icon/Electrical.png'),
-};
-
-const navIcons = {
-  home: require('./assets/icon/Home.png'),
-  activity: require('./assets/icon/Activity.png'),
-  book: require('./assets/icon/Book.png'),
-  settings: require('./assets/icon/Setting.png'),
-};
-
-
-const ActivityScreen1 = ({ navigation }) => {
-  const [selectedTab, setSelectedTab] = useState('All');
-
-  const activities = [
-    {
-      id: '1',
-      category: 'Hardware',
-      repairerName: 'Luis Fernando',
-      date: '7 Nov 2025, 05:26 PM',
-      price: '₱320.00',
-      status: 'Rate',
-      statusType: 'ongoing' 
-    },
-    {
-      id: '2',
-      category: 'Plumbing',
-      repairerName: 'Jose Mari',
-      date: '7 Nov 2025, 05:20 PM',
-      price: '₱320.00',
-      statusType: 'ongoing'
-    },
-    {
-      id: '3',
-      category: 'Electrical',
-      repairerName: 'Juan Dela Cruz',
-      date: '7 Nov 2025, 05:02 PM',
-      price: '₱320.00',
-      statusType: 'completed' 
-    },
-    {
-      id: '4',
-      category: 'Plumbing',
-      repairerName: 'Jose Mari',
-      date: '7 Nov 2025, 05:26 PM',
-      price: '₱320.00',
-      statusType: 'cancelled' 
-    },
-    {
-        id: '5',
-        category: 'Hardware',
-        repairerName: 'Extra Completed',
-        date: '7 Nov 2025, 05:26 PM',
-        price: '₱320.00',
-        status: 'Rate', 
-        statusType: 'completed'
-    },
-  ];
-
-  const tabs = ['All', 'Ongoing', 'Cancelled', 'Completed'];
-
-  const getFilteredActivities = () => {
-    let filtered = [];
-
-    if (selectedTab === 'All') {
-      filtered = activities.filter(activity => ['1', '2', '3'].includes(activity.id));
-    } else if (selectedTab === 'Ongoing') {
-      filtered = activities.filter(activity => activity.id === '1').map(activity => {
-        return { ...activity, status: 'Cancel', showRateInOngoing: false };
-      });
-    } else if (selectedTab === 'Cancelled') {
-      filtered = activities.filter(activity => activity.id === '4');
-    } else if (selectedTab === 'Completed') {
-      filtered = activities.filter(activity => activity.id === '3').map(activity => {
-        return { ...activity, status: 'Rebook' };
-      });
-    }
-    return filtered;
-  };
-
-  const handleStatusButton = (activity, buttonText) => {
-    if (buttonText === 'Rate') {
-      console.log('Navigate to RatingReview for:', activity.repairerName);
-      navigation.navigate("ratingReview")
-    } else if (buttonText === 'Rebook') {
-      console.log('Rebook:', activity.repairerName);
-    } else if (buttonText === 'Cancel') {
-      console.log('Cancel:', activity.repairerName);
+const ActivityItem = ({ activity }) => {
+  const getStatusStyle = (status) => {
+    switch (status) {
+      case 'Rebook':
+        return { backgroundColor: '#0891b2', text: 'Rebook' };
+      case 'Cancel':
+        return { backgroundColor: '#ef4444', text: 'Cancel' };
+      default:
+        return null;
     }
   };
 
-  const renderActivityItem = ({ item }) => {
-    let buttonText = item.status;
-    let showRateLink = false;
-    let showButton = false;
-    
-    if (item.status === 'Rate' && item.showRateInOngoing !== false) {
-        showRateLink = true;
-        buttonText = 'Rebook';
-        showButton = true;
-    } 
-    else if (item.status === 'Cancel') {
-        buttonText = 'Cancel';
-        showButton = true;
-    }
-    else if (item.status === 'Rebook') {
-        buttonText = 'Rebook';
-        showButton = true;
-    }
-
-    if (item.statusType === 'cancelled') {
-        showButton = false;
-    }
-
-    const iconSource = categoryIcons[item.category];
-    
-    const buttonStyle = 
-        (buttonText === 'Cancel') ? styles.cancelButton : 
-        styles.rebookButton;
-
-    return (
-      <View style={styles.jobCard}>
-        <View style={styles.cardHeader}>
-          <View style={styles.categoryContainer}>
-            <Text style={styles.categoryLabel}>{item.category}</Text>
-          </View>
-        </View>
-
-        <View style={styles.jobCardHeader}>
-          <View style={styles.iconContainer}>
-            {iconSource ? (
-              <Image
-                source={iconSource}
-                style={styles.chipIcon}
-                resizeMode="contain"
-              />
-            ) : (
-              <Text style={styles.serviceIconPlaceholder}>?</Text>
-            )}
-          </View>
-
-          <View style={styles.jobInfo}>
-            <Text style={styles.jobClient}>{item.repairerName}</Text>
-            <Text style={styles.jobDate}>{item.date}</Text>
-            {showRateLink && ( 
-                <TouchableOpacity style={styles.rateLink} onPress={() => handleStatusButton(item, 'Rate')}>
-                    <Text style={styles.rateLinkText}>Rate</Text>
-                    <Text style={styles.rateLinkArrow}>→</Text>
-                </TouchableOpacity>
-            )}
-          </View>
-
-          <View style={styles.priceContainer}>
-            <Text style={item.statusType === 'cancelled' ? styles.priceTextCancelled : styles.priceText}>
-                {item.price}
-            </Text>
-            {showButton && (
-              <TouchableOpacity
-                style={[
-                  styles.statusButton,
-                  buttonStyle
-                ]}
-                onPress={() => handleStatusButton(item, buttonText)}
-              >
-                <Text style={styles.statusButtonText}>
-                  {buttonText}
-                </Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        </View>
-      </View>
-    );
-  };
+  const statusStyle = getStatusStyle(activity.status);
+  const showRateButton = activity.filterStatus === 'Completed' || activity.showRate;
 
   return (
-    <View style={styles.container}>
-
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton}>
-          <Text style={styles.backButtonText}>←</Text>
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Activity</Text>
-        <View style={styles.placeholder} />
+    <View style={styles.activityItem}>
+      <View style={styles.activityLeft}>
+        <Image 
+          source={
+            activity.category === 'Hardware' ? require('./assets/hardware.png') :
+            activity.category === 'Plumbing' ? require('./assets/plumbing.png') :
+            require('./assets/electrical.png')
+          } 
+          style={styles.activityIcon}
+        />
+        <View style={styles.activityInfo}>
+          <Text style={styles.activityName}>{activity.repairerName}</Text>
+          <Text style={styles.activityDate}>{activity.date}</Text>
+          {showRateButton && (
+            <TouchableOpacity style={styles.rateButtonInline}>
+              <Text style={styles.rateButtonText}>Rate →</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
 
-      <View style={styles.tabsContainer}>
-        {tabs.map((tab) => (
-          <TouchableOpacity
-            key={tab}
-            style={[
-              styles.tab,
-              selectedTab === tab ? styles.tabActive : styles.tabInactive
-            ]}
-            onPress={() => setSelectedTab(tab)}
+      <View style={styles.activityRight}>
+        {activity.price && (
+          <Text style={styles.activityPrice}>₱{activity.price}</Text>
+        )}
+        {statusStyle && (
+          <TouchableOpacity 
+            style={[styles.statusButton, { backgroundColor: statusStyle.backgroundColor }]}
           >
-            <Text style={[
-              styles.tabText,
-              selectedTab === tab ? styles.tabTextActive : styles.tabTextInactive
-            ]}>
-              {tab}
-            </Text>
+            <Text style={styles.statusButtonText}>{statusStyle.text}</Text>
           </TouchableOpacity>
-        ))}
-      </View>
-
-      <FlatList
-        data={getFilteredActivities()}
-        renderItem={renderActivityItem}
-        keyExtractor={item => item.id}
-        contentContainerStyle={styles.jobList}
-        showsVerticalScrollIndicator={false}
-      />
-
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate("loggedinUser")}>
-          <Image
-            source={navIcons.home}
-            style={styles.navIcon}
-            resizeMode="contain"
-          />
-          <Text style={styles.navText}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Image
-            source={navIcons.activity}
-            style={styles.navIcon}
-            resizeMode="contain"
-          />
-          <Text style={styles.navTextActive}>Activity</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate("bookingStep1")}>
-          <Image
-            source={navIcons.book}
-            style={styles.navIcon}
-            resizeMode="contain"
-          />
-          <Text style={styles.navText}>Book</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Image
-            source={navIcons.settings}
-            style={styles.navIcon}
-            resizeMode="contain"
-          />
-          <Text style={styles.navText}>Settings</Text>
-        </TouchableOpacity>
+        )}
       </View>
     </View>
   );
 };
 
+const CategorySection = ({ category, activities, expanded, onToggle }) => {
+  const getCategoryIcon = () => {
+    switch (category) {
+      case 'Hardware':
+        return require('./assets/hardware.png');
+      case 'Plumbing':
+        return require('./assets/plumbing.png');
+      case 'Electrical':
+        return require('./assets/electrical.png');
+      default:
+        return require('./assets/hardware.png');
+    }
+  };
+
+  return (
+    <View style={styles.categorySection}>
+      <TouchableOpacity 
+        style={styles.categoryHeader}
+        onPress={onToggle}
+      >
+        <View style={styles.categoryLeft}>
+          <Image source={getCategoryIcon()} style={styles.categoryIcon} />
+          <Text style={styles.categoryTitle}>{category}</Text>
+        </View>
+        <Text style={styles.expandIcon}>{expanded ? '︿' : '﹀'}</Text>
+      </TouchableOpacity>
+
+      {expanded && (
+        <View style={styles.activitiesContainer}>
+          {activities.map((activity) => (
+            <ActivityItem key={activity.id} activity={activity} />
+          ))}
+        </View>
+      )}
+    </View>
+  );
+};
+
+const NavButton = ({ icon, label, active, onPress }) => (
+  <TouchableOpacity style={styles.navButton} onPress={onPress}>
+    <Image 
+      source={icon} 
+      style={[styles.navIcon, active && styles.navIconActive]} 
+    />
+    <Text style={[styles.navLabel, active && styles.navLabelActive]}>
+      {label}
+    </Text>
+  </TouchableOpacity>
+);
+
+export default function CustomerActivityScreen() {
+  const [selectedFilter, setSelectedFilter] = useState('All');
+  const [expandedCategories, setExpandedCategories] = useState({
+    Hardware: true,
+    Plumbing: true,
+    Electrical: true,
+  });
+
+  const allActivities = [
+    {
+      id: '1',
+      category: 'Hardware',
+      repairerName: 'Luis Fernando',
+      date: '7 Nov 2025, 05:26 PM',
+      price: '350.00',
+      status: 'Cancel',
+      filterStatus: 'Ongoing',
+    },
+    {
+      id: '2',
+      category: 'Plumbing',
+      repairerName: 'Jose Mari',
+      date: '7 Nov 2025, 05:26 PM',
+      price: '350.00',
+      status: null,
+      filterStatus: 'Cancelled',
+    },
+    {
+      id: '3',
+      category: 'Electrical',
+      repairerName: 'Juan Dela Cruz',
+      date: '7 Nov 2025, 05:26 PM',
+      price: '350.00',
+      status: 'Rebook',
+      filterStatus: 'Completed',
+    },
+  ];
+
+  const handleBack = () => {
+    console.log('Go back');
+  };
+
+  const toggleCategory = (category) => {
+    setExpandedCategories({
+      ...expandedCategories,
+      [category]: !expandedCategories[category],
+    });
+  };
+
+  // Filter activities based on selected tab
+  const filteredActivities = selectedFilter === 'All' 
+    ? allActivities 
+    : allActivities.filter(activity => activity.filterStatus === selectedFilter);
+
+  // Group activities by category
+  const groupedActivities = filteredActivities.reduce((acc, activity) => {
+    if (!acc[activity.category]) {
+      acc[activity.category] = [];
+    }
+    acc[activity.category].push(activity);
+    return acc;
+  }, {});
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
+      
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+          <Text style={styles.backArrow}>←</Text>
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Activity</Text>
+      </View>
+
+      {/* Filter Tabs */}
+      <View style={styles.filtersContainer}>
+        <ScrollView 
+          horizontal 
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.filtersContent}
+        >
+          <FilterTab 
+            label="All" 
+            active={selectedFilter === 'All'}
+            onPress={() => setSelectedFilter('All')}
+          />
+          <FilterTab 
+            label="Ongoing" 
+            active={selectedFilter === 'Ongoing'}
+            onPress={() => setSelectedFilter('Ongoing')}
+          />
+          <FilterTab 
+            label="Cancelled" 
+            active={selectedFilter === 'Cancelled'}
+            onPress={() => setSelectedFilter('Cancelled')}
+          />
+          <FilterTab 
+            label="Completed" 
+            active={selectedFilter === 'Completed'}
+            onPress={() => setSelectedFilter('Completed')}
+          />
+        </ScrollView>
+      </View>
+
+      {/* Activities List */}
+      <ScrollView 
+        style={styles.listContainer}
+        contentContainerStyle={styles.listContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {Object.keys(groupedActivities).map((category) => (
+          <CategorySection
+            key={category}
+            category={category}
+            activities={groupedActivities[category]}
+            expanded={expandedCategories[category]}
+            onToggle={() => toggleCategory(category)}
+          />
+        ))}
+      </ScrollView>
+
+      {/* Bottom Navigation */}
+      <View style={styles.bottomNav}>
+        <NavButton 
+          icon={require('./assets/home.png')} 
+          label="Home" 
+          active={false} 
+        />
+        <NavButton 
+          icon={require('./assets/activity.png')} 
+          label="Activity" 
+          active={true} 
+        />
+        <NavButton 
+          icon={require('./assets/book.png')} 
+          label="Book" 
+          active={false} 
+        />
+        <NavButton 
+          icon={require('./assets/settings.png')} 
+          label="Settings" 
+          active={false} 
+        />
+      </View>
+    </SafeAreaView>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: '#f8fafc',
   },
   header: {
+    backgroundColor: '#0891b2',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#137594',
-    paddingVertical: 20,
-    paddingTop: 80,
-    paddingHorizontal: 20,
   },
   backButton: {
-    width: 30,
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 10,
-  },
-  backButtonText: {
-    fontSize: 24,
-    color: '#FFFFFF',
-  },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#ffffff',
-    flex: 1,
-  },
-  placeholder: {
-    width: 30,
-  },
-
-  tabsContainer: {
-    backgroundColor: '#ffffff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e5e7eb',
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    flexDirection: 'row',
-  },
-  tab: {
-    paddingHorizontal: 20,
-    paddingVertical: 7,
-    borderRadius: 20,
-    marginRight: 10,
-  },
-  tabActive: {
-    backgroundColor: '#137594',
-  },
-  tabInactive: {
-    backgroundColor: '#f3f4f6',
-  },
-  tabText: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  tabTextActive: {
-    color: '#ffffff',
-  },
-  tabTextInactive: {
-    color: '#6b7280',
-  },
-
-  jobList: {
-    flex: 1,
-    paddingTop: 8,
-    paddingBottom: 100,
-  },
-  jobCard: {
-    backgroundColor: '#ffffff',
-    marginHorizontal: 16,
-    marginTop: 12,
-    marginBottom: 4,
-    padding: 16,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 3,
-    elevation: 2,
-  },
-  cardHeader: {
-    marginBottom: 12,
-  },
-  categoryContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  categoryLabel: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#137594',
-  },
-  jobCardHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  iconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: '#e0f2f7',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
-  },
-  chipIcon: {
     width: 40,
     height: 40,
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 16,
   },
-  serviceIconPlaceholder: {
-    fontSize: 24,
-    color: '#137594',
+  backArrow: {
+    fontSize: 20,
+    color: '#0891b2',
+    fontWeight: 'bold',
   },
-  jobInfo: {
+  headerTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  filtersContainer: {
+    backgroundColor: '#fff',
+    paddingVertical: 12,
+  },
+  filtersContent: {
+    paddingHorizontal: 16,
+    gap: 8,
+  },
+  filterTab: {
+    paddingHorizontal: 20,
+    paddingVertical: 8,
+    borderRadius: 20,
+    backgroundColor: '#e5e7eb',
+  },
+  filterTabActive: {
+    backgroundColor: '#0891b2',
+  },
+  filterTabText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#64748b',
+  },
+  filterTabTextActive: {
+    color: '#fff',
+  },
+  listContainer: {
     flex: 1,
   },
-  jobClient: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#111827',
-    marginBottom: 4,
+  listContent: {
+    padding: 16,
   },
-  jobDate: {
-    fontSize: 14,
-    color: '#6b7280',
+  categorySection: {
+    backgroundColor: '#e0f2f7',
+    borderRadius: 12,
+    marginBottom: 16,
   },
-
-  rateLink: {
+  categoryHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+  },
+  categoryLeft: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#f39c12',
-    paddingHorizontal: 5,
-    paddingVertical: 2,
-    borderRadius: 3,
+    gap: 8,
+  },
+  categoryIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
+  },
+  categoryTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#0891b2',
+  },
+  expandIcon: {
+    fontSize: 16,
+    color: '#64748b',
+  },
+  activitiesContainer: {
+    borderTopWidth: 1,
+    borderTopColor: '#e5e7eb',
+  },
+  activityItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f1f5f9',
+  },
+  activityLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  activityIcon: {
+    width: 40,
+    height: 40,
+    resizeMode: 'contain',
+    marginRight: 12,
+  },
+  activityInfo: {
+    flex: 1,
+  },
+  activityName: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#000',
+    marginBottom: 2,
+  },
+  activityDate: {
+    fontSize: 11,
+    color: '#94a3b8',
+    marginBottom: 4,
+  },
+  rateButtonInline: {
     alignSelf: 'flex-start',
     marginTop: 4,
   },
-  rateLinkText: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: '#f39c12',
-    marginRight: 3,
+  rateButtonText: {
+    fontSize: 12,
+    color: '#000000ff',
+    fontWeight: '600',
+    backgroundColor: '#FFB808',
+    opacity: 90,
+    padding: 3,
   },
-  rateLinkArrow: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: '#ffb808',
-  },
-
-  priceContainer: {
+  activityRight: {
     alignItems: 'flex-end',
+    gap: 4,
   },
-  priceText: {
-    fontSize: 16,
+  activityPrice: {
+    fontSize: 14,
     fontWeight: '600',
-    color: '#ffb808',
-    marginBottom: 8,
-  },
-  priceTextCancelled: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#ffb808',
-    textDecorationLine: 'line-through',
-    marginBottom: 8,
+    color: '#f59e0b',
   },
   statusButton: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 16,
     paddingVertical: 6,
-    borderRadius: 4,
-    minWidth: 70,
-    alignItems: 'center',
-  },
-  rebookButton: {
-    backgroundColor: '#137594',
-  },
-  cancelButton: {
-    backgroundColor: '#EF4444',
+    borderRadius: 16,
   },
   statusButtonText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#FFFFFF',
+    color: '#fff',
   },
-
   bottomNav: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -463,30 +442,26 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderTopWidth: 1,
     borderTopColor: '#e5e7eb',
-    paddingBottom: 35,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
+    paddingBottom: 20,
   },
-  navItem: {
-    flex: 1,
+  navButton: {
     alignItems: 'center',
+    gap: 4,
   },
   navIcon: {
-    width: 28,
-    height: 28,
-    marginBottom: 4,
+    width: 24,
+    height: 24,
+    opacity: 0.5,
   },
-  navText: {
-    fontSize: 12,
-    color: '#999',
+  navIconActive: {
+    opacity: 1,
   },
-  navTextActive: {
+  navLabel: {
     fontSize: 12,
-    color: '#137594',
-    fontWeight: '600',
+    color: '#9ca3af',
+  },
+  navLabelActive: {
+    color: '#0891b2',
+    fontWeight: '500',
   },
 });
-
-export default ActivityScreen1;
