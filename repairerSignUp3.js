@@ -1,9 +1,28 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Alert} from 'react-native';
 
-const RepairerSignUp3 = ({navigation}) => {
-    const [address, setAddress] = useState('');
-    
+const RepairerSignUp3 = ({navigation, route}) => {
+
+    const { repairer_fullName, repairer_gender, repairer_email, repairer_password, repairer_phoneNum } = route.params;
+
+    const [repairer_address, setAddress] = useState('');
+
+    const goNext = () => {
+
+        if (repairer_address.trim() === "") {
+            alert("Please enter your address");
+            return;
+        }
+
+        navigation.navigate("repairerSignUp4", {
+            repairer_fullName,
+            repairer_gender,
+            repairer_email,
+            repairer_password,
+            repairer_phoneNum,
+            repairer_address,
+        });
+    };
    
     return (
         <View style={styles.container}>
@@ -84,7 +103,7 @@ const RepairerSignUp3 = ({navigation}) => {
                         <TextInput
                             style={styles.input}
                             placeholder="Enter your address"
-                            value={address}
+                            value={repairer_address}
                             onChangeText={setAddress}
                             placeholderTextColor="#999"
                         />
@@ -99,7 +118,7 @@ const RepairerSignUp3 = ({navigation}) => {
                         <Text style={styles.previousButtonText}>Previous</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.nextButton}
-                         onPress={() => navigation.navigate('repairerSignUp4')}
+                         onPress={goNext}
                      >
                         <Text style={styles.nextButtonText}>Next</Text>
                     </TouchableOpacity>

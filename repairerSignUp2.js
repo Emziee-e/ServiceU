@@ -1,11 +1,32 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Alert} from 'react-native';
 
-const RepairerSignUp2 = ({navigation}) => {
-    const [emailAddress, setEmailAddress] = useState('');
+const RepairerSignUp2 = ({navigation, route}) => {
+    const { repairer_fullName, repairer_phoneNum, repairer_gender } = route.params;
+    const [email, setEmail] = useState('');
     const [passWord, setPassWord] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
    
+    const handleNext = () => {
+        if (!email || !passWord || !confirmPassword) {
+            Alert.alert("Error", "Please fill in all fields");
+            return;
+        }
+
+        if (passWord !== confirmPassword) {
+            Alert.alert("Error", "Passwords do not match");
+            return;
+        }
+
+        navigation.navigate('repairerSignUp3', {
+            repairer_fullName,
+            repairer_phoneNum,
+            repairer_gender,
+            repairer_email: email,
+            repairer_password: passWord
+        });
+    };
+
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -85,8 +106,8 @@ const RepairerSignUp2 = ({navigation}) => {
                         <TextInput
                             style={styles.input}
                             placeholder="Enter your email address"
-                            value={emailAddress}
-                            onChangeText={setEmailAddress}
+                            value={email}
+                            onChangeText={setEmail}
                             placeholderTextColor="#999"
                         />
                     </View>
@@ -100,6 +121,7 @@ const RepairerSignUp2 = ({navigation}) => {
                             value={passWord}
                             onChangeText={setPassWord}
                             placeholderTextColor="#999"
+                            secureTextEntry={true}
                         />
                     </View>
 
@@ -112,6 +134,7 @@ const RepairerSignUp2 = ({navigation}) => {
                             value={confirmPassword}
                             onChangeText={setConfirmPassword}
                             placeholderTextColor="#999"
+                            secureTextEntry={true}
                         />
                     </View>
                 </View>
@@ -124,14 +147,11 @@ const RepairerSignUp2 = ({navigation}) => {
                         <Text style={styles.previousButtonText}>Previous</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.nextButton}
-                         onPress={() => navigation.navigate('repairerSignUp3')}
+                         onPress={handleNext}
                      >
                         <Text style={styles.nextButtonText}>Next</Text>
                     </TouchableOpacity>
                 </View>
-
-                
-
             </ScrollView>
         </View>
     );

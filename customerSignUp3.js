@@ -122,7 +122,7 @@ const CustomerSignUp3 = ({navigation, route}) => {
                         <Text style={styles.modalTitle}>Thank you for Signing up!</Text>
                         <TouchableOpacity style={styles.modalButton} onPress={() => {
                             setCompleteModal(false);
-                            navigation.navigate('customerLogin');
+                            navigation.navigate('initialLogin');
                         }}>
                             <Text style={styles.modalButtonText}>Got it</Text>
                         </TouchableOpacity>

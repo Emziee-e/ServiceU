@@ -17,27 +17,32 @@ export default function InitialLogin({ navigation }) {
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
+  if (!customer_email || !customer_password) {
+    Alert.alert("Error", "Please fill in all fields");
+    return;
+  }
 
-    if (!customer_email || !customer_password) {
-      Alert.alert("Error", "Please fill in all fields");
-      return;
-    }
+  setLoading(true);
+  try {
+    const response = await login(customer_email, customer_password);
 
-    setLoading(true);
-    try {
-      const response = await login(customer_email, customer_password);
-
-      if (response.success) {
+    if (response.success) {
+      if (response.userType === "customer") {
         navigation.navigate("loggedinUser", { user: response.user });
+      } else if (response.userType === "repairer") {
+        navigation.navigate("repairerDashboard", { repairer: response.user });
       } else {
-        Alert.alert("Error", response.message || "Login failed");
+        Alert.alert("Error", "Unknown user type");
       }
-    } catch (error) {
-      Alert.alert("Error", error.message || "Something went wrong");
-    } finally {
-      setLoading(false);
+    } else {
+      Alert.alert("Error", response.message || "Login failed");
     }
-  };
+  } catch (error) {
+    Alert.alert("Error", error.message || "Something went wrong");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <View style={styles.container}>

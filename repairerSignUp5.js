@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Modal} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Modal, Alert } from 'react-native';
 
-const RepairerSignUp5 = ({navigation}) => {
-    const [uploadedFiles, setUploadedFiles] = useState([
-        { name: 'certification.pdf', type: 'pdf' },
-        { name: 'license.jpg', type: 'image' }
-    ]);
+const RepairerSignUp5 = ({ navigation, route }) => {
+    const { repairer_fullName, repairer_gender, repairer_email, repairer_password, repairer_phoneNum, repairer_address, repairer_expertise } = route.params;
+
+    const [uploadedFiles, setUploadedFiles] = useState([]);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [showThankYouModal, setShowThankYouModal] = useState(false);
-    
+
     const handleFileUpload = () => {
         const newFile = {
             name: `document_${uploadedFiles.length + 1}.pdf`,
@@ -18,202 +17,118 @@ const RepairerSignUp5 = ({navigation}) => {
     };
 
     const removeFile = (index) => {
-        const newFiles = uploadedFiles.filter((_, i) => i !== index);
-        setUploadedFiles(newFiles);
+        setUploadedFiles(uploadedFiles.filter((_, i) => i !== index));
     };
 
     const getFileIcon = (type) => {
-        if (type === 'pdf') {
-            return require('./assets/certification.png');
-        } else if (type === 'image') {
-            return require('./assets/license.png');
-        }
+        if (type === 'pdf') return require('./assets/certification.png');
+        if (type === 'image') return require('./assets/license.png');
         return require('./assets/certification.png');
     };
 
-    const handleComplete = () => {
-        setShowConfirmModal(false);
-        setShowThankYouModal(true);
+    const submitRegistration = async () => {
+        if (uploadedFiles.length === 0) {
+            Alert.alert("Upload Required", "Please upload at least one document.");
+            return;
+        }
+
+        try {
+            const response = await fetch("http://192.168.1.58/ServiceU/api/repairer_register.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    repairer_fullName,
+                    repairer_gender,
+                    repairer_email,
+                    repairer_password,
+                    repairer_address,
+                    repairer_phoneNum,
+                    repairer_expertise
+                }),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setShowConfirmModal(false);
+                setShowThankYouModal(true);
+            } else {
+                alert(data.message);
+            }
+
+        } catch (err) {
+            alert("Connection error");
+        }
     };
-   
+
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
-
                 {/* Logo */}
                 <View style={styles.logoContainer}>
-                    <Image 
-                        source={require('./assets/ServiceU_Logo.png')}
-                        style={styles.logo}
-                    />
+                    <Image source={require('./assets/ServiceU_Logo.png')} style={styles.logo} />
                     <Text style={styles.logoText}>
                         <Text style={styles.logoYellow}>SERVICE - </Text>
                         <Text style={styles.logoBlack}>U</Text>
                     </Text>
                 </View>
 
-                {/* Progress Indicator */}
-                <View style={styles.progressContainer}>
-                    <View style={styles.progressTopRow}>
-                        <View style={styles.circleWrapper}>
-                            <View style={[styles.progressCircle, styles.progressActive1]}>
-                                <Text style={styles.checkmark}>✓</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.progressLineFinish} />
-
-                        <View style={styles.circleWrapper}>
-                            <View style={[styles.progressCircle, styles.progressActive1]}>
-                                 <Text style={styles.checkmark}>✓</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.progressLineFinish} />
-
-                        <View style={styles.circleWrapper}>
-                                <View style={[styles.progressCircle, styles.progressActive1]}>
-                                <Text style={styles.checkmark}>✓</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.progressLineFinish} />
-
-                        <View style={styles.circleWrapper}>
-                            <View style={[styles.progressCircle, styles.progressActive1]}>
-                                <Text style={styles.checkmark}>✓</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.progressLineFinish} />
-
-                        <View style={styles.circleWrapper}>
-                              <View style={[styles.progressCircle, styles.progressActive]}>
-                                <Text style={styles.progressNumberActive}>5</Text>
-                            </View>
-                        </View>
-                    </View>
-
-                    <View style={styles.progressLabelsRow}>
-                        <Text style={styles.progressLabelActive}>Info</Text>
-                        <Text style={styles.progressLabelActive}>A/C Info</Text>
-                        <Text style={styles.progressLabelActive}>Address</Text>
-                        <Text style={styles.progressLabelActive}>Expertise</Text>
-                        <Text style={styles.progressLabelActive}>Verify</Text>
-                    </View>
-                </View>
-
                 {/* Form Header */}
                 <Text style={styles.formHeader}>Upload your Documents</Text>
+                <Text style={styles.formHeaderComments}>
+                    Please upload your licenses or official certifications to verify your expertise
+                </Text>
 
-                <Text style={styles.formHeaderComments}>Please upload your licenses or official certifications to verify your expertise</Text>
+                {/* Upload Section */}
+                <View style={styles.uploadSection}>
+                    <TouchableOpacity style={styles.uploadBox} onPress={handleFileUpload}>
+                        <Image source={require('./assets/upload.png')} style={styles.iconImage} />
+                        <Text style={styles.uploadText}>Choose a file</Text>
+                        <Text style={styles.uploadSubtext}>PDF, JPG, PNG up to 5MB</Text>
+                    </TouchableOpacity>
 
-                {/* Form Fields */}
-                <View style={styles.formContainer}>
-                    
-                    {/* Upload Area */}
-                    <View style={styles.uploadSection}>
-                        <TouchableOpacity 
-                            style={styles.uploadBox}
-                            onPress={handleFileUpload}
-                        >
-                            <View style={styles.uploadIconContainer}>
-                               <Image 
-                                    source={require('./assets/upload.png')}
-                                    style={styles.iconImage}
-                                />
-                            </View>
-                            <Text style={styles.uploadText}>Choose a file</Text>
-                            <Text style={styles.uploadSubtext}>PDF, JPG, PNG up to 5MB</Text>
-                        </TouchableOpacity>
-
-                        {/* Uploaded Files List */}
-                        {uploadedFiles.length > 0 && (
-                            <View style={styles.filesContainer}>
-                                {uploadedFiles.map((file, index) => (
-                                    <View key={index} style={styles.fileItem}>
-                                        <View style={styles.fileLeft}>
-                                            <Image 
-                                                source={getFileIcon(file.type)}
-                                                style={styles.fileIconImage}
-                                            />
-                                            <Text style={styles.fileName} numberOfLines={1}>
-                                                {file.name}
-                                            </Text>
-                                        </View>
-                                        <View style={styles.fileActions}>
-                                            <TouchableOpacity>
-                                                <Text style={styles.viewButton}>View</Text>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity onPress={() => removeFile(index)}>
-                                                <Image 
-                                                    source={require('./assets/trashbin.png')}
-                                                    style={styles.trashIcon}
-                                                />
-                                            </TouchableOpacity>
-                                        </View>
+                    {uploadedFiles.length > 0 && (
+                        <View style={styles.filesContainer}>
+                            {uploadedFiles.map((file, index) => (
+                                <View key={index} style={styles.fileItem}>
+                                    <View style={styles.fileLeft}>
+                                        <Image source={getFileIcon(file.type)} style={styles.fileIconImage} />
+                                        <Text style={styles.fileName}>{file.name}</Text>
                                     </View>
-                                ))}
-                            </View>
-                        )}
-                    </View>
-                    
+                                    <TouchableOpacity onPress={() => removeFile(index)}>
+                                        <Image source={require('./assets/trashbin.png')} style={styles.trashIcon} />
+                                    </TouchableOpacity>
+                                </View>
+                            ))}
+                        </View>
+                    )}
                 </View>
 
                 {/* Buttons */}
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity 
-                        style={styles.previousButton}
-                        onPress={() => navigation.goBack()}
-                    >
+                    <TouchableOpacity style={styles.previousButton} onPress={() => navigation.goBack()}>
                         <Text style={styles.previousButtonText}>Previous</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity 
-                        style={styles.nextButton}
-                        onPress={() => setShowConfirmModal(true)}
-                    >
+                    <TouchableOpacity style={styles.nextButton} onPress={() => setShowConfirmModal(true)}>
                         <Text style={styles.nextCompleteText}>Complete</Text>
                     </TouchableOpacity>
                 </View>
-
             </ScrollView>
 
-            {/* Custom Confirmation Modal */}
-            <Modal
-                visible={showConfirmModal}
-                transparent={true}
-                animationType="fade"
-                onRequestClose={() => setShowConfirmModal(false)}
-            >
+            {/* Confirm Modal */}
+            <Modal visible={showConfirmModal} transparent={true} animationType="fade">
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
-                        {/* Hourglass Icon */}
-                        <Image 
-                            source={require('./assets/hourglass.png')}
-                            style={styles.hourglassIcon}
-                        />
-                        
-                        {/* Modal Title */}
+                        <Image source={require('./assets/hourglass.png')} style={styles.hourglassIcon} />
                         <Text style={styles.modalTitle}>Confirm Sign-Up</Text>
-                        
-                        {/* Modal Message */}
                         <Text style={styles.modalMessage}>
-                            Your application to become a technician will be submitted for review. Are you sure you want to proceed?
+                            Your application will be submitted for review. Are you sure you want to proceed?
                         </Text>
-                        
-                        {/* Modal Buttons */}
                         <View style={styles.modalButtons}>
-                            <TouchableOpacity 
-                                style={styles.cancelButton}
-                                onPress={() => setShowConfirmModal(false)}
-                            >
+                            <TouchableOpacity style={styles.cancelButton} onPress={() => setShowConfirmModal(false)}>
                                 <Text style={styles.cancelButtonText}>Cancel</Text>
                             </TouchableOpacity>
-                            
-                            <TouchableOpacity 
-                                style={styles.confirmButton}
-                                onPress={handleComplete}
-                            >
+                            <TouchableOpacity style={styles.confirmButton} onPress={submitRegistration}>
                                 <Text style={styles.confirmButtonText}>Yes, Sign up</Text>
                             </TouchableOpacity>
                         </View>
@@ -222,34 +137,19 @@ const RepairerSignUp5 = ({navigation}) => {
             </Modal>
 
             {/* Thank You Modal */}
-            <Modal
-                visible={showThankYouModal}
-                transparent={true}
-                animationType="fade"
-                onRequestClose={() => setShowThankYouModal(false)}
-            >
+            <Modal visible={showThankYouModal} transparent={true} animationType="fade">
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
-                        {/* Hourglass Icon */}
-                        <Image 
-                            source={require('./assets/hourglass.png')}
-                            style={styles.hourglassIcon}
-                        />
-                        
-                        {/* Modal Title */}
+                        <Image source={require('./assets/hourglass.png')} style={styles.hourglassIcon} />
                         <Text style={styles.modalTitle}>Thank you for Signing up!</Text>
-                        
-                        {/* Modal Message */}
                         <Text style={styles.modalMessage}>
-                            We are now verifying your account. This may take a few days. We'll send you an email once your account is ready
+                            We are now verifying your account. This may take a few days. You'll receive an email once approved.
                         </Text>
-                        
-                        {/* Got It Button */}
-                        <TouchableOpacity 
+                        <TouchableOpacity
                             style={styles.gotItButton}
                             onPress={() => {
                                 setShowThankYouModal(false);
-                                navigation.navigate('repairerLogin')
+                                navigation.navigate('initialLogin');
                             }}
                         >
                             <Text style={styles.gotItButtonText}>Got It</Text>

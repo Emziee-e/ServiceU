@@ -20,7 +20,6 @@ const CustomerSignUp = ({ navigation }) => {
             Alert.alert("Error", "Please fill in all fields");
             return;
         }
-        // Pass Step 1 data to Step 2
         navigation.navigate('customerSignUp2', {
             customer_fullName: fullName,
             customer_phoneNum: phoneNumber,
