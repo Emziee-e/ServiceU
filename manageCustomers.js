@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
   Image,
   ScrollView,
@@ -103,7 +102,7 @@ export default function manageCustomers({navigation}) {
 
   const handleBack = () => {
     console.log('Go back');
-    // Navigate back to previous screen
+    navigation.goBack();
   };
 
   const handleMenuPress = (customerId, customerName) => {
@@ -127,7 +126,7 @@ export default function manageCustomers({navigation}) {
   });
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
       {/* Header */}
@@ -200,7 +199,7 @@ export default function manageCustomers({navigation}) {
           />
         ))}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -210,8 +209,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8fafc',
   },
   header: {
-    backgroundColor: '#0891b2',
-    paddingVertical: 16,
+    backgroundColor: '#137594',
+    paddingVertical: 20,
     paddingLeft: 15,
     paddingTop: 100,
     flexDirection: 'row',
@@ -238,7 +237,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   headerTitle: {
-    fontSize: 18,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#fff',
   },
@@ -249,8 +248,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 12,
     height: 40,
-    width: 120,
-    margin: 15,
+    width: 130,
+    marginRight: 15,
   },
   searchInput: {
     flex: 1,
@@ -270,7 +269,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   filterButton: {
-    paddingHorizontal: 24,
+    paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 20,
     backgroundColor: '#e5e7eb',
@@ -326,7 +325,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   customerName: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: '600',
     color: '#000',
     flex: 1,
@@ -371,12 +370,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   email: {
-    fontSize: 13,
+    fontSize: 15,
     color: '#64748b',
     marginBottom: 4,
   },
   lastOnline: {
-    fontSize: 12,
+    fontSize: 13,
     color: '#94a3b8',
     marginTop: 2,
   },
@@ -389,12 +388,14 @@ const styles = StyleSheet.create({
   },
   statusActive: {
     backgroundColor: '#d1fae5',
+    borderRadius: 50,
   },
   statusInactive: {
     backgroundColor: '#fecdd3',
+    borderRadius: 50,
   },
   statusText: {
-    fontSize: 12,
+    fontSize: 15,
     fontWeight: '600',
   },
   statusTextActive: {

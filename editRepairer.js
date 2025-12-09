@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
   Image,
   ScrollView,
@@ -49,27 +48,23 @@ export default function editRepairer({navigation}) {
 
   const handleBack = () => {
     console.log('Go back');
-    // Navigate back to previous screen
+    navigation.goBack();
   };
 
   const handleEditPhoto = () => {
     console.log('Edit profile photo');
-    // Open image picker
   };
 
   const handleEditAddress = () => {
     console.log('Edit address');
-    // Open address edit modal or screen
   };
 
   const handleEditExpertise = () => {
     console.log('Edit expertise');
-    // Open expertise selection modal
   };
 
   const handleEditGender = () => {
     console.log('Edit gender');
-    // Open gender selection modal
   };
 
   const handleSaveChanges = () => {
@@ -82,7 +77,6 @@ export default function editRepairer({navigation}) {
           text: 'Save', 
           onPress: () => {
             console.log('Saving changes:', repairerData);
-            // Save to database/API
             Alert.alert('Success', 'Changes saved successfully!');
           }
         },
@@ -101,7 +95,6 @@ export default function editRepairer({navigation}) {
           style: 'destructive',
           onPress: () => {
             console.log('Deleting account');
-            // Delete account logic
           }
         },
       ]
@@ -109,7 +102,7 @@ export default function editRepairer({navigation}) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
       {/* Header */}
@@ -190,7 +183,7 @@ export default function editRepairer({navigation}) {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -200,12 +193,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8fafc',
   },
   header: {
-    backgroundColor: '#0891b2',
+    backgroundColor: '#137594',
     paddingVertical: 16,
     paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: 50,
+    paddingTop: 60,
   },
   backButton: {
     width: 40,
@@ -218,7 +211,7 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     fontSize: 20,
-    color: '#0891b2',
+    color: '#137594',
     fontWeight: 'bold',
   },
   headerTitle: {
@@ -228,7 +221,7 @@ const styles = StyleSheet.create({
     paddingLeft: 72,
   },
   headerExtension: {
-    backgroundColor: '#0891b2',
+    backgroundColor: '#137594',
     height: 65,
   },
   content: {
@@ -258,7 +251,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: '#0891b2',
+    backgroundColor: '#137594',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -294,8 +287,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   fieldLabel: {
-    fontSize: 12,
-    color: '#64748b',
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#43484eff',
     marginBottom: 4,
   },
   fieldValueContainer: {
@@ -325,7 +319,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   saveButton: {
-    backgroundColor: '#0891b2',
+    backgroundColor: '#137594',
     paddingVertical: 14,
     borderRadius: 25,
     alignItems: 'center',

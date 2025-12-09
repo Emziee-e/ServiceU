@@ -6,9 +6,8 @@ import {
   StyleSheet,
   FlatList,
   Image,
-  Platform,
 } from 'react-native';
-
+import { Ionicons } from '@expo/vector-icons';
 
 const categoryIcons = {
   Hardware: require('./assets/icon/Hardware.png'),
@@ -23,19 +22,16 @@ const navIcons = {
   settings: require('./assets/icon/Setting.png'),
 };
 
-
 const ActivityScreen1 = ({ navigation }) => {
   const [selectedTab, setSelectedTab] = useState('All');
-
-  const activities = [
+  const [activities, setActivities] = useState([
     {
       id: '1',
       category: 'Hardware',
       repairerName: 'Luis Fernando',
       date: '7 Nov 2025, 05:26 PM',
       price: '₱320.00',
-      status: 'Rate',
-      statusType: 'ongoing' 
+      statusType: 'ongoing',
     },
     {
       id: '2',
@@ -43,7 +39,7 @@ const ActivityScreen1 = ({ navigation }) => {
       repairerName: 'Jose Mari',
       date: '7 Nov 2025, 05:20 PM',
       price: '₱320.00',
-      statusType: 'ongoing'
+      statusType: 'cancelled',
     },
     {
       id: '3',
@@ -51,87 +47,45 @@ const ActivityScreen1 = ({ navigation }) => {
       repairerName: 'Juan Dela Cruz',
       date: '7 Nov 2025, 05:02 PM',
       price: '₱320.00',
-      statusType: 'completed' 
+      statusType: 'completed',
     },
-    {
-      id: '4',
-      category: 'Plumbing',
-      repairerName: 'Jose Mari',
-      date: '7 Nov 2025, 05:26 PM',
-      price: '₱320.00',
-      statusType: 'cancelled' 
-    },
-    {
-        id: '5',
-        category: 'Hardware',
-        repairerName: 'Extra Completed',
-        date: '7 Nov 2025, 05:26 PM',
-        price: '₱320.00',
-        status: 'Rate', 
-        statusType: 'completed'
-    },
-  ];
+    
+  ]);
 
   const tabs = ['All', 'Ongoing', 'Cancelled', 'Completed'];
-
-  const getFilteredActivities = () => {
-    let filtered = [];
-
+    const getFilteredActivities = () => {
     if (selectedTab === 'All') {
-      filtered = activities.filter(activity => ['1', '2', '3'].includes(activity.id));
+      return activities; 
     } else if (selectedTab === 'Ongoing') {
-      filtered = activities.filter(activity => activity.id === '1').map(activity => {
-        return { ...activity, status: 'Cancel', showRateInOngoing: false };
-      });
+      return activities.filter(a => a.statusType === 'ongoing');
     } else if (selectedTab === 'Cancelled') {
-      filtered = activities.filter(activity => activity.id === '4');
+      return activities.filter(a => a.statusType === 'cancelled');
     } else if (selectedTab === 'Completed') {
-      filtered = activities.filter(activity => activity.id === '3').map(activity => {
-        return { ...activity, status: 'Rebook' };
-      });
+      return activities.filter(a => a.statusType === 'completed');
     }
-    return filtered;
+    return [];
   };
 
   const handleStatusButton = (activity, buttonText) => {
     if (buttonText === 'Rate') {
-      console.log('Navigate to RatingReview for:', activity.repairerName);
-      navigation.navigate("ratingReview")
+      navigation.navigate('ratingReview');
     } else if (buttonText === 'Rebook') {
       console.log('Rebook:', activity.repairerName);
     } else if (buttonText === 'Cancel') {
-      console.log('Cancel:', activity.repairerName);
+      const updated = activities.map(a =>
+        a.id === activity.id ? { ...a, statusType: 'cancelled' } : a
+      );
+      setActivities(updated);
     }
   };
 
   const renderActivityItem = ({ item }) => {
-    let buttonText = item.status;
-    let showRateLink = false;
-    let showButton = false;
-    
-    if (item.status === 'Rate' && item.showRateInOngoing !== false) {
-        showRateLink = true;
-        buttonText = 'Rebook';
-        showButton = true;
-    } 
-    else if (item.status === 'Cancel') {
-        buttonText = 'Cancel';
-        showButton = true;
-    }
-    else if (item.status === 'Rebook') {
-        buttonText = 'Rebook';
-        showButton = true;
-    }
-
-    if (item.statusType === 'cancelled') {
-        showButton = false;
-    }
-
     const iconSource = categoryIcons[item.category];
-    
-    const buttonStyle = 
-        (buttonText === 'Cancel') ? styles.cancelButton : 
-        styles.rebookButton;
+
+    // Determine buttons
+    const showCancel = item.repairerName === 'Luis Fernando' && item.statusType === 'ongoing';
+    const showRebook = item.repairerName === 'Juan Dela Cruz' && item.statusType === 'completed';
+    const showRate = item.repairerName === 'Juan Dela Cruz' && item.statusType === 'completed';
 
     return (
       <View style={styles.jobCard}>
@@ -144,11 +98,7 @@ const ActivityScreen1 = ({ navigation }) => {
         <View style={styles.jobCardHeader}>
           <View style={styles.iconContainer}>
             {iconSource ? (
-              <Image
-                source={iconSource}
-                style={styles.chipIcon}
-                resizeMode="contain"
-              />
+              <Image source={iconSource} style={styles.chipIcon} resizeMode="contain" />
             ) : (
               <Text style={styles.serviceIconPlaceholder}>?</Text>
             )}
@@ -157,29 +107,41 @@ const ActivityScreen1 = ({ navigation }) => {
           <View style={styles.jobInfo}>
             <Text style={styles.jobClient}>{item.repairerName}</Text>
             <Text style={styles.jobDate}>{item.date}</Text>
-            {showRateLink && ( 
-                <TouchableOpacity style={styles.rateLink} onPress={() => handleStatusButton(item, 'Rate')}>
-                    <Text style={styles.rateLinkText}>Rate</Text>
-                    <Text style={styles.rateLinkArrow}>→</Text>
-                </TouchableOpacity>
+
+            {showRate && (
+              <TouchableOpacity
+                style={[styles.rateButton, { marginTop: 4 }]}
+                onPress={() => handleStatusButton(item, 'Rate')}
+              >
+                {/* Use the new smaller text style here */}
+                <Text style={styles.rateButtonText}>Rate</Text>
+              </TouchableOpacity>
             )}
           </View>
 
           <View style={styles.priceContainer}>
-            <Text style={item.statusType === 'cancelled' ? styles.priceTextCancelled : styles.priceText}>
-                {item.price}
+            <Text
+              style={
+                item.statusType === 'cancelled' ? styles.priceTextCancelled : styles.priceText
+              }
+            >
+              {item.price}
             </Text>
-            {showButton && (
+
+            {showCancel && (
               <TouchableOpacity
-                style={[
-                  styles.statusButton,
-                  buttonStyle
-                ]}
-                onPress={() => handleStatusButton(item, buttonText)}
+                style={[styles.statusButton, styles.cancelButton]}
+                onPress={() => handleStatusButton(item, 'Cancel')}
               >
-                <Text style={styles.statusButtonText}>
-                  {buttonText}
-                </Text>
+                <Text style={styles.statusButtonText}>Cancel</Text>
+              </TouchableOpacity>
+            )}
+            {showRebook && (
+              <TouchableOpacity
+                style={[styles.statusButton, styles.rebookButton, { marginTop: 4 }]}
+                onPress={() => handleStatusButton(item, 'Rebook')}
+              >
+                <Text style={styles.statusButtonText}>Rebook</Text>
               </TouchableOpacity>
             )}
           </View>
@@ -190,29 +152,27 @@ const ActivityScreen1 = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton}>
-          <Text style={styles.backButtonText}>←</Text>
+          <Ionicons name="chevron-back" size={28} color="#173d49ff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Activity</Text>
         <View style={styles.placeholder} />
       </View>
 
       <View style={styles.tabsContainer}>
-        {tabs.map((tab) => (
+        {tabs.map(tab => (
           <TouchableOpacity
             key={tab}
-            style={[
-              styles.tab,
-              selectedTab === tab ? styles.tabActive : styles.tabInactive
-            ]}
+            style={[styles.tab, selectedTab === tab ? styles.tabActive : styles.tabInactive]}
             onPress={() => setSelectedTab(tab)}
           >
-            <Text style={[
-              styles.tabText,
-              selectedTab === tab ? styles.tabTextActive : styles.tabTextInactive
-            ]}>
+            <Text
+              style={[
+                styles.tabText,
+                selectedTab === tab ? styles.tabTextActive : styles.tabTextInactive,
+              ]}
+            >
               {tab}
             </Text>
           </TouchableOpacity>
@@ -228,43 +188,26 @@ const ActivityScreen1 = ({ navigation }) => {
       />
 
       <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate("loggedinUser")}>
-          <Image
-            source={navIcons.home}
-            style={styles.navIcon}
-            resizeMode="contain"
-          />
+        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('loggedinUser')}>
+          <Image source={navIcons.home} style={styles.navIcon} resizeMode="contain" />
           <Text style={styles.navText}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navItem}>
-          <Image
-            source={navIcons.activity}
-            style={styles.navIcon}
-            resizeMode="contain"
-          />
+          <Image source={navIcons.activity} style={styles.navIcon} resizeMode="contain" />
           <Text style={styles.navTextActive}>Activity</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate("bookingStep1")}>
-          <Image
-            source={navIcons.book}
-            style={styles.navIcon}
-            resizeMode="contain"
-          />
+        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('bookingStep1')}>
+          <Image source={navIcons.book} style={styles.navIcon} resizeMode="contain" />
           <Text style={styles.navText}>Book</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navItem}>
-          <Image
-            source={navIcons.settings}
-            style={styles.navIcon}
-            resizeMode="contain"
-          />
+          <Image source={navIcons.settings} style={styles.navIcon} resizeMode="contain" />
           <Text style={styles.navText}>Settings</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -275,23 +218,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#137594',
-    paddingVertical: 20,
     paddingTop: 80,
+    paddingVertical: 20,
     paddingHorizontal: 20,
   },
   backButton: {
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
+    backgroundColor: '#fff',
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 10,
-  },
-  backButtonText: {
-    fontSize: 24,
-    color: '#FFFFFF',
+    marginRight: 12,
   },
   headerTitle: {
-    fontSize: 24,
+    fontSize: 25,
     fontWeight: '600',
     color: '#ffffff',
     flex: 1,
@@ -299,14 +240,13 @@ const styles = StyleSheet.create({
   placeholder: {
     width: 30,
   },
-
   tabsContainer: {
-    backgroundColor: '#ffffff',
+    flexDirection: 'row',
+    backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderBottomColor: '#e5e7eb',
     paddingHorizontal: 12,
     paddingVertical: 12,
-    flexDirection: 'row',
   },
   tab: {
     paddingHorizontal: 20,
@@ -325,19 +265,18 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   tabTextActive: {
-    color: '#ffffff',
+    color: '#fff',
   },
   tabTextInactive: {
     color: '#6b7280',
   },
-
   jobList: {
     flex: 1,
     paddingTop: 8,
     paddingBottom: 100,
   },
   jobCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#fff',
     marginHorizontal: 16,
     marginTop: 12,
     marginBottom: 4,
@@ -370,7 +309,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#e0f2f7',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 12,
@@ -396,30 +335,39 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#6b7280',
   },
-
-  rateLink: {
-    flexDirection: 'row',
+  statusButton: {
+    paddingHorizontal: 15,
+    paddingVertical: 6,
+    borderRadius: 15,
+    minWidth: 70,
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#f39c12',
-    paddingHorizontal: 5,
-    paddingVertical: 2,
-    borderRadius: 3,
-    alignSelf: 'flex-start',
     marginTop: 4,
   },
-  rateLinkText: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: '#f39c12',
-    marginRight: 3,
+  rebookButton: {
+    backgroundColor: '#137594',
   },
-  rateLinkArrow: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: '#ffb808',
+  cancelButton: {
+    backgroundColor: '#EF4444',
   },
-
+  rateButton: {
+    backgroundColor: '#f39c12',
+    borderRadius: 10,   
+    paddingHorizontal: 13, 
+    paddingVertical: 5,   
+    alignSelf: 'flex-start', 
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  statusButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#fff',
+  },
+  rateButtonText: {
+    fontSize: 14,
+    fontWeight: '600',  
+    color: '#fff',
+  },
   priceContainer: {
     alignItems: 'flex-end',
   },
@@ -432,29 +380,10 @@ const styles = StyleSheet.create({
   priceTextCancelled: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#ffb808',
+    color: '#72706c',
     textDecorationLine: 'line-through',
     marginBottom: 8,
   },
-  statusButton: {
-    paddingHorizontal: 15,
-    paddingVertical: 6,
-    borderRadius: 4,
-    minWidth: 70,
-    alignItems: 'center',
-  },
-  rebookButton: {
-    backgroundColor: '#137594',
-  },
-  cancelButton: {
-    backgroundColor: '#EF4444',
-  },
-  statusButtonText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#FFFFFF',
-  },
-
   bottomNav: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -464,10 +393,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#e5e7eb',
     paddingBottom: 35,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
   },
   navItem: {
     flex: 1,

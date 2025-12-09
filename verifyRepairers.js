@@ -63,7 +63,7 @@ const RepairerCard = ({ repairer, onExpand, expanded, onApprove, onReject }) => 
   </View>
 );
 
-export default function verifyRepairer() {
+export default function verifyRepairer({navigation}) {
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedId, setExpandedId] = useState(null);
   const [showApproveModal, setShowApproveModal] = useState(false);
@@ -107,7 +107,7 @@ export default function verifyRepairer() {
 
   const handleBack = () => {
     console.log('Go back');
-    // Navigate back
+    navigation.goBack();
   };
 
   const handleExpand = (repairerId) => {
@@ -133,7 +133,7 @@ export default function verifyRepairer() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
       {/* Header */}
@@ -269,7 +269,7 @@ export default function verifyRepairer() {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -279,9 +279,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8fafc',
   },
   header: {
-    backgroundColor: '#0891b2',
-    paddingVertical: 16,
-     paddingLeft: 15,
+    backgroundColor: '#137594',
+    paddingVertical: 20,
+    paddingLeft: 15,
     paddingTop: 100,
     flexDirection: 'row',
     alignItems: 'center',
@@ -290,6 +290,7 @@ const styles = StyleSheet.create({
   headerLeft: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
   },
   backButton: {
     width: 40,
@@ -306,7 +307,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   headerTitle: {
-    fontSize: 18,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#fff',
   },
@@ -322,7 +323,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 12,
     height: 40,
-    width: 120,
+    width: 130,
     marginRight: 15,
   },
   searchInput: {
@@ -381,18 +382,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   repairerName: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: '600',
     color: '#000',
     marginBottom: 2,
   },
   repairerEmail: {
-    fontSize: 12,
+    fontSize: 15,
     color: '#64748b',
     marginBottom: 2,
   },
   repairerDate: {
-    fontSize: 11,
+    fontSize: 13,
     color: '#94a3b8',
   },
   expandIcon: {
@@ -495,19 +496,19 @@ const styles = StyleSheet.create({
     height: 570,
   },
   modalTitle: {
-    fontSize: 22,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#0891b2',
     marginBottom: 12,
   },
   modalDescription: {
-    fontSize: 14,
+    fontSize: 15,
     color: '#64748b',
     lineHeight: 20,
     marginBottom: 20,
   },
   modalSubtitle: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
     color: '#000',
     marginBottom: 12,
@@ -538,18 +539,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   previewName: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '600',
     color: '#000',
     marginBottom: 2,
   },
   previewEmail: {
-    fontSize: 12,
+    fontSize: 14,
     color: '#64748b',
     marginBottom: 2,
   },
   previewDate: {
-    fontSize: 11,
+    fontSize: 13,
     color: '#94a3b8',
   },
   modalButtons: {
@@ -596,14 +597,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   successTitle: {
-    fontSize: 22,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#0891b2',
     textAlign: 'center',
     marginBottom: 12,
   },
   successDescription: {
-    fontSize: 14,
+    fontSize: 15,
     color: '#64748b',
     textAlign: 'center',
     lineHeight: 20,

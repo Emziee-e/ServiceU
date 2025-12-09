@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
   Image,
   ScrollView,
@@ -49,7 +48,7 @@ export default function EditCustomerScreen({navigation}) {
 
   const handleBack = () => {
     console.log('Go back');
-    // Navigate back to previous screen
+    navigation.goBack();
   };
 
   const handleEditPhoto = () => {
@@ -104,7 +103,7 @@ export default function EditCustomerScreen({navigation}) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
       {/* Header */}
@@ -179,7 +178,7 @@ export default function EditCustomerScreen({navigation}) {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -189,12 +188,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8fafc',
   },
   header: {
-    backgroundColor: '#0891b2',
+    backgroundColor: '#137594',
     paddingVertical: 16,
     paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: 50,
+    paddingTop: 60,
   },
   backButton: {
     width: 40,
@@ -207,7 +206,7 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     fontSize: 20,
-    color: '#0891b2',
+    color: '#137594',
     fontWeight: 'bold',
   },
   headerTitle: {
@@ -217,7 +216,7 @@ const styles = StyleSheet.create({
     paddingLeft: 72,
   },
   headerExtension: {
-    backgroundColor: '#0891b2',
+    backgroundColor: '#137594',
     height: 65,
   },
   content: {
@@ -268,7 +267,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.25,
   },
   sectionTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
     color: '#000',
     marginBottom: 16,
@@ -277,8 +276,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   fieldLabel: {
-    fontSize: 12,
-    color: '#64748b',
+    fontSize: 15,
+    color: '#43484eff',
     marginBottom: 4,
   },
   fieldValueContainer: {

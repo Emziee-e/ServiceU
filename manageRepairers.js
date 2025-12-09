@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
   Image,
   ScrollView,
@@ -135,7 +134,7 @@ export default function RepairerManagementScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
       {/* Header */}
@@ -209,7 +208,7 @@ export default function RepairerManagementScreen({ navigation }) {
           />
         ))}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -247,7 +246,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   headerTitle: {
-    fontSize: 23,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#fff',
   },
@@ -258,7 +257,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 12,
     height: 40,
-    width: 120,
+    width: 130,
     marginRight: 15,
   },
   searchInput: {
@@ -327,7 +326,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   technicianName: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: '600',
     color: '#000',
     flex: 1,
@@ -367,7 +366,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   technicianService: {
-    fontSize: 25,
+    fontSize: 18,
     color: '#64748b',
     marginBottom: 8,
   },
@@ -377,12 +376,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   technicianRating: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
     color: '#f59e0b',
   },
   statusBadge: {
-    paddingHorizontal: 12,
+    paddingHorizontal: 17,
     paddingVertical: 4,
     borderRadius: 12,
   },
