@@ -38,9 +38,9 @@ export default function EditCustomerScreen({navigation}) {
   });
 
    const getGenderIcon = () => {
-    if (repairerData.gender === 'Male') {
+    if (customerData.gender === 'Male') {
       return require('./assets/male.png');
-    } else if (repairerData.gender === 'Female') {
+    } else if (customerData.gender === 'Female') {
       return require('./assets/male.png');
     } else {
       return require('./assets/male.png');

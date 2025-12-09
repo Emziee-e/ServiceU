@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from "rea
 import { Ionicons } from "@expo/vector-icons";
 import TotalBookingsCard from './TotalBookingsCard';
 
-const AdminDashboard = () => {
+const AdminDashboard = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -38,17 +38,17 @@ const AdminDashboard = () => {
 
         <Text style={styles.quickTitle}>Quick Actions</Text>
 
-        <TouchableOpacity style={styles.actionCard}>
+        <TouchableOpacity style={styles.actionCard} onPress={() => navigation.navigate('manageRepairers')}>
           <Image source={require('./assets/repairers.png')} style={{width: 36, height: 36}} />
           <Text style={styles.actionText}>View All Repairers</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.actionCard}>
+        <TouchableOpacity style={styles.actionCard} onPress={() => navigation.navigate('manageCustomers')}>
           <Image source={require('./assets/view all customers.png')} style={{width: 36, height: 36}} />
           <Text style={styles.actionText}>View All Customers</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.actionCard}>
+        <TouchableOpacity style={styles.actionCard} onPress={() => navigation.navigate('verifyRepairers')}>
           <Image source={require('./assets/pending vertifications.png')} style={{width: 36, height: 36}} />
           <Text style={styles.actionText}>Pending Verifications</Text>
         </TouchableOpacity>
@@ -72,37 +72,57 @@ const AdminDashboard = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F1F7F9" },
-
+  container: { 
+    flex: 1, backgroundColor: "#F1F7F9" 
+  },
   header: {
-    backgroundColor: "#0F6E82",
-    paddingTop: 60,
+    backgroundColor: "#137594",
+    paddingTop: 80,
     paddingBottom: 25,
     paddingHorizontal: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
-  headerText: { fontSize: 28, fontWeight: "bold", color: "#fff" },
-
-  scrollContent: { padding: 20 },
-
-  cardRow: { marginBottom: 15 },
-
+  headerText: { 
+    fontSize: 28, fontWeight: "bold", color: "#fff" 
+  },
+  scrollContent: { 
+    padding: 20 
+  },
+  cardRow: { 
+    marginBottom: 15 
+  },
   statCard: {
     backgroundColor: "#E7F0F3",
     padding: 20,
     borderRadius: 15,
     position: "relative",
   },
-  cardTitle: { fontSize: 16, fontWeight: "bold", color: "#000" },
-  subLabel: { color: "#4B5563", fontSize: 14 },
-  statNumber: { fontSize: 32, fontWeight: "bold", marginTop: 5 },
-
-  filterIcon: { position: "absolute", top: 15, right: 15 },
-
-  quickTitle: { fontSize: 18, fontWeight: "bold", marginBottom: 10 },
-
+  cardTitle: { 
+    fontSize: 16, 
+    fontWeight: "bold", 
+    color: "#000" 
+  },
+  subLabel: { 
+    color: "#4B5563", 
+    fontSize: 14 
+  },
+  statNumber: { 
+    fontSize: 32, 
+    fontWeight: "bold", 
+    marginTop: 5 
+  },
+  filterIcon: { 
+    position: "absolute", 
+    top: 15, 
+    right: 15 
+  },
+  quickTitle: { 
+    fontSize: 18, 
+    fontWeight: "bold", 
+    marginBottom: 10 
+  },
   actionCard: {
     backgroundColor: "#DFEDF2",
     padding: 20,
@@ -112,9 +132,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 15,
   },
-
-  actionText: { fontSize: 17, fontWeight: "600" },
-
+  actionText: { 
+    fontSize: 17, 
+    fontWeight: "600" 
+  },
   bottomNav: {
     height: 70,
     backgroundColor: "#fff",
@@ -124,9 +145,18 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: "#D1D5DB",
   },
-  navItem: { alignItems: "center" },
-  navLabelActive: { color: "#137594", marginTop: 3, fontWeight: "600" },
-  navLabel: { color: "#9CA3AF", marginTop: 3 },
+  navItem: { 
+    alignItems: "center" 
+  },
+  navLabelActive: { 
+    color: "#137594", 
+    marginTop: 3, 
+    fontWeight: "600" 
+  },
+  navLabel: { 
+    color: "#9CA3AF", 
+    marginTop: 3 
+  },
 });
 
 export default AdminDashboard;

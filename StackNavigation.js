@@ -31,6 +31,7 @@ import manageCustomers from './manageCustomers';
 import RepairerManagementScreen from './manageRepairers';
 import verifyRepairer from './verifyRepairers';
 import adminLogin from './adminLogin';
+import AdminDashboard from './AdminDashboard';
 
 
 const Stack = createNativeStackNavigator();
@@ -38,7 +39,7 @@ const Stack = createNativeStackNavigator();
 const StackNavigation = () => {
   return (
     <Stack.Navigator
-        initialRouteName='AdminDashboard'
+        initialRouteName='frontPage'
         screenOptions={{ headerShown: false }}
       >
       <Stack.Screen name="customerSignUp1" component={customerSignUp1} />
@@ -69,8 +70,9 @@ const StackNavigation = () => {
       <Stack.Screen name="editRepairer" component={editRepairer} />
       <Stack.Screen name="manageCustomers" component={manageCustomers} />
       <Stack.Screen name="manageRepairers" component={RepairerManagementScreen} />
-      <Stack.Screen name="verifyRepairer" component={verifyRepairer} />
+      <Stack.Screen name="verifyRepairers" component={verifyRepairer} />
       <Stack.Screen name="adminLogin" component={adminLogin} />
+      <Stack.Screen name="adminDashboard" component={AdminDashboard} />
     </Stack.Navigator>
   );
 };

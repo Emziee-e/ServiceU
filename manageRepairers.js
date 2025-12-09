@@ -23,25 +23,37 @@ const FilterButton = ({ label, active, onPress }) => (
   </TouchableOpacity>
 );
 
-const TechnicianCard = ({ id, imageSource, name, service, rating, status, onMenuPress, showMenu, menuPosition }) => (
+const TechnicianCard = ({ 
+  id, 
+  imageSource, 
+  name, 
+  service, 
+  rating, 
+  status, 
+  onMenuPress, 
+  showMenu,
+  onEditPress
+}) => (
   <View style={styles.technicianCard}>
     <Image source={imageSource} style={styles.technicianImage} />
+
     <View style={styles.technicianInfo}>
       <View style={styles.technicianHeader}>
         <Text style={styles.technicianName}>{name}</Text>
+
         <View>
           <TouchableOpacity 
             style={styles.menuButton} 
-            onPress={(e) => onMenuPress(id, name, e)}
+            onPress={(e) => onMenuPress(id, name)}
           >
             <Text style={styles.menuIcon}>⋮</Text>
           </TouchableOpacity>
-          
+
           {showMenu && (
             <View style={styles.dropdownMenu}>
               <TouchableOpacity 
                 style={styles.dropdownItem}
-                onPress={() => handleEditPress(id, name)}
+                onPress={() => onEditPress(id, name)}
               >
                 <Image source={require('./assets/pencil.png')} style={styles.pencil}/>
                 <Text style={styles.dropdownText}>Edit Information</Text>
@@ -50,9 +62,12 @@ const TechnicianCard = ({ id, imageSource, name, service, rating, status, onMenu
           )}
         </View>
       </View>
+
       <Text style={styles.technicianService}>{service}</Text>
+
       <View style={styles.bottomRow}>
         <Text style={styles.technicianRating}>Rate: {rating}</Text>
+
         <View style={[
           styles.statusBadge, 
           status === 'Active' ? styles.statusActive : styles.statusInactive
@@ -69,7 +84,7 @@ const TechnicianCard = ({ id, imageSource, name, service, rating, status, onMenu
   </View>
 );
 
-export default function RepairerManagementScreen() {
+export default function RepairerManagementScreen({ navigation }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('Expertise');
   const [openMenuId, setOpenMenuId] = useState(null);
@@ -102,22 +117,21 @@ export default function RepairerManagementScreen() {
   ];
 
   const handleBack = () => {
-    console.log('Go back');
-    // Navigate back to previous screen
+    navigation.goBack();
   };
 
-  const handleMenuPress = (technicianId, technicianName) => {
-    if (openMenuId === technicianId) {
-      setOpenMenuId(null); // Close menu if already open
-    } else {
-      setOpenMenuId(technicianId); // Open menu for this technician
-    }
+  const handleMenuPress = (technicianId) => {
+    setOpenMenuId(openMenuId === technicianId ? null : technicianId);
   };
 
   const handleEditPress = (technicianId, technicianName) => {
-    console.log('Edit information for:', technicianId, technicianName);
-    setOpenMenuId(null); // Close menu after action
-    // Navigate to edit screen
+    console.log('Edit info for:', technicianId, technicianName);
+    setOpenMenuId(null);
+
+    navigation.navigate('editRepairer', {
+      id: technicianId,
+      name: technicianName,
+    });
   };
 
   return (
@@ -130,6 +144,7 @@ export default function RepairerManagementScreen() {
           <TouchableOpacity style={styles.backButton} onPress={handleBack}>
             <Ionicons name="chevron-back" size={28} color="#173d49ff" />
           </TouchableOpacity>
+
           <View>
             <Text style={styles.headerTitle}>Repairer</Text>
             <Text style={styles.headerTitle}>Management</Text>
@@ -190,6 +205,7 @@ export default function RepairerManagementScreen() {
             status={tech.status}
             onMenuPress={handleMenuPress}
             showMenu={openMenuId === tech.id}
+            onEditPress={handleEditPress} 
           />
         ))}
       </ScrollView>

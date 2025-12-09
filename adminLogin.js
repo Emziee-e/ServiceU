@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
   Image,
   KeyboardAvoidingView,
@@ -13,7 +12,7 @@ import {
   Alert,
 } from 'react-native';
 
-export default function adminLogin() {
+export default function adminLogin({navigation}) {
   const [phoneOrEmail, setPhoneOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -29,8 +28,7 @@ export default function adminLogin() {
     }
 
     console.log('Login attempt:', { phoneOrEmail, password });
-    // Perform login API call here
-    Alert.alert('Success', 'Login successful!');
+    navigation.navigate("adminDashboard");
   };
 
   const handleForgotPassword = () => {
@@ -40,11 +38,11 @@ export default function adminLogin() {
 
   const handleGoBackToMain = () => {
     console.log('Go back to main login page');
-    // Navigate back to main login page
+    navigation.goBack();
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       
       <KeyboardAvoidingView
@@ -61,13 +59,10 @@ export default function adminLogin() {
             />
           </View>
 
-      {/* The outer Text component can define shared styles like fontSize */}
       <Text style={styles.service}>
-        {/* The first part of the text with a specific color */}
         <Text style={styles.yellow}>
           SERVICE -{' '}
         </Text>
-        {/* The second part of the text with a different color */}
         <Text style={styles.black}>
           U
         </Text>
@@ -135,7 +130,7 @@ export default function adminLogin() {
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   );
 }
 

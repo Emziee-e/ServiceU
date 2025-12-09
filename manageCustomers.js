@@ -23,7 +23,7 @@ const FilterButton = ({ label, active, onPress }) => (
   </TouchableOpacity>
 );
 
-const CustomerCard = ({ id, initials, name, email, lastOnline, status, onMenuPress, showMenu }) => (
+const CustomerCard = ({ id, initials, name, email, lastOnline, status, onMenuPress, showMenu, onEditPress }) => (
   <View style={styles.customerCard}>
     <View style={styles.avatarContainer}>
       <Text style={styles.avatarText}>{initials}</Text>
@@ -58,7 +58,7 @@ const CustomerCard = ({ id, initials, name, email, lastOnline, status, onMenuPre
             <View style={styles.dropdownMenu}>
               <TouchableOpacity 
                 style={styles.dropdownItem}
-                onPress={() => handleEditPress(id, name)}
+                onPress={() => onEditPress(id, name)}
               >
                 <Image source={require('./assets/pencil.png')} style={styles.pencil}/>
                 <Text style={styles.dropdownText}>Edit Information</Text>
@@ -69,7 +69,7 @@ const CustomerCard = ({ id, initials, name, email, lastOnline, status, onMenuPre
   </View>
 );
 
-export default function manageCustomers() {
+export default function manageCustomers({navigation}) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [openMenuId, setOpenMenuId] = useState(null);
@@ -116,8 +116,8 @@ export default function manageCustomers() {
 
   const handleEditPress = (customerId, customerName) => {
     console.log('Edit information for:', customerId, customerName);
-    setOpenMenuId(null); // Close menu after action
-    // Navigate to edit screen
+    setOpenMenuId(null); 
+    navigation.navigate('editCustomer', { id: customerId, name: customerName });
   };
 
   // Filter customers based on selected filter
@@ -196,6 +196,7 @@ export default function manageCustomers() {
             status={customer.status}
             onMenuPress={handleMenuPress}
             showMenu={openMenuId === customer.id}
+            onEditPress={handleEditPress}
           />
         ))}
       </ScrollView>
