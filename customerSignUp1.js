@@ -30,7 +30,7 @@ const CustomerSignUp = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
-                {/* Logo */}
+                
                 <View style={styles.logoContainer}>
                     <Image source={require('./assets/ServiceU Logo.png')} style={styles.logo} />
                     <Text style={styles.logoText}>
@@ -128,7 +128,6 @@ const CustomerSignUp = ({ navigation }) => {
                     </View>
                 </View>
 
-                {/* Buttons */}
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         style={[styles.nextButton, loading && { opacity: 0.7 }]}

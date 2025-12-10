@@ -33,7 +33,7 @@ const RepairerSignUp5 = ({ navigation, route }) => {
         }
 
         try {
-            const response = await fetch("http://192.168.1.58/ServiceU/api/repairer_register.php", {
+            const response = await fetch("http://10.0.2.2/ServiceU/api/repairer_register.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -64,7 +64,7 @@ const RepairerSignUp5 = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
-                {/* Logo */}
+
                 <View style={styles.logoContainer}>
                     <Image source={require('./assets/ServiceU_Logo.png')} style={styles.logo} />
                     <Text style={styles.logoText}>
@@ -73,7 +73,6 @@ const RepairerSignUp5 = ({ navigation, route }) => {
                     </Text>
                 </View>
 
-                {/* Form Header */}
                 <Text style={styles.formHeader}>Upload your Documents</Text>
                 <Text style={styles.formHeaderComments}>
                     Please upload your licenses or official certifications to verify your expertise
@@ -104,7 +103,6 @@ const RepairerSignUp5 = ({ navigation, route }) => {
                     )}
                 </View>
 
-                {/* Buttons */}
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.previousButton} onPress={() => navigation.goBack()}>
                         <Text style={styles.previousButtonText}>Previous</Text>

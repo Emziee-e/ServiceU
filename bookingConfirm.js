@@ -20,14 +20,12 @@ export default function BookingConfirm({navigation}) {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
           <Ionicons name="chevron-back" size={28} color="#173d49ff" />
         </TouchableOpacity>
       </View>
 
-      {/* Main Content */}
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.confirmSection}>
             <View>
@@ -39,7 +37,6 @@ export default function BookingConfirm({navigation}) {
             </View>
         </View>
 
-        {/* Book Now Button */}
         <TouchableOpacity style={styles.bookDetailsButton} onPress={() => navigation.navigate('bookingDetails')} >
           <Text style={styles.bookDetailsText}>View Booking Details</Text>
         </TouchableOpacity>

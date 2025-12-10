@@ -15,6 +15,7 @@ export default function InitialLogin({ navigation }) {
   const [customer_email, setEmail] = useState('');
   const [customer_password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
   if (!customer_email || !customer_password) {
@@ -47,7 +48,6 @@ export default function InitialLogin({ navigation }) {
   return (
     <View style={styles.container}>
 
-      {/* Logo */}
       <Image source={require('./assets/logo.png')} style={styles.logo} />
 
       <View style={styles.titleContainer}>
@@ -66,15 +66,23 @@ export default function InitialLogin({ navigation }) {
         editable={!loading}
       />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        placeholderTextColor="#888"
-        value={customer_password}
-        onChangeText={setPassword}
-        secureTextEntry
-        editable={!loading}
-      />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={[styles.input, styles.passwordInput]}
+          placeholder="Password"
+          placeholderTextColor="#9ca3af"
+          value={customer_password}
+          onChangeText={setPassword}
+          secureTextEntry={!showPassword}
+          autoCapitalize="none"
+        />
+        <TouchableOpacity 
+          style={styles.eyeIcon}
+          onPress={() => setShowPassword(!showPassword)}
+        >
+        <Image source={require('./assets/eye.png')} style={styles.eye}/>
+        </TouchableOpacity>
+      </View>
 
       <TouchableOpacity
         style={[styles.button, loading && { opacity: 0.7 }]}
@@ -188,5 +196,22 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 16,
     textDecorationLine: 'underline',
+  },
+  eye: {
+    height: 20,
+    width: 25,
+  },
+  eyeIcon: {
+    position: 'absolute',
+    right: 16,
+    top: 12,
+    padding: 4,
+  },
+  inputContainer: {
+    position: 'relative',
+    marginBottom: 16,
+  },
+  passwordInput: {
+    paddingRight: 50,
   },
 });

@@ -72,12 +72,10 @@ export default function BookingStep1({navigation}) {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
-      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Booking</Text>
       </View>
 
-      {/* Main Content */}
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <Text style={styles.sectionTitle}>Select category:</Text>
 
@@ -95,7 +93,6 @@ export default function BookingStep1({navigation}) {
           ))}
         </View>
 
-        {/* Continue Button */}
         <TouchableOpacity 
           style={styles.continueButton} 
           onPress={handleContinue}
@@ -104,7 +101,6 @@ export default function BookingStep1({navigation}) {
         </TouchableOpacity>
       </ScrollView>
 
-      {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <NavButton 
           icon={require('./assets/home1.png')} 

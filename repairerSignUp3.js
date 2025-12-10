@@ -2,13 +2,10 @@ import React, { useState } from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Alert} from 'react-native';
 
 const RepairerSignUp3 = ({navigation, route}) => {
-
     const { repairer_fullName, repairer_gender, repairer_email, repairer_password, repairer_phoneNum } = route.params;
-
     const [repairer_address, setAddress] = useState('');
 
     const goNext = () => {
-
         if (repairer_address.trim() === "") {
             alert("Please enter your address");
             return;
@@ -28,7 +25,6 @@ const RepairerSignUp3 = ({navigation, route}) => {
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
 
-                {/* Logo */}
                 <View style={styles.logoContainer}>
                     <Image 
                         source={require('./assets/ServiceU_Logo.png')}
@@ -91,11 +87,8 @@ const RepairerSignUp3 = ({navigation, route}) => {
                     </View>
                 </View>
 
-                {/* Form Header */}
                 <Text style={styles.formHeader}>Where can we find you?</Text>
-
-                {/* Form Fields */}
-                <View style={styles.formContainer}>
+                    <View style={styles.formContainer}>
 
                     {/* Address */}
                     <View style={styles.inputGroup}>
@@ -110,7 +103,6 @@ const RepairerSignUp3 = ({navigation, route}) => {
                     </View>
                 </View>
 
-                {/* Buttons */}
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.previousButton}
                         onPress={() => navigation.goBack()}

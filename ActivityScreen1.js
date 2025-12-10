@@ -81,8 +81,6 @@ const ActivityScreen1 = ({ navigation }) => {
 
   const renderActivityItem = ({ item }) => {
     const iconSource = categoryIcons[item.category];
-
-    // Determine buttons
     const showCancel = item.repairerName === 'Luis Fernando' && item.statusType === 'ongoing';
     const showRebook = item.repairerName === 'Juan Dela Cruz' && item.statusType === 'completed';
     const showRate = item.repairerName === 'Juan Dela Cruz' && item.statusType === 'completed';
@@ -113,7 +111,6 @@ const ActivityScreen1 = ({ navigation }) => {
                 style={[styles.rateButton, { marginTop: 4 }]}
                 onPress={() => handleStatusButton(item, 'Rate')}
               >
-                {/* Use the new smaller text style here */}
                 <Text style={styles.rateButtonText}>Rate</Text>
               </TouchableOpacity>
             )}

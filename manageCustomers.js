@@ -107,9 +107,9 @@ export default function manageCustomers({navigation}) {
 
   const handleMenuPress = (customerId, customerName) => {
     if (openMenuId === customerId) {
-      setOpenMenuId(null); // Close menu if already open
+      setOpenMenuId(null);
     } else {
-      setOpenMenuId(customerId); // Open menu for this customer
+      setOpenMenuId(customerId);
     }
   };
 
@@ -119,7 +119,6 @@ export default function manageCustomers({navigation}) {
     navigation.navigate('editCustomer', { id: customerId, name: customerName });
   };
 
-  // Filter customers based on selected filter
   const filteredCustomers = customers.filter(customer => {
     if (selectedFilter === 'All') return true;
     return customer.status === selectedFilter;
@@ -128,8 +127,7 @@ export default function manageCustomers({navigation}) {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
-      
-      {/* Header */}
+    
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <TouchableOpacity style={styles.backButton} onPress={handleBack}>

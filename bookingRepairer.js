@@ -89,7 +89,6 @@ export default function BookingRepairer({navigation}) {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
           <Ionicons name="chevron-back" size={28} color="#173d49ff" />
@@ -139,7 +138,6 @@ export default function BookingRepairer({navigation}) {
         showsVerticalScrollIndicator={false}
       />
 
-      {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <NavButton 
           icon={require('./assets/home1.png')} 

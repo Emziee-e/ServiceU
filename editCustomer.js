@@ -53,17 +53,14 @@ export default function EditCustomerScreen({navigation}) {
 
   const handleEditPhoto = () => {
     console.log('Edit profile photo');
-    // Open image picker
   };
 
   const handleEditAddress = () => {
     console.log('Edit address');
-    // Open address edit modal or screen
   };
 
   const handleEditGender = () => {
     console.log('Edit gender');
-    // Open gender selection modal
   };
 
   const handleSaveChanges = () => {
@@ -76,7 +73,6 @@ export default function EditCustomerScreen({navigation}) {
           text: 'Save', 
           onPress: () => {
             console.log('Saving changes:', customerData);
-            // Save to database/API
             Alert.alert('Success', 'Changes saved successfully!');
           }
         },
@@ -95,7 +91,6 @@ export default function EditCustomerScreen({navigation}) {
           style: 'destructive',
           onPress: () => {
             console.log('Deleting account');
-            // Delete account logic
           }
         },
       ]
@@ -105,8 +100,7 @@ export default function EditCustomerScreen({navigation}) {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
-      
-      {/* Header */}
+     
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
           <Ionicons name="chevron-back" size={28} color="#173d49ff" />
@@ -114,11 +108,10 @@ export default function EditCustomerScreen({navigation}) {
         <Text style={styles.headerTitle}>Edit Customer</Text>
       </View>
 
-      {/* Header Extension (for overlap effect) */}
       <View style={styles.headerExtension} />
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        {/* Profile Photo - Overlapping */}
+        {/* Profile Photo */}
         <View style={styles.profileSection}>
           <View style={styles.profileImageContainer}>
             <Image 

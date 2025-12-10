@@ -34,7 +34,6 @@ const RepairerSignUp4 = ({navigation, route}) => {
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
 
-                {/* Logo */}
                 <View style={styles.logoContainer}>
                     <Image 
                         source={require('./assets/ServiceU_Logo.png')}
@@ -97,11 +96,8 @@ const RepairerSignUp4 = ({navigation, route}) => {
                     </View>
                 </View>
 
-                {/* Form Header */}
                 <Text style={styles.formHeader}>Almost there! Select your expertise</Text>
-
-                {/* Form Fields */}
-                <View style={styles.formContainer}>
+                    <View style={styles.formContainer}>
 
                     {/* Expertise Options */}
                     <View style={styles.expertiseContainer}>
@@ -181,7 +177,6 @@ const RepairerSignUp4 = ({navigation, route}) => {
                     </View>
                 </View>
 
-                {/* Buttons */}
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.previousButton}
                         onPress={() => navigation.goBack()}
@@ -202,7 +197,6 @@ const RepairerSignUp4 = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
-    /* ALL YOUR STYLES ARE KEPT EXACTLY AS IS — NO CHANGES MADE */
     container: {
         flex: 1,
         backgroundColor: '#fff',

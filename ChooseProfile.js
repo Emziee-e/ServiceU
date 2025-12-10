@@ -18,7 +18,6 @@ const ChooseProfile = ({ navigation }) => {
     return (
         <View style={styles.container}>
 
-            {/* Logo */}
             <View style={styles.logoContainer}>
                 <TouchableOpacity style={styles.backButton} onPress={handleBack}>
                     <Ionicons name="chevron-back" size={28} color="#173d49ff" />
@@ -33,7 +32,6 @@ const ChooseProfile = ({ navigation }) => {
                 </Text>
             </View>
 
-            {/* Header */}
             <View style={styles.headerContainer}>
                 <Text style={styles.headerTitle}>Choose Your Profile</Text>
                 <Text style={styles.headerSubtitle}>

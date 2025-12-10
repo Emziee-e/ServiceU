@@ -33,7 +33,6 @@ export default function adminLogin({navigation}) {
 
   const handleForgotPassword = () => {
     console.log('Forgot password');
-    // Navigate to forgot password screen
   };
 
   const handleGoBackToMain = () => {
@@ -50,7 +49,6 @@ export default function adminLogin({navigation}) {
         style={styles.keyboardView}
       >
         <View style={styles.content}>
-          {/* Logo */}
           <View style={styles.logoContainer}>
             <Image 
               source={require('./assets/logo.png')} 
@@ -67,8 +65,6 @@ export default function adminLogin({navigation}) {
           U
         </Text>
       </Text>
-
-          {/* Title */}
           <Text style={styles.title}>Admin Portal</Text>
 
           {/* Phone/Email Input */}
@@ -103,7 +99,6 @@ export default function adminLogin({navigation}) {
             </TouchableOpacity>
           </View>
 
-          {/* Login Button */}
           <TouchableOpacity 
             style={styles.loginButton} 
             onPress={handleLogin}
@@ -111,7 +106,6 @@ export default function adminLogin({navigation}) {
             <Text style={styles.loginButtonText}>Log in</Text>
           </TouchableOpacity>
 
-          {/* Forgot Password */}
           <TouchableOpacity 
             style={styles.forgotPasswordButton}
             onPress={handleForgotPassword}
@@ -119,7 +113,6 @@ export default function adminLogin({navigation}) {
             <Text style={styles.forgotPasswordText}>Forgot Password</Text>
           </TouchableOpacity>
 
-          {/* Go Back Link */}
           <TouchableOpacity 
             style={styles.goBackButton}
             onPress={handleGoBackToMain}
@@ -188,9 +181,6 @@ const styles = StyleSheet.create({
     right: 16,
     top: 12,
     padding: 4,
-  },
-  eyeIconText: {
-    fontSize: 20,
   },
   loginButton: {
     backgroundColor: '#137594',

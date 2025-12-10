@@ -71,7 +71,6 @@ export default function BookingForms({navigation}) {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
           <Ionicons name="chevron-back" size={28} color="#173d49ff" />
@@ -79,8 +78,8 @@ export default function BookingForms({navigation}) {
         <Text style={styles.headerTitle}>Book</Text>
       </View>
 
-      {/* Main Content */}
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+
         {/* Technician Info */}
         <View style={styles.technicianCard}>
           <Image source={technician.imageSource} style={styles.technicianImage} />
@@ -163,13 +162,11 @@ export default function BookingForms({navigation}) {
           </TouchableOpacity>
         </View>
 
-        {/* Book Now Button */}
         <TouchableOpacity style={styles.bookNowButton} onPress={handleBookNow}>
           <Text style={styles.bookNowText}>Book Now</Text>
         </TouchableOpacity>
       </ScrollView>
 
-      {/* Confirmation Modal */}
       <Modal
         animationType="fade"
         transparent={true}

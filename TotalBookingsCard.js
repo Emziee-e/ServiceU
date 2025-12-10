@@ -26,26 +26,26 @@ export default function TotalBookingsCard() {
             },
           ],
         }}
-        width={screenWidth}
-        height={220}
-        fromZero
-        showBarTops={false}
-        withInnerLines={true}
-        chartConfig={{
-          backgroundColor: "#E7F0F3",
-          backgroundGradientFrom: "#E7F0F3",
-          backgroundGradientTo: "#E7F0F3",
-          decimalPlaces: 0,
-          barPercentage: 0.5,
-          fillShadowGradient: "#1E55FF",
-          fillShadowGradientOpacity: 1,
-          color: () => `rgba(0,0,0,0.5)`,
-          labelColor: () => `#000`,
-          propsForBackgroundLines: {
-            stroke: "#C9D3D6",
-            strokeDasharray: "0",
-          },
-        }}
+          width={screenWidth}
+          height={220}
+          fromZero
+          showBarTops={false}
+          withInnerLines={true}
+          chartConfig={{
+            backgroundColor: "#E7F0F3",
+            backgroundGradientFrom: "#E7F0F3",
+            backgroundGradientTo: "#E7F0F3",
+            decimalPlaces: 0,
+            barPercentage: 0.5,
+            fillShadowGradient: "#1E55FF",
+            fillShadowGradientOpacity: 1,
+            color: () => `rgba(0,0,0,0.5)`,
+            labelColor: () => `#000`,
+            propsForBackgroundLines: {
+              stroke: "#C9D3D6",
+              strokeDasharray: "0",
+            },
+          }}
         style={{
           marginTop: 10,
           borderRadius: 12,

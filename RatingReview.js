@@ -24,7 +24,6 @@ const RatingReview = ({ navigation, route }) => {
   const handleSubmit = () => {
     if (rating > 0) {
       setSubmitted(true);
-      // Here you can send data to your backend
       console.log('Rating:', rating);
       console.log('Review:', review);
       console.log('Repairer:', repairerName);
@@ -39,7 +38,6 @@ const RatingReview = ({ navigation, route }) => {
     navigation.navigate("loggedinUser")
   };
 
-  // Thank You Screen
   if (submitted) {
     return (
       <View style={styles.container}>
@@ -66,8 +64,7 @@ const RatingReview = ({ navigation, route }) => {
       </View>
     );
   }
-
-  // Rating Screen
+  
   return (
     <View style={styles.container}>
       <View style={styles.topColorSection} />

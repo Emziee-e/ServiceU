@@ -13,7 +13,7 @@ const CustomerSignUp3 = ({navigation, route}) => {
     }
 
     try {
-        const response = await fetch('http://192.168.1.58/ServiceU/api/customer_register.php', {
+        const response = await fetch('http://10.0.2.2/ServiceU/api/customer_register.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -37,11 +37,9 @@ const CustomerSignUp3 = ({navigation, route}) => {
     }
 };
 
-
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
-                {/* Logo */}
                 <View style={styles.logoContainer}>
                     <Image 
                         source={require('./assets/ServiceU Logo.png')}
@@ -87,7 +85,6 @@ const CustomerSignUp3 = ({navigation, route}) => {
                         </View>
                 </View>
 
-                {/* Form Header */}
                 <Text style={styles.formHeader}>Finally, Where can we find you?</Text>
 
                 {/* Form Fields */}

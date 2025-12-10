@@ -30,7 +30,7 @@ const CustomerSignUp2 = ({navigation, route}) => {
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
-                {/* Logo */}
+                
                 <View style={styles.logoContainer}>
                     <Image 
                         source={require('./assets/ServiceU Logo.png')}
@@ -76,7 +76,6 @@ const CustomerSignUp2 = ({navigation, route}) => {
                         </View>
                 </View>
 
-                {/* Form Header */}
                 <Text style={styles.formHeader}>Account Information</Text>
 
                 {/* Form Fields */}
@@ -120,7 +119,6 @@ const CustomerSignUp2 = ({navigation, route}) => {
                     </View>
                 </View>
 
-                {/* Buttons */}
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.previousButton}
                         onPress={() => navigation.goBack()}

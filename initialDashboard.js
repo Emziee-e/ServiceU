@@ -55,10 +55,8 @@ export default function InitialDashboard({navigation}) {
   };
 
   const handleLogin = () => {
-    // Handle login logic here
     navigation.navigate('initialLogin')
     setModalVisible(false);
-    // Navigate to main app or perform authentication
   };
 
   const services = [
@@ -97,8 +95,7 @@ export default function InitialDashboard({navigation}) {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
-      
-      {/* Header */}
+
       <View style={styles.header}>
         <TouchableOpacity style={styles.profileButton} onPress={handleOpenModal}>
           <Image source={require('./assets/user.png')} style={styles.profileImage}/>
@@ -116,7 +113,6 @@ export default function InitialDashboard({navigation}) {
         </View>
       </View>
 
-      {/* Main Content */}
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <Text style={styles.mainTitle}>
           Find Your Technician Expert{'\n'}and Services
@@ -162,7 +158,6 @@ export default function InitialDashboard({navigation}) {
         </ScrollView>
       </ScrollView>
 
-      {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <NavButton imageSource={require('./assets/home.png')} label="Home" active={true} />
         <NavButton imageSource={require('./assets/activity.png')} label="Activity" active={false} onPress={handleOpenModal} />

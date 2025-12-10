@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const RepairerDashboard = ({navigation}) => {
   const [isPriceModalVisible, setIsPriceModalVisible] = useState(false);
@@ -8,12 +9,12 @@ const RepairerDashboard = ({navigation}) => {
   const [minPrice, setMinPrice] = useState('200');
   const [maxPrice, setMaxPrice] = useState('800');
   const [selectedFilter, setSelectedFilter] = useState('All');
+  
 
   return (
     <View style={styles.container}>
-      {/* ScrollView for the main content */}
       <ScrollView style={styles.scrollView}>
-        {/* Header Section */}
+
         <View style={styles.header}>
           <Image source={require('./assets/luis.jpg')} style={styles.profileImage} />
           <View style={styles.welcomeContainer}>
@@ -53,7 +54,7 @@ const RepairerDashboard = ({navigation}) => {
               <Text style={styles.priceText}>Set Your Price</Text>
             </TouchableOpacity>
             
-            {/* Rating Card - Now clickable */}
+            {/* Rating Card */}
             <TouchableOpacity 
               style={styles.ratingCard}
               activeOpacity={0.7}
@@ -106,7 +107,6 @@ const RepairerDashboard = ({navigation}) => {
         </View>
       </ScrollView>
 
-      {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
           <Image source={require('./assets/home.png')} style={styles.navIcon} />
@@ -132,7 +132,6 @@ const RepairerDashboard = ({navigation}) => {
       {isPriceModalVisible && (
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            {/* Close Button */}
             <TouchableOpacity 
               style={styles.closeButton}
               onPress={() => setIsPriceModalVisible(false)}
@@ -159,7 +158,6 @@ const RepairerDashboard = ({navigation}) => {
               </View>
             </View>
 
-            {/* Set Button */}
             <TouchableOpacity 
               style={styles.setButton}
               onPress={() => setIsPriceModalVisible(false)}
@@ -174,13 +172,12 @@ const RepairerDashboard = ({navigation}) => {
       {isFeedbackVisible && (
         <View style={styles.feedbackModalOverlay}>
           <View style={styles.feedbackModal}>
-            {/* Header */}
             <View style={styles.feedbackHeader}>
               <TouchableOpacity 
                 onPress={() => setIsFeedbackVisible(false)}
                 style={styles.backButton}
               >
-                <Text style={styles.backArrow}>←</Text>
+                <Ionicons name="chevron-back" size={28} color="#173d49ff" />
               </TouchableOpacity>
               <View style={styles.feedbackTitleContainer}>
                 <Text style={styles.feedbackTitle}>Customer Feedback</Text>
@@ -583,7 +580,7 @@ const styles = StyleSheet.create({
   },
   feedbackHeader: {
     backgroundColor: '#137594',
-    paddingTop: 50,
+    paddingTop: 80,
     paddingBottom: 20,
     paddingHorizontal: 20,
     flexDirection: 'row',
@@ -605,7 +602,7 @@ const styles = StyleSheet.create({
     marginTop: -14,
   },
   feedbackTitle: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#ffffff',
   },

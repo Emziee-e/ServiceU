@@ -30,7 +30,6 @@ const RepairerSignUp = ({navigation}) => {
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
 
-                {/* Logo */}
                 <View style={styles.logoContainer}>
                     <Image 
                         source={require('./assets/ServiceU_Logo.png')}
@@ -93,11 +92,8 @@ const RepairerSignUp = ({navigation}) => {
                     </View>
                 </View>
 
-                {/* Form Header */}
                 <Text style={styles.formHeader}>Let's get to know you!</Text>
-
-                {/* Form Fields */}
-                <View style={styles.formContainer}>
+                    <View style={styles.formContainer}>
 
                     {/* Full Name */}
                     <View style={styles.inputGroup}>
@@ -153,7 +149,6 @@ const RepairerSignUp = ({navigation}) => {
                     </View>
                 </View>
 
-                {/* Buttons */}
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.nextButton}
                         onPress={handleNext}>

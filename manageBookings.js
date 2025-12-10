@@ -51,13 +51,10 @@ const ManageBookings = ({navigation}) => {
 
   const handleConfirmBooking = () => {
     if (selectedJob) {
-      // Remove job from Ongoing
       const updatedOngoing = jobs.Ongoing.filter(job => job.id !== selectedJob.id);
-      
-      // Add job to Completed
+
       const updatedCompleted = [...jobs.Completed, selectedJob];
-      
-      // Update jobs state
+ 
       setJobs({
         ...jobs,
         Ongoing: updatedOngoing,
@@ -80,7 +77,6 @@ const ManageBookings = ({navigation}) => {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
       
-      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Manage Job Requests</Text>
       </View>
@@ -114,7 +110,6 @@ const ManageBookings = ({navigation}) => {
       <ScrollView style={styles.jobList}>
         {jobs[activeTab].length > 0 ? (
           activeTab === 'Incoming' ? (
-            // Incoming tab
             jobs[activeTab].map(job => (
               <TouchableOpacity key={job.id} style={styles.jobCardOriginal}
                 onPress={() => navigation.navigate("manageBookings1")}
@@ -132,7 +127,6 @@ const ManageBookings = ({navigation}) => {
               </TouchableOpacity>
             ))
           ) : (
-            // Ongoing, Cancelled, and Completed
             <View>
               {/* Category Header */}
               <TouchableOpacity 
@@ -169,7 +163,7 @@ const ManageBookings = ({navigation}) => {
                     </View>
                   </View>
                   
-                  {/* Complete Button - only for Ongoing tab */}
+                  {/* Complete Button */}
                   {activeTab === 'Ongoing' && (
                     <TouchableOpacity 
                       style={styles.completeButton}
@@ -274,7 +268,6 @@ const ManageBookings = ({navigation}) => {
 
       </ScrollView>
 
-      {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <TouchableOpacity 
           style={styles.navItem} 

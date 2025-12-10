@@ -20,7 +20,6 @@ const ManageBookings1 = ({ navigation }) => {
   const handleConfirmDecline = () => {
     setDeclineModalVisible(false);
     console.log('Booking declined and confirmed');
-    // Add your decline logic here (e.g., navigate back or update status)
   };
 
   const handleCancelDecline = () => {
@@ -30,19 +29,16 @@ const ManageBookings1 = ({ navigation }) => {
   const handleAcceptBooking = () => {
     console.log('Booking accepted');
     navigation.navigate("repairerDashboard")
-    // Add your accept logic here
   };
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
       
-      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Booking Details</Text>
       </View>
 
-      {/* Content */}
       <ScrollView style={styles.content}>
         {/* Service Card */}
         <View style={styles.serviceCard}>

@@ -102,7 +102,6 @@ export default function LoggedinUser({navigation}) {
           />
         </View>
       </View>
-      {/* Main Content */}
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <Text style={styles.mainTitle}>
           Find Your Technician Expert{'\n'}and Services
@@ -146,7 +145,6 @@ export default function LoggedinUser({navigation}) {
         </ScrollView>
       </ScrollView>
 
-      {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <NavButton imageSource={require('./assets/home.png')} label="Home" active={true} />
         <NavButton imageSource={require('./assets/activity.png')} label="Activity" active={false} onPress={() => navigation.navigate("activityScreen1")} />

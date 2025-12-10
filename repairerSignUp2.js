@@ -31,7 +31,6 @@ const RepairerSignUp2 = ({navigation, route}) => {
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
 
-                {/* Logo */}
                 <View style={styles.logoContainer}>
                     <Image 
                         source={require('./assets/ServiceU_Logo.png')}
@@ -43,7 +42,6 @@ const RepairerSignUp2 = ({navigation, route}) => {
                     </Text>
                 </View>
 
-                {/* Progress Indicator */}
                 <View style={styles.progressContainer}>
                     <View style={styles.progressTopRow}>
                         <View style={styles.circleWrapper}>
@@ -94,11 +92,8 @@ const RepairerSignUp2 = ({navigation, route}) => {
                     </View>
                 </View>
 
-                {/* Form Header */}
                 <Text style={styles.formHeader}>Account Information</Text>
-
-                {/* Form Fields */}
-                <View style={styles.formContainer}>
+                    <View style={styles.formContainer}>
 
                     {/* Email Address */}
                     <View style={styles.inputGroup}>
@@ -139,7 +134,6 @@ const RepairerSignUp2 = ({navigation, route}) => {
                     </View>
                 </View>
 
-                {/* Buttons */}
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.previousButton}
                         onPress={() => navigation.goBack()}

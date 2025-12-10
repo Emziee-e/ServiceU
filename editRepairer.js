@@ -105,7 +105,6 @@ export default function editRepairer({navigation}) {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
           <Ionicons name="chevron-back" size={28} color="#173d49ff" />
@@ -113,11 +112,10 @@ export default function editRepairer({navigation}) {
         <Text style={styles.headerTitle}>Edit Repairer</Text>
       </View>
 
-      {/* Header Extension (for overlap effect) */}
       <View style={styles.headerExtension} />
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        {/* Profile Photo - Overlapping */}
+        {/* Profile Photo */}
         <View style={styles.profileSection}>
           <View style={styles.profileImageContainer}>
             <Image 

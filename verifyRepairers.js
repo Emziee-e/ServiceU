@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
   ScrollView,
   Image,
@@ -121,9 +120,7 @@ export default function verifyRepairer({navigation}) {
 
   const handleConfirmApprove = () => {
     setShowApproveModal(false);
-    // Remove approved repairer from list
     setRepairers(repairers.filter(r => r.id !== selectedRepairer.id));
-    // Show success modal
     setShowSuccessModal(true);
   };
 
@@ -135,8 +132,7 @@ export default function verifyRepairer({navigation}) {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
-      
-      {/* Header */}
+     
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <TouchableOpacity style={styles.backButton} onPress={handleBack}>

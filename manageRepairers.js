@@ -137,7 +137,6 @@ export default function RepairerManagementScreen({ navigation }) {
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0891b2" />
       
-      {/* Header */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <TouchableOpacity style={styles.backButton} onPress={handleBack}>
