@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Alert} from 'react-native';
 
 const RepairerSignUp = ({navigation}) => {
     const [fullName, setFullName] = useState('');
@@ -14,11 +14,22 @@ const RepairerSignUp = ({navigation}) => {
         setShowGenderPicker(false);
     };
 
+    const handleNext = () => {
+            if (!fullName || !phoneNumber || !gender) {
+                Alert.alert("Error", "Please fill in all fields");
+                return;
+            }
+            navigation.navigate('repairerSignUp2', {
+                repairer_fullName: fullName,
+                repairer_phoneNum: phoneNumber,
+                repairer_gender: gender
+            });
+        };
+
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
 
-                {/* Logo */}
                 <View style={styles.logoContainer}>
                     <Image 
                         source={require('./assets/ServiceU_Logo.png')}
@@ -81,11 +92,8 @@ const RepairerSignUp = ({navigation}) => {
                     </View>
                 </View>
 
-                {/* Form Header */}
                 <Text style={styles.formHeader}>Let's get to know you!</Text>
-
-                {/* Form Fields */}
-                <View style={styles.formContainer}>
+                    <View style={styles.formContainer}>
 
                     {/* Full Name */}
                     <View style={styles.inputGroup}>
@@ -141,13 +149,14 @@ const RepairerSignUp = ({navigation}) => {
                     </View>
                 </View>
 
-                {/* Buttons */}
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.nextButton}
-                        onPress={() => navigation.navigate('repairerSignUp2')}>
+                        onPress={handleNext}>
                         <Text style={styles.nextButtonText}>Next</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.cancelButton}>
+                    <TouchableOpacity style={styles.cancelButton}
+                        onPress={() => navigation.goBack()}
+                    >
                         <Text style={styles.cancelButtonText}>Cancel</Text>
                     </TouchableOpacity>
                 </View>

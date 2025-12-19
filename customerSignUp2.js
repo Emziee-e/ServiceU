@@ -1,15 +1,36 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Alert} from 'react-native';
 
-const CustomerSignUp2 = ({navigation}) => {
+const CustomerSignUp2 = ({navigation, route}) => {
+    const { customer_fullName, customer_phoneNum, customer_gender } = route.params;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const handleNext = () => {
+        if (!email || !password || !confirmPassword) {
+            Alert.alert("Error", "Please fill in all fields");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            Alert.alert("Error", "Passwords do not match");
+            return;
+        }
+
+        navigation.navigate('customerSignUp3', {
+            customer_fullName,
+            customer_phoneNum,
+            customer_gender,
+            customer_email: email,
+            customer_password: password
+        });
+    };
+
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
-                {/* Logo */}
+                
                 <View style={styles.logoContainer}>
                     <Image 
                         source={require('./assets/ServiceU Logo.png')}
@@ -55,7 +76,6 @@ const CustomerSignUp2 = ({navigation}) => {
                         </View>
                 </View>
 
-                {/* Form Header */}
                 <Text style={styles.formHeader}>Account Information</Text>
 
                 {/* Form Fields */}
@@ -99,13 +119,14 @@ const CustomerSignUp2 = ({navigation}) => {
                     </View>
                 </View>
 
-                {/* Buttons */}
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.previousButton}>
+                    <TouchableOpacity style={styles.previousButton}
+                        onPress={() => navigation.goBack()}
+                    >
                         <Text style={styles.previousButtonText}>Previous</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.nextButton}
-                        onPress={() => navigation.navigate('customerSignUp3')}
+                        onPress={handleNext}
                     >
                         <Text style={styles.nextButtonText}>Next</Text>
                     </TouchableOpacity>

@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-const RepairerDashboard = () => {
+const RepairerDashboard = ({navigation}) => {
   const [isPriceModalVisible, setIsPriceModalVisible] = useState(false);
   const [isFeedbackVisible, setIsFeedbackVisible] = useState(false);
   const [basePrice, setBasePrice] = useState('500.00');
   const [minPrice, setMinPrice] = useState('200');
   const [maxPrice, setMaxPrice] = useState('800');
   const [selectedFilter, setSelectedFilter] = useState('All');
+  
 
   return (
     <View style={styles.container}>
-      {/* ScrollView for the main content */}
       <ScrollView style={styles.scrollView}>
-        {/* Header Section */}
+
         <View style={styles.header}>
           <Image source={require('./assets/luis.jpg')} style={styles.profileImage} />
           <View style={styles.welcomeContainer}>
@@ -53,7 +54,7 @@ const RepairerDashboard = () => {
               <Text style={styles.priceText}>Set Your Price</Text>
             </TouchableOpacity>
             
-            {/* Rating Card - Now clickable */}
+            {/* Rating Card */}
             <TouchableOpacity 
               style={styles.ratingCard}
               activeOpacity={0.7}
@@ -106,13 +107,14 @@ const RepairerDashboard = () => {
         </View>
       </ScrollView>
 
-      {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
           <Image source={require('./assets/home.png')} style={styles.navIcon} />
           <Text style={styles.navTextActive}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}>
+        <TouchableOpacity style={styles.navItem} activeOpacity={0.7}
+          onPress={() => navigation.navigate("manageBookings")}
+        >
           <Image source={require('./assets/jobs.png')} style={styles.navIcon} />
           <Text style={styles.navText}>Jobs</Text>
         </TouchableOpacity>
@@ -130,7 +132,6 @@ const RepairerDashboard = () => {
       {isPriceModalVisible && (
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            {/* Close Button */}
             <TouchableOpacity 
               style={styles.closeButton}
               onPress={() => setIsPriceModalVisible(false)}
@@ -157,7 +158,6 @@ const RepairerDashboard = () => {
               </View>
             </View>
 
-            {/* Set Button */}
             <TouchableOpacity 
               style={styles.setButton}
               onPress={() => setIsPriceModalVisible(false)}
@@ -172,13 +172,12 @@ const RepairerDashboard = () => {
       {isFeedbackVisible && (
         <View style={styles.feedbackModalOverlay}>
           <View style={styles.feedbackModal}>
-            {/* Header */}
             <View style={styles.feedbackHeader}>
               <TouchableOpacity 
                 onPress={() => setIsFeedbackVisible(false)}
                 style={styles.backButton}
               >
-                <Text style={styles.backArrow}>←</Text>
+                <Ionicons name="chevron-back" size={28} color="#173d49ff" />
               </TouchableOpacity>
               <View style={styles.feedbackTitleContainer}>
                 <Text style={styles.feedbackTitle}>Customer Feedback</Text>
@@ -376,7 +375,7 @@ const styles = StyleSheet.create({
   ratingCard: {
     backgroundColor: '#eaf3f5',
     borderRadius: 12,
-    padding: 20,
+    padding: 15,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -392,6 +391,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
+    marginBottom: 7,
   },
   ratingNumber: {
     fontSize: 24,
@@ -454,11 +454,13 @@ const styles = StyleSheet.create({
   },
   bottomNav: {
     flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     backgroundColor: '#fff',
-    paddingTop: 10,
-    paddingBottom: 20, 
-    borderTopWidth: 1, 
-    borderTopColor: '#e0e0e0',
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#e5e7eb',
+    paddingBottom: 35,
   },
   navItem: {
     flex: 1,
@@ -600,7 +602,7 @@ const styles = StyleSheet.create({
   },
   feedbackHeader: {
     backgroundColor: '#137594',
-    paddingTop: 50,
+    paddingTop: 80,
     paddingBottom: 20,
     paddingHorizontal: 20,
     flexDirection: 'row',

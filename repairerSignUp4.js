@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Alert} from 'react-native';
 
-const RepairerSignUp4 = ({navigation}) => {
+const RepairerSignUp4 = ({navigation, route}) => {
+    const { repairer_fullName, repairer_gender, repairer_email, repairer_password, repairer_phoneNum, repairer_address } = route.params;
     const [selectedExpertise, setSelectedExpertise] = useState([]);
-    
+
     const toggleExpertise = (expertise) => {
         if (selectedExpertise.includes(expertise)) {
             setSelectedExpertise(selectedExpertise.filter(item => item !== expertise));
@@ -11,12 +12,28 @@ const RepairerSignUp4 = ({navigation}) => {
             setSelectedExpertise([...selectedExpertise, expertise]);
         }
     };
+
+    const handleNext = () => {
+        if (selectedExpertise.length === 0) {
+            Alert.alert("No Expertise Selected", "Please choose at least one expertise.");
+            return;
+        }
+
+        navigation.navigate("repairerSignUp5", {
+            repairer_fullName,
+            repairer_gender,
+            repairer_email,
+            repairer_password,
+            repairer_phoneNum,
+            repairer_address,
+            repairer_expertise: selectedExpertise.join(", ")
+        });
+    };
    
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent}>
 
-                {/* Logo */}
                 <View style={styles.logoContainer}>
                     <Image 
                         source={require('./assets/ServiceU_Logo.png')}
@@ -79,14 +96,12 @@ const RepairerSignUp4 = ({navigation}) => {
                     </View>
                 </View>
 
-                {/* Form Header */}
                 <Text style={styles.formHeader}>Almost there! Select your expertise</Text>
-
-                {/* Form Fields */}
-                <View style={styles.formContainer}>
+                    <View style={styles.formContainer}>
 
                     {/* Expertise Options */}
                     <View style={styles.expertiseContainer}>
+
                         {/* Hardware */}
                         <TouchableOpacity 
                             style={styles.expertiseOption}
@@ -158,17 +173,20 @@ const RepairerSignUp4 = ({navigation}) => {
                                 )}
                             </View>
                         </TouchableOpacity>
+
                     </View>
                 </View>
 
-                {/* Buttons */}
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.previousButton}>
+                    <TouchableOpacity style={styles.previousButton}
+                        onPress={() => navigation.goBack()}
+                    >
                         <Text style={styles.previousButtonText}>Previous</Text>
                     </TouchableOpacity>
+
                     <TouchableOpacity style={styles.nextButton}
-                         onPress={() => navigation.navigate('repairerSignUp5')}
-                     >
+                        onPress={handleNext}
+                    >
                         <Text style={styles.nextButtonText}>Next</Text>
                     </TouchableOpacity>
                 </View>
@@ -398,5 +416,4 @@ const styles = StyleSheet.create({
     },
 });
     
-
 export default RepairerSignUp4;
